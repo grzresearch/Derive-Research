@@ -1,4 +1,4 @@
-"""Offline tests for derive_surface/p2api.py (task C5b): explorative API snapshot against the replica at the head block.
+"""Offline tests for src/derive_surface/p2api.py: explorative API snapshot against the replica at the head block.
 
 No network: the API and the chain are fakes. The replica runs on the committed parameter timelines in results/p2/params.
 """
@@ -186,7 +186,7 @@ def test_api_client_user_agent_log_retry_and_error(tmp_path):
     thr = p2api.Throttle(rate=2.0, clock=clock.now, sleep=clock.sleep)
     sess = FakeSession([FakeResp(429, "slow down"), FakeResp(200, {"result": {"x": 1}, "id": "a"}),
                         FakeResp(200, {"error": {"code": 10015, "message": "bad market"}})])
-    log = tmp_path / "C5b.jsonl"
+    log = tmp_path / "api_snapshot.jsonl"
     api = p2api.ApiClient(session=sess, throttle=thr, log_path=log, sleep=clock.sleep)
     assert sess.headers["User-Agent"] == p2api.USER_AGENT and "derive-option-surface" in p2api.USER_AGENT
     assert api.call("get_margin", margin_type="SM") == {"x": 1}
@@ -492,7 +492,7 @@ def test_api_error_is_recorded_not_raised():
 def test_run_writes_csv_meta_and_doc(tmp_path):
     params = _params("BTC")
     out = p2api.run(ccys=("BTC",), csv_path=tmp_path / "api_snapshot.csv", meta_path=tmp_path / "meta.json",
-                    doc_path=tmp_path / "C5b.md", api=FakeApi(), rpc=FakeRpc(), types=_types(),
+                    doc_path=tmp_path / "api_snapshot.md", api=FakeApi(), rpc=FakeRpc(), types=_types(),
                     params_at=lambda c, m, ts: (params[m], "2026-09-04 22:51:37"), clock=lambda: float(NOW))
     df = pd.read_csv(tmp_path / "api_snapshot.csv")
     for col in ("ccy", "side", "delta_bucket", "tenor_bucket", "instrument", "K_api_sm", "K_chain_sm", "K_api_pm2",
@@ -502,8 +502,8 @@ def test_run_writes_csv_meta_and_doc(tmp_path):
     assert df["ts"].dropna().astype("int64").min() > 10 ** 12          # milliseconds
     meta = json.loads((tmp_path / "meta.json").read_text())
     assert meta["requests"]["api"] > 0 and meta["requests"]["rpc"] > 0 and meta["rate_per_s"] == 2.0
-    doc = (tmp_path / "C5b.md").read_text()
-    assert doc.startswith("## C5b") and "Exploratory" in doc and "API semantics with 2 %" in doc
+    doc = (tmp_path / "api_snapshot.md").read_text()
+    assert doc.startswith("## API snapshot") and "Exploratory" in doc and "API semantics with 2 %" in doc
     assert "K_api" in doc and "| BTC |" in doc
     assert "Largest deviations" in doc and " 1 cells" not in doc
     # every markdown table keeps its column count (a "|" inside a cell must be escaped)
@@ -517,10 +517,10 @@ def test_run_writes_csv_meta_and_doc(tmp_path):
             cur = []
     assert len(tables) >= 4 and all(len(set(t)) == 1 for t in tables), tables
     # report re-renders the same document from the files alone
-    (tmp_path / "C5b.md").unlink()
+    (tmp_path / "api_snapshot.md").unlink()
     assert p2api.main(["report", "--csv", str(tmp_path / "api_snapshot.csv"), "--meta", str(tmp_path / "meta.json"),
-                       "--doc", str(tmp_path / "C5b.md")]) == 0
-    assert (tmp_path / "C5b.md").read_text() == doc
+                       "--doc", str(tmp_path / "api_snapshot.md")]) == 0
+    assert (tmp_path / "api_snapshot.md").read_text() == doc
 
 
 GERMAN = re.compile(r"[äöüÄÖÜß]|\b(?:und|der|die|das|nicht|mit|oder|aus|von|bis|Seite|Laufzeit|Fenster|Typwahl|"
@@ -530,11 +530,11 @@ GERMAN = re.compile(r"[äöüÄÖÜß]|\b(?:und|der|die|das|nicht|mit|oder|aus|v
 def test_report_is_english_whatever_run_wrote_the_meta_file(tmp_path, monkeypatch):
     """The meta file stores the source of the call/put choice as a key, and the document text comes from the code:
     ``p2 api report`` on the meta file of the run of 25 September 2026, whose ``types_source`` is German text, must
-    not write German into docs/paper2/status/C5b.md again."""
+    not write German into docs/paper2/API_SNAPSHOT.md again."""
     params = _params("BTC")
     monkeypatch.setattr(p2api, "load_cell_types", lambda path=None: _types())
     paths = {"csv_path": tmp_path / "api_snapshot.csv", "meta_path": tmp_path / "meta.json",
-             "doc_path": tmp_path / "C5b.md"}
+             "doc_path": tmp_path / "api_snapshot.md"}
     p2api.run(ccys=("BTC",), api=FakeApi(), rpc=FakeRpc(), params_at=lambda c, m, ts: (params[m], "x"),
               clock=lambda: float(NOW), **paths)
     meta = json.loads(paths["meta_path"].read_text())

@@ -101,19 +101,19 @@ def test_script_is_loaded_as_a_module_once(monkeypatch):
 
 def test_missing_script_gives_a_clear_error(monkeypatch):
     monkeypatch.setitem(p2cli.COMMANDS, "numbers",
-                        p2cli.Command("_p2_no_such_script", "C1", "x", script="scripts/_p2_no_such_script.py"))
+                        p2cli.Command("_p2_no_such_script", "x", script="scripts/_p2_no_such_script.py"))
     with pytest.raises(SystemExit) as exc:
         p2cli.main(["numbers"])
     msg = str(exc.value.code)
-    assert "scripts/_p2_no_such_script.py" in msg and "C1" in msg
+    assert "scripts/_p2_no_such_script.py" in msg and "missing" in msg
 
 
 def test_missing_module_gives_a_clear_error(monkeypatch):
-    monkeypatch.setitem(p2cli.COMMANDS, "validate", p2cli.Command("_p2_no_such_module", "B1", "replica vs eth_call"))
+    monkeypatch.setitem(p2cli.COMMANDS, "validate", p2cli.Command("_p2_no_such_module", "replica vs eth_call"))
     with pytest.raises(SystemExit) as exc:
         p2cli.main(["validate", "run"])
     msg = str(exc.value.code)
-    assert "derive_surface._p2_no_such_module" in msg and "B1" in msg and "not implemented yet" in msg
+    assert "derive_surface._p2_no_such_module" in msg and "not implemented yet" in msg
 
 
 def test_import_errors_inside_an_existing_module_are_not_masked(monkeypatch, tmp_path):
@@ -121,7 +121,7 @@ def test_import_errors_inside_an_existing_module_are_not_masked(monkeypatch, tmp
 
     (tmp_path / "_p2_broken_mod.py").write_text("import _p2_no_such_dependency_xyz\n\ndef main(argv):\n    return 0\n")
     monkeypatch.setattr(derive_surface, "__path__", list(derive_surface.__path__) + [str(tmp_path)])
-    monkeypatch.setitem(p2cli.COMMANDS, "validate", p2cli.Command("_p2_broken_mod", "B1", "x"))
+    monkeypatch.setitem(p2cli.COMMANDS, "validate", p2cli.Command("_p2_broken_mod", "x"))
     with pytest.raises(ModuleNotFoundError) as exc:
         p2cli.main(["validate"])
     assert exc.value.name == "_p2_no_such_dependency_xyz"
@@ -129,7 +129,7 @@ def test_import_errors_inside_an_existing_module_are_not_masked(monkeypatch, tmp
 
 def test_module_without_main_is_an_error(monkeypatch):
     monkeypatch.setitem(sys.modules, "derive_surface._p2_no_main", types.ModuleType("derive_surface._p2_no_main"))
-    monkeypatch.setitem(p2cli.COMMANDS, "validate", p2cli.Command("_p2_no_main", "B1", "x"))
+    monkeypatch.setitem(p2cli.COMMANDS, "validate", p2cli.Command("_p2_no_main", "x"))
     with pytest.raises(SystemExit) as exc:
         p2cli.main(["validate"])
     assert "main" in str(exc.value.code)

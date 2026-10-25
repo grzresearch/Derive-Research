@@ -843,7 +843,7 @@ def run_report(out_dir: Path = OUT_DIR, csv_path: Path = CSV_PATH, summary_path:
 # ---------------------------------------------------------------- command line
 
 def main(argv: Optional[Sequence[str]] = None) -> None:
-    p = argparse.ArgumentParser(prog="python3 -m derive_surface.p2validate", description="B1: replica against eth_call")
+    p = argparse.ArgumentParser(prog="python3 -m derive_surface.p2validate", description="Validation of the margin replicas against eth_call")
     sub = p.add_subparsers(dest="cmd", required=True)
     a = sub.add_parser("plan", help="draw cases and compute the replica (heavy: run under scripts/p2_heavy.py)")
     a.add_argument("--ccy", required=True, choices=["BTC", "ETH", "HYPE"])

@@ -2102,7 +2102,7 @@ def _compare_summary(df: pd.DataFrame) -> dict:
 
 
 def main(argv: Optional[Sequence[str]] = None) -> None:
-    ap = argparse.ArgumentParser(prog="python3 -m derive_surface.books", description="Maker books (Paper 2, A5)")
+    ap = argparse.ArgumentParser(prog="python3 -m derive_surface.books", description="On-chain books of the dominant maker subaccounts (Paper 2)")
     sub = ap.add_subparsers(dest="cmd", required=True)
     sub.add_parser("top", help="top-10 maker subaccounts -> data/p2/books/top_makers.json")
     ld = sub.add_parser("load", help="resumable day-start snapshots")
@@ -2122,11 +2122,11 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
     cp.add_argument("--accounts", choices=["pm2", "all"], default="pm2")
     cp.add_argument("--n", type=int, default=3000)
     cp.add_argument("--seed", type=int, default=20260924)
-    mg = sub.add_parser("marginal", help="B3: marginal capital of the H2 sample (resumable) -> derived/marginal.parquet")
+    mg = sub.add_parser("marginal", help="marginal capital of the H2 sample (resumable) -> derived/marginal.parquet")
     mg.add_argument("--max-seconds", type=float, default=480.0)
-    md = sub.add_parser("maker-days", help="B3: netting value of the maker days (resumable) -> derived/maker_days.parquet")
+    md = sub.add_parser("maker-days", help="netting value of the maker days (resumable) -> derived/maker_days.parquet")
     md.add_argument("--max-seconds", type=float, default=480.0)
-    sub.add_parser("holding", help="B3: FIFO holding time per cell -> results/p2/holding_time.csv")
+    sub.add_parser("holding", help="FIFO holding time per cell -> results/p2/holding_time.csv")
     a = ap.parse_args(argv)
     BOOKS_DIR.mkdir(parents=True, exist_ok=True)
     top_path = BOOKS_DIR / "top_makers.json"

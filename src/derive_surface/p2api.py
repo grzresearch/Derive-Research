@@ -1,4 +1,4 @@
-"""Explorative API snapshot (Paper 2, task C5b): ``public/get_margin`` against the replica at the head block.
+"""Explorative API snapshot (Paper 2): ``public/get_margin`` against the replica at the head block.
 
 Preregistration (``docs/paper2/PRAEREGISTRIERUNG.md``, section Inference): "API semantics with 2 %" is exploratory. The v2 API
 (``api.lyra.finance``) computes margin off chain with a flat PM2 discount of 2 % and ticker prices; its history cannot
@@ -26,17 +26,17 @@ as in ``p2validate``), ``getMargin(account, true)`` of the StandardManager and o
 
 * ``K_api = p q - net_IM`` from the API.
 * ``K_chain = p q - net_IM`` from the replica (``capital.capital_single``, i.e. ``margin_sm`` / ``margin_pm2.single`` as
-  in B2) on the chain feeds of that block, parameters of the standard lib from ``results/p2/params``.
+  in ``capital``) on the chain feeds of that block, parameters of the standard lib from ``results/p2/params``.
 * ``K_oracle``: the same with the managers' own ``getMargin`` (checks feeds, parameters and replica together).
 * ``K_rep_api``: the replica in API semantics (index as spot, ticker forward, mark IV, PM2 rate 2 %, confidences 1).
 * ``rel_diff_* = K_api / K_chain - 1``, ``rel_oracle_* = K_chain / K_oracle - 1``,
   ``rel_rep_api_* = K_api / K_rep_api - 1``.
 
 No accounts: every book is simulated. At most 2 requests per second over API and chain together; every request with
-its raw answer (including the instrument lists and tickers) goes to ``data/p2/logs/C5b.jsonl``.
+its raw answer (including the instrument lists and tickers) goes to ``data/p2/logs/api_snapshot.jsonl``.
 
     python3 -m derive_surface p2 api run [--ccy BTC ETH HYPE]
-    python3 -m derive_surface p2 api report     # re-render docs/paper2/status/C5b.md from the CSV and the meta file
+    python3 -m derive_surface p2 api report     # re-render docs/paper2/API_SNAPSHOT.md from the CSV and the meta file
 """
 from __future__ import annotations
 
@@ -62,14 +62,14 @@ from .p2params import PM2_ADDR, SRM, Timeline
 from .p2types import YEAR
 
 REPO = Path(__file__).resolve().parents[2]
-LOG_PATH = REPO / "data" / "p2" / "logs" / "C5b.jsonl"
+LOG_PATH = REPO / "data" / "p2" / "logs" / "api_snapshot.jsonl"
 CSV_PATH = REPO / "results" / "p2" / "api_snapshot.csv"
 META_PATH = REPO / "data" / "p2" / "api_snapshot" / "meta.json"
-DOC_PATH = REPO / "docs" / "paper2" / "status" / "C5b.md"
+DOC_PATH = REPO / "docs" / "paper2" / "API_SNAPSHOT.md"
 MARKOUTS = REPO / "data" / "p1" / "derived" / "markouts.parquet"
 
 API_URL = "https://api.lyra.finance"
-USER_AGENT = "derive-option-surface/p2-C5b (research, public endpoints only)"
+USER_AGENT = "derive-option-surface/p2 (research, public endpoints only)"
 RATE = 2.0                 # requests per second over API and chain together
 API_RATE = 0.02            # flat PM2 discount rate of the v2 API (get_margin_semantics.md, section 3)
 CCYS = ("BTC", "ETH", "HYPE")
@@ -761,13 +761,13 @@ def _table(header: Sequence[str], rows: Sequence[Sequence[str]], align: Sequence
 
 
 def render_doc(df: pd.DataFrame, meta: Mapping) -> str:
-    """The section ``docs/paper2/status/C5b.md``, only from the CSV and the meta file."""
+    """The section ``docs/paper2/API_SNAPSHOT.md``, only from the CSV and the meta file."""
     ok = df[df["status"] == "ok"]
     n_cells, n_ok = len(df), len(ok)
     blocks = pd.to_numeric(df["block"], errors="coerce").dropna()
     day = _utc_day(meta.get("start_utc"))
     L: List[str] = []
-    L.append("## C5b API snapshot: `public/get_margin` against the replica at the current block")
+    L.append("## API snapshot: `public/get_margin` against the replica at the current block")
     L.append("")
     L.append(f"Status as of {day}. **Exploratory:** the pre-registration lists \"API semantics with 2 %\" among the "
              "exploratory quantities. The v2 API computes off-chain with ticker prices and a flat PM2 discount of 2 % "
@@ -788,7 +788,7 @@ def render_doc(df: pd.DataFrame, meta: Mapping) -> str:
              f"{fmt_num(meta.get('max_requests_in_1s'), 0)} starts in a window of 1 s), "
              f"user agent `{meta.get('user_agent', USER_AGENT)}`. "
              f"Log with all responses, instrument lists and tickers included: "
-             f"`{meta.get('log', 'data/p2/logs/C5b.jsonl')}`.")
+             f"`{meta.get('log', 'data/p2/logs/api_snapshot.jsonl')}`.")
     params = meta.get("params", {})
     if params:
         parts = [f"{c} SM from {v.get('sm', MISSING)}, PM2 from {v.get('pm2', MISSING)}" for c, v in params.items()]
@@ -816,14 +816,14 @@ def render_doc(df: pd.DataFrame, meta: Mapping) -> str:
              "under PM2, one request per instrument and manager: `simulated_positions` q = +1, "
              "`simulated_position_changes` −2, no collateral. `pre` is net(+1), `post` net(−1), both at the "
              "same prices.")
-    L.append("7. **K_chain** = p·q − net_IM(q; C = 0) from the replica (`margin_sm`, `margin_pm2`, path of "
-             "B2) with the on-chain feeds at the current block: one `eth_call` via Multicall3 returns block, block "
+    L.append("7. **K_chain** = p·q − net_IM(q; C = 0) from the replica (`margin_sm`, `margin_pm2`, single-contract "
+             "path of `capital`) with the on-chain feeds at the current block: one `eth_call` via Multicall3 returns block, block "
              "time, `getSpot`, `getForwardPricePortions`, `getVol` at the strike, the PM2 rate and the stable feed. "
              "PM2 with the rate feed, SM without discounting. The same price p as for K_api; time to expiry from the "
              "block time.")
     L.append("8. **Cross-check K_oracle:** the same multicall calls `getMargin(account, true)` of StandardManager and "
              "PMRM_2 for two synthetic accounts with +1 and −1 contract (state override of `SubAccounts` as in "
-             "B1).")
+             "`p2validate`).")
     L.append("9. **Replica in API semantics K_rep_api:** replica with the index as spot, ticker forward, mark IV, "
              "PM2 rate 2 % and confidences 1, time to expiry from the time of the API request.")
     L.append("10. **Deviation:** rel = K_api / K_chain − 1 (sign: positive means the API binds more capital). "
@@ -1015,7 +1015,7 @@ def run(ccys: Sequence[str] = CCYS, csv_path: Path = CSV_PATH, meta_path: Path =
         sub = df[(df["ccy"] == ccy) & df["params_sm"].notna()]
         if len(sub):
             params[ccy] = {m: str(sub[f"params_{m}"].iloc[0]) for m in MANAGERS}
-    meta = {"task": "C5b", "start_utc": _iso(start), "end_utc": _iso(end), "api_host": API_URL, "rpc_url": RPC_URL,
+    meta = {"command": "p2 api", "start_utc": _iso(start), "end_utc": _iso(end), "api_host": API_URL, "rpc_url": RPC_URL,
             "user_agent": USER_AGENT, "rate_per_s": RATE,
             "requests": {"api": int(getattr(api, "n_requests", 0)), "rpc": int(getattr(rpc, "n_requests", 0))},
             "max_requests_in_1s": max_starts_per_second(log_path, wall_start, wall_end),

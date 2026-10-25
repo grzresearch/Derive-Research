@@ -25,26 +25,25 @@ REPO = Path(__file__).resolve().parents[2]
 
 class Command(NamedTuple):
     module: str  # module inside the package ``derive_surface`` (or the module name of ``script``)
-    task: str  # task of the plan that owns the module
     help: str
     script: Optional[str] = None  # repository-relative file of a script outside the package
 
 
 COMMANDS = OrderedDict([
-    ("feeds", Command("p2feeds", "A1", "feed history: sync, compact, crosscheck")),
-    ("params", Command("p2params", "A2", "parameter timelines: load, oi-share, report, relabel")),
-    ("books", Command("books", "A5/B3", "maker books: top, load, compact, events, verify-events, compare, ...")),
-    ("validate", Command("p2validate", "B1", "replica against eth_call")),
-    ("capital", Command("capital", "B2", "capital per fill")),
-    ("events", Command("p2events", "B4", "parameter events, doses, H4 panel")),
-    ("surface", Command("p2surface", "B5", "chain surface, capital surface, reference book, animation")),
-    ("infer", Command("inference_p2", "C1", "H1 to H3 and sensitivities")),
-    ("infer-h4", Command("inference_p2_h4", "C1", "H4: regression, wild cluster bootstrap, placebo")),
-    ("numbers", Command("p2_numbers", "C1", "number sheet docs/paper2/NUMBERS.md and summary.json",
+    ("feeds", Command("p2feeds", "feed history: sync, compact, crosscheck")),
+    ("params", Command("p2params", "parameter timelines: load, oi-share, report, relabel")),
+    ("books", Command("books", "maker books: top, load, compact, events, verify-events, compare, ...")),
+    ("validate", Command("p2validate", "replica against eth_call")),
+    ("capital", Command("capital", "capital per fill")),
+    ("events", Command("p2events", "parameter events, doses, H4 panel")),
+    ("surface", Command("p2surface", "chain surface, capital surface, reference book, animation")),
+    ("infer", Command("inference_p2", "H1 to H3 and sensitivities")),
+    ("infer-h4", Command("inference_p2_h4", "H4: regression, wild cluster bootstrap, placebo")),
+    ("numbers", Command("p2_numbers", "number sheet docs/paper2/NUMBERS.md and summary.json",
                         script="scripts/p2_numbers.py")),
-    ("api", Command("p2api", "C5b", "explorative API snapshot: get_margin against the replica at the head block")),
-    ("figures", Command("figures_p2", "D1", "figures of paper 2")),
-    ("ids", Command("p2ids", "B0", "account labels: salt, label")),
+    ("api", Command("p2api", "explorative API snapshot: get_margin against the replica at the head block")),
+    ("figures", Command("figures_p2", "figures of paper 2")),
+    ("ids", Command("p2ids", "account labels: salt, label")),
 ])
 
 
@@ -53,7 +52,7 @@ def _load_script(cmd: str, spec: Command):
     reused, e.g. when a test imported it already)."""
     path = (REPO / spec.script).resolve()
     if not path.is_file():
-        raise SystemExit(f"p2 {cmd}: script {spec.script} is missing (task {spec.task})")
+        raise SystemExit(f"p2 {cmd}: script {spec.script} is missing")
     mod = sys.modules.get(spec.module)
     if mod is not None and Path(getattr(mod, "__file__", "") or "").resolve() == path:
         return mod
@@ -82,7 +81,7 @@ def _module_main(cmd: str):
     except ModuleNotFoundError as exc:
         if exc.name != name:  # the module exists but one of its imports is missing: do not hide that
             raise
-        raise SystemExit(f"p2 {cmd}: module {name} is not implemented yet (task {spec.task})") from None
+        raise SystemExit(f"p2 {cmd}: module {name} is not implemented yet") from None
     fn = getattr(module, "main", None)
     if not callable(fn):
         raise SystemExit(f"p2 {cmd}: module {name} has no main(argv)")
@@ -95,7 +94,7 @@ def _parser() -> argparse.ArgumentParser:
     sub = p.add_subparsers(dest="cmd", metavar="command", required=True)
     for cmd, spec in COMMANDS.items():
         where = spec.script or spec.module
-        s = sub.add_parser(cmd, add_help=False, help=f"{spec.help} [{where}, {spec.task}]")
+        s = sub.add_parser(cmd, add_help=False, help=f"{spec.help} [{where}]")
         s.add_argument("args", nargs=argparse.REMAINDER)
     return p
 
