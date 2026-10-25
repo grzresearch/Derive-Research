@@ -1,8 +1,13 @@
 # Finding of 25 September 2026: unit of fee and rebate in the net edge of Paper 1
 
 > **Working documents.** Plans, drafts, status notes and number sheets named here were removed from the current
-> tree on 6 October 2026; they remain in the git history. The scripts write the number sheets and check reports
-> again when they run.
+> tree on 6 October 2026. On 25 October 2026 the plans and design specifications, drafts, status and handover notes,
+> figure-selection notes, manuscript outlines and the draft article for X were also removed from the git history
+> (`docs/paper2/HISTORY_REWRITE.md`, section "Rewrite of 25 October 2026"); number sheets and check reports
+> remain in the history, and the scripts write them again when they run.
+
+> **Layout.** Since 25 October 2026 `paper/` is `papers/paper1/`, `paper2/` is `papers/paper2/` and `derive_surface/` is
+> `src/derive_surface/`; paths below are those before the move.
 
 Status: correction implemented on 25 September 2026 (addendum 3 to the pre-registration, `REVISION_2026-09-25.md`). When this finding was written, nothing in Paper 1 had been changed yet. Pilot cut 17 September 2026 12:00 UTC, 603,940 fills, horizon 30 min.
 

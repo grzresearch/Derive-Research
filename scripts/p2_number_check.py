@@ -98,7 +98,8 @@ PREREG = "docs/paper2/PRAEREGISTRIERUNG.md"
 PREREG_P1 = "docs/paper1/PRAEREGISTRIERUNG.md"
 
 # ---------------------------------------------------------------------------------------------------------------
-# Constants of the pre-registration (commit c9e9162; cc0a29f until 5 October 2026, 1d13227 until 27 September 2026)
+# Constants of the pre-registration (commit 4600d5d; c9e9162 until 25 October, cc0a29f until 5 October and 1d13227
+# until 27 September 2026)
 # and its dated addenda:
 # name -> (value, meaning, file, section).
 # A value that means two things has two names.  Dates and clock times are ISO strings.  The section is named as in
@@ -179,7 +180,8 @@ CONSTANTS: Dict[str, Tuple[object, str, str, str]] = {
     "tenor_edge_30d": (30, "tenor bucket edge 30 days", PREREG_P1, "Cells and classes"),
     "tenor_edge_90d": (90, "tenor bucket edge 90 days", PREREG_P1, "Cells and classes"),
 }
-# Constants of the Paper 1 pre-registration (commit cf1f432; 3fd9caa until 5 October 2026) and its addenda, used with
+# Constants of the Paper 1 pre-registration (commit 5bddae9; cf1f432 until 25 October, 3fd9caa until 5 October 2026)
+# and its addenda, used with
 # ``--paper 1``.  Same layout as CONSTANTS.
 CONSTANTS_P1: Dict[str, Tuple[object, str, str, str]] = {
     "prereg_day": ("2026-09-17", "pre-registration fixed on 17 September 2026", PREREG_P1, "Header"),
@@ -1161,9 +1163,9 @@ def render(verdicts: Sequence[Verdict], tex_path: str, results_path: str,
     for v in verdicts:
         lines.append("| {} | `{}` | {} | {} | {} |".format(_md(v.unit), _md((v.token.rel + v.token.raw).strip()),
                                                          HOW[v.how], _md(v.source), _md(v.detail)))
-    source = ("Source: `{}` (commit `cf1f432`) with Addenda 1 and 2 of 17 and 18 September, Addendum 3 of 25 September "
+    source = ("Source: `{}` (commit `5bddae9`) with Addenda 1 and 2 of 17 and 18 September, Addendum 3 of 25 September "
               "and Addendum 4 of 5 October 2026.".format(PREREG_P1) if PREREG == PREREG_P1 else
-              "Source: `{}` (commit `c9e9162`) with Addenda 1 to 4 of 25 September 2026, Addendum 5 of 27 September, "
+              "Source: `{}` (commit `4600d5d`) with Addenda 1 to 4 of 25 September 2026, Addendum 5 of 27 September, "
               "Addendum 6 of 30 September and Addendum 7 of 5 October 2026; the bucket edges from "
               "`{}`.".format(PREREG, PREREG_P1))
     lines += ["", "## Constants of the pre-registration", "",

@@ -1,8 +1,13 @@
 # Paper 2 history rewrite
 
 > **Working documents.** Plans, drafts, status notes and number sheets named here were removed from the current
-> tree on 6 October 2026; they remain in the git history. The scripts write the number sheets and check reports
-> again when they run.
+> tree on 6 October 2026. On 25 October 2026 the plans and design specifications, drafts, status and handover notes,
+> figure-selection notes, manuscript outlines and the draft article for X were also removed from the git history
+> (`docs/paper2/HISTORY_REWRITE.md`, section "Rewrite of 25 October 2026"); number sheets and check reports
+> remain in the history, and the scripts write them again when they run.
+
+> **Layout.** Since 25 October 2026 `paper/` is `papers/paper1/`, `paper2/` is `papers/paper2/` and `derive_surface/` is
+> `src/derive_surface/`; paths below are those before the move.
 
 Date: 27 September 2026. Branch `paper2-capital`, local and not pushed. It replaces the local branch
 `paper2-kapital` (tip `469cc8e`), which was never pushed. That branch and its backup
@@ -365,3 +370,211 @@ rewrite.
 | 2026-10-05 13:02 | `1e23993` | `ee4a3bb` | docs(p2): reader audit of the PDF, round 2 |
 | 2026-10-05 13:28 | `9052fae` | `32d2ba5` | docs(p2): reader audit of the PDF, round 3 (final review) |
 | 2026-10-05 13:34 | `18ecdbb` | `ad897e4` | docs(p2): SSRN number and DOI of the companion paper (reader audit B5) |
+
+## Rewrite of 25 October 2026
+
+Date: 25 October 2026. The third rewrite removes from every commit the working documents that were produced while
+the tools named under "Use of generative tools" in both papers and under "Use of AI tools" in the README were used,
+together with tool logs and operating-system files, and gives every commit an English message in the Conventional
+Commits format. It changes no file that it keeps, no rule of either pre-registration, no test statistic and no result.
+
+1. **Files.** 71 paths are removed from every commit:
+   - the plans and design specifications of the planning tool: `docs/superpowers/plans/` (13 files) and
+     `docs/superpowers/specs/` (3 files);
+   - session handovers and status reports: `docs/paper2/UEBERGABE.md`, `docs/paper2/HANDOVER.md`,
+     `docs/paper2/stand/` and `docs/paper2/status/` (7 files each), `docs/paper2/BERICHT_2026-09-25.md`,
+     `docs/paper2/REPORT_2026-09-25.md`, `docs/paper2/HISTORIE_BEREINIGEN.md`, `docs/paper2/HISTORY_CLEANUP.md`;
+   - drafts, jury and referee texts: `docs/paper2/drafts/` (6 files) and `docs/paper2/entwuerfe/` (5 files); the
+     figure-selection notes `docs/paper1/ABBILDUNGSWAHL.md`, `docs/paper1/FIGURE_SELECTION.md`,
+     `docs/paper2/ABBILDUNGSWAHL.md`, `docs/paper2/FIGURE_SELECTION.md`; the manuscript outlines
+     `docs/paper1/MANUSKRIPT.md`, `docs/paper1/MANUSCRIPT.md`, `docs/paper2/MANUSKRIPT.md`,
+     `docs/paper2/MANUSCRIPT.md`; the draft article for X `paper/social/x_article.md`;
+   - tool logs and operating-system files: `logs/` (12 files), `.DS_Store`, `paper/.DS_Store`,
+     `paper/social/.Rhistory`.
+
+   None of them is named by file in a pre-registration. Every file that stays keeps its git blob in every commit,
+   so both pre-registrations are byte-identical in every commit (table below); historical versions of the files
+   that stay are unchanged as well and may still name removed working documents. Registration commits that lost
+   files with this rewrite:
+   - Paper 1 pre-registration (`cf1f432`, now `5bddae9`): `docs/superpowers/plans/2026-09-17-p1-datenbasis.md`, `docs/superpowers/specs/2026-09-17-adverse-selection-design.md`
+   - Paper 1 Addendum 1 (`143f695`, now `3c5449e`): `docs/superpowers/plans/2026-09-17-p1-datenbasis.md`, `docs/superpowers/plans/2026-09-17-p1-markouts.md`, `docs/superpowers/specs/2026-09-17-adverse-selection-design.md`
+   - Paper 1 Addendum 2 (`634c276`, now `54450f3`): `docs/superpowers/plans/2026-09-17-p1-datenbasis.md`, `docs/superpowers/plans/2026-09-17-p1-inferenz.md`, `docs/superpowers/plans/2026-09-17-p1-markouts.md`, `docs/superpowers/specs/2026-09-17-adverse-selection-design.md`
+   - Paper 1 Addendum 3 (`e4a3873`, now `4845c98`): `.DS_Store`, `docs/paper1/ABBILDUNGSWAHL.md`, `docs/paper1/MANUSKRIPT.md`, `docs/paper2/UEBERGABE.md`, `docs/superpowers/plans/2026-09-17-p1-datenbasis.md`, `docs/superpowers/plans/2026-09-17-p1-inferenz.md`, `docs/superpowers/plans/2026-09-17-p1-markouts.md`, `docs/superpowers/plans/2026-09-18-p1-abbildungen.md`, `docs/superpowers/plans/2026-09-18-p1-manuskript.md`, `docs/superpowers/plans/2026-09-25-p1-korrektur.md`, `docs/superpowers/specs/2026-09-17-adverse-selection-design.md`, `paper/.DS_Store`, `paper/social/.Rhistory`, `paper/social/x_article.md`
+   - Paper 1 Addendum 4 (`9d37c19`, now `2e569f2`): `docs/paper1/FIGURE_SELECTION.md`, `docs/paper1/MANUSCRIPT.md`, `docs/paper2/FIGURE_SELECTION.md`, `docs/paper2/HANDOVER.md`, `docs/paper2/HISTORY_CLEANUP.md`, `docs/paper2/MANUSCRIPT.md`, `docs/paper2/REPORT_2026-09-25.md`, `docs/paper2/drafts/empirics.md`, `docs/paper2/drafts/jury_design.md`, `docs/paper2/drafts/jury_referee.md`, `docs/paper2/drafts/mechanism.md`, `docs/paper2/drafts/practitioner.md`, `docs/paper2/status/B0.md`, `docs/paper2/status/B1.md`, `docs/paper2/status/B2.md`, `docs/paper2/status/B3.md`, `docs/paper2/status/B4.md`, `docs/paper2/status/B5.md`, `docs/paper2/status/C5b.md`, `docs/superpowers/plans/2026-09-17-p1-data.md`, `docs/superpowers/plans/2026-09-17-p1-inference.md`, `docs/superpowers/plans/2026-09-17-p1-markouts.md`, `docs/superpowers/plans/2026-09-18-p1-figures.md`, `docs/superpowers/plans/2026-09-18-p1-manuscript.md`, `docs/superpowers/plans/2026-09-24-p2-master-plan.md`, `docs/superpowers/plans/2026-09-25-p1-correction.md`, `docs/superpowers/specs/2026-09-17-adverse-selection-design.md`, `docs/superpowers/specs/2026-09-24-p2-capital-design.md`, `paper/social/x_article.md`
+   - Paper 2 pre-registration (`c9e9162`, now `4600d5d`): `.DS_Store`, `docs/paper1/FIGURE_SELECTION.md`, `docs/paper1/MANUSCRIPT.md`, `docs/paper2/HANDOVER.md`, `docs/superpowers/plans/2026-09-17-p1-data.md`, `docs/superpowers/plans/2026-09-17-p1-inference.md`, `docs/superpowers/plans/2026-09-17-p1-markouts.md`, `docs/superpowers/plans/2026-09-18-p1-figures.md`, `docs/superpowers/plans/2026-09-18-p1-manuscript.md`, `docs/superpowers/plans/2026-09-25-p1-correction.md`, `docs/superpowers/specs/2026-09-17-adverse-selection-design.md`, `docs/superpowers/specs/2026-09-24-p2-kapital-design.md`, `paper/.DS_Store`, `paper/social/.Rhistory`, `paper/social/x_article.md`
+   - Paper 2 Addendum 1 (`b5c905c`, now `241422f`): `.DS_Store`, `docs/paper1/FIGURE_SELECTION.md`, `docs/paper1/MANUSCRIPT.md`, `docs/paper2/HANDOVER.md`, `docs/paper2/MANUSKRIPT.md`, `docs/superpowers/plans/2026-09-17-p1-data.md`, `docs/superpowers/plans/2026-09-17-p1-inference.md`, `docs/superpowers/plans/2026-09-17-p1-markouts.md`, `docs/superpowers/plans/2026-09-18-p1-figures.md`, `docs/superpowers/plans/2026-09-18-p1-manuscript.md`, `docs/superpowers/plans/2026-09-24-p2-gesamtplan.md`, `docs/superpowers/plans/2026-09-25-p1-correction.md`, `docs/superpowers/specs/2026-09-17-adverse-selection-design.md`, `docs/superpowers/specs/2026-09-24-p2-kapital-design.md`, `paper/.DS_Store`, `paper/social/.Rhistory`, `paper/social/x_article.md`
+   - Paper 2 Addendum 2 (`60896fe`, now `b6dbde9`): `.DS_Store`, `docs/paper1/FIGURE_SELECTION.md`, `docs/paper1/MANUSCRIPT.md`, `docs/paper2/HANDOVER.md`, `docs/paper2/MANUSKRIPT.md`, `docs/superpowers/plans/2026-09-17-p1-data.md`, `docs/superpowers/plans/2026-09-17-p1-inference.md`, `docs/superpowers/plans/2026-09-17-p1-markouts.md`, `docs/superpowers/plans/2026-09-18-p1-figures.md`, `docs/superpowers/plans/2026-09-18-p1-manuscript.md`, `docs/superpowers/plans/2026-09-24-p2-gesamtplan.md`, `docs/superpowers/plans/2026-09-25-p1-correction.md`, `docs/superpowers/specs/2026-09-17-adverse-selection-design.md`, `docs/superpowers/specs/2026-09-24-p2-kapital-design.md`, `paper/.DS_Store`, `paper/social/.Rhistory`, `paper/social/x_article.md`
+   - Paper 2 Addendum 3 (`2416902`, now `4a33d66`): `.DS_Store`, `docs/paper1/FIGURE_SELECTION.md`, `docs/paper1/MANUSCRIPT.md`, `docs/paper2/HANDOVER.md`, `docs/paper2/MANUSKRIPT.md`, `docs/superpowers/plans/2026-09-17-p1-data.md`, `docs/superpowers/plans/2026-09-17-p1-inference.md`, `docs/superpowers/plans/2026-09-17-p1-markouts.md`, `docs/superpowers/plans/2026-09-18-p1-figures.md`, `docs/superpowers/plans/2026-09-18-p1-manuscript.md`, `docs/superpowers/plans/2026-09-24-p2-gesamtplan.md`, `docs/superpowers/plans/2026-09-25-p1-correction.md`, `docs/superpowers/specs/2026-09-17-adverse-selection-design.md`, `docs/superpowers/specs/2026-09-24-p2-kapital-design.md`, `paper/.DS_Store`, `paper/social/.Rhistory`, `paper/social/x_article.md`
+   - Paper 2 Addendum 4 (`a02058a`, now `33108ad`): `.DS_Store`, `docs/paper1/FIGURE_SELECTION.md`, `docs/paper1/MANUSCRIPT.md`, `docs/paper2/HANDOVER.md`, `docs/paper2/MANUSKRIPT.md`, `docs/superpowers/plans/2026-09-17-p1-data.md`, `docs/superpowers/plans/2026-09-17-p1-inference.md`, `docs/superpowers/plans/2026-09-17-p1-markouts.md`, `docs/superpowers/plans/2026-09-18-p1-figures.md`, `docs/superpowers/plans/2026-09-18-p1-manuscript.md`, `docs/superpowers/plans/2026-09-24-p2-gesamtplan.md`, `docs/superpowers/plans/2026-09-25-p1-correction.md`, `docs/superpowers/specs/2026-09-17-adverse-selection-design.md`, `docs/superpowers/specs/2026-09-24-p2-kapital-design.md`, `paper/.DS_Store`, `paper/social/.Rhistory`, `paper/social/x_article.md`
+   - Paper 2 Addendum 5 (`8c066a7`, now `2a6a0c2`): `docs/paper1/FIGURE_SELECTION.md`, `docs/paper1/MANUSCRIPT.md`, `docs/paper2/FIGURE_SELECTION.md`, `docs/paper2/HANDOVER.md`, `docs/paper2/HISTORY_CLEANUP.md`, `docs/paper2/MANUSCRIPT.md`, `docs/paper2/REPORT_2026-09-25.md`, `docs/paper2/drafts/empirics.md`, `docs/paper2/drafts/jury_design.md`, `docs/paper2/drafts/jury_referee.md`, `docs/paper2/drafts/mechanism.md`, `docs/paper2/drafts/practitioner.md`, `docs/paper2/status/B0.md`, `docs/paper2/status/B1.md`, `docs/paper2/status/B2.md`, `docs/paper2/status/B3.md`, `docs/paper2/status/B4.md`, `docs/paper2/status/B5.md`, `docs/paper2/status/C5b.md`, `docs/superpowers/plans/2026-09-17-p1-data.md`, `docs/superpowers/plans/2026-09-17-p1-inference.md`, `docs/superpowers/plans/2026-09-17-p1-markouts.md`, `docs/superpowers/plans/2026-09-18-p1-figures.md`, `docs/superpowers/plans/2026-09-18-p1-manuscript.md`, `docs/superpowers/plans/2026-09-24-p2-master-plan.md`, `docs/superpowers/plans/2026-09-25-p1-correction.md`, `docs/superpowers/specs/2026-09-17-adverse-selection-design.md`, `docs/superpowers/specs/2026-09-24-p2-capital-design.md`, `paper/social/x_article.md`
+   - Paper 2 Addendum 6 (`6f2436e`, now `1d1abb0`): `docs/paper1/FIGURE_SELECTION.md`, `docs/paper1/MANUSCRIPT.md`, `docs/paper2/FIGURE_SELECTION.md`, `docs/paper2/HANDOVER.md`, `docs/paper2/HISTORY_CLEANUP.md`, `docs/paper2/MANUSCRIPT.md`, `docs/paper2/REPORT_2026-09-25.md`, `docs/paper2/drafts/empirics.md`, `docs/paper2/drafts/jury_design.md`, `docs/paper2/drafts/jury_referee.md`, `docs/paper2/drafts/mechanism.md`, `docs/paper2/drafts/practitioner.md`, `docs/paper2/status/B0.md`, `docs/paper2/status/B1.md`, `docs/paper2/status/B2.md`, `docs/paper2/status/B3.md`, `docs/paper2/status/B4.md`, `docs/paper2/status/B5.md`, `docs/paper2/status/C5b.md`, `docs/superpowers/plans/2026-09-17-p1-data.md`, `docs/superpowers/plans/2026-09-17-p1-inference.md`, `docs/superpowers/plans/2026-09-17-p1-markouts.md`, `docs/superpowers/plans/2026-09-18-p1-figures.md`, `docs/superpowers/plans/2026-09-18-p1-manuscript.md`, `docs/superpowers/plans/2026-09-24-p2-master-plan.md`, `docs/superpowers/plans/2026-09-25-p1-correction.md`, `docs/superpowers/specs/2026-09-17-adverse-selection-design.md`, `docs/superpowers/specs/2026-09-24-p2-capital-design.md`, `paper/social/x_article.md`
+   - Paper 2 Addendum 7 (`7c01e85`, now `8419479`): `docs/paper1/FIGURE_SELECTION.md`, `docs/paper1/MANUSCRIPT.md`, `docs/paper2/FIGURE_SELECTION.md`, `docs/paper2/HANDOVER.md`, `docs/paper2/HISTORY_CLEANUP.md`, `docs/paper2/MANUSCRIPT.md`, `docs/paper2/REPORT_2026-09-25.md`, `docs/paper2/drafts/empirics.md`, `docs/paper2/drafts/jury_design.md`, `docs/paper2/drafts/jury_referee.md`, `docs/paper2/drafts/mechanism.md`, `docs/paper2/drafts/practitioner.md`, `docs/paper2/status/B0.md`, `docs/paper2/status/B1.md`, `docs/paper2/status/B2.md`, `docs/paper2/status/B3.md`, `docs/paper2/status/B4.md`, `docs/paper2/status/B5.md`, `docs/paper2/status/C5b.md`, `docs/superpowers/plans/2026-09-17-p1-data.md`, `docs/superpowers/plans/2026-09-17-p1-inference.md`, `docs/superpowers/plans/2026-09-17-p1-markouts.md`, `docs/superpowers/plans/2026-09-18-p1-figures.md`, `docs/superpowers/plans/2026-09-18-p1-manuscript.md`, `docs/superpowers/plans/2026-09-24-p2-master-plan.md`, `docs/superpowers/plans/2026-09-25-p1-correction.md`, `docs/superpowers/specs/2026-09-17-adverse-selection-design.md`, `docs/superpowers/specs/2026-09-24-p2-capital-design.md`, `paper/social/x_article.md`
+
+   The tree of `bd326b9`, the last rewritten commit, is identical to that of `b93362b`, the last commit before this
+   rewrite; the restructuring of 25 October 2026 (`src/`, `papers/`) follows in separate commits.
+2. **Commits.** The seven merge commits are dropped; each had the tree of its second parent, so the history is now
+   one line of commits with the same snapshots. Seven commits changed only removed files and are dropped. Six commits
+   are folded into the commit that follows them (two parts of one README update, two parts of one re-render of the
+   animations, a figure commit and its revision, the social cards and their fix, and three successive passes over the
+   Paper 2 PDF); no registration commit is folded, and none is folded into another. 102 commits remain.
+3. **Messages.** Every message is rewritten in English in the Conventional Commits format (`type(scope): subject`).
+4. **Times.** Author, committer, date, time of day and time zone of every remaining commit are kept. A folded commit
+   takes the time of the commit it is folded into, which is never earlier than its own.
+5. **Refs.** `main` is rewritten, and no other branch carries the old history. The pull requests #1 to #5 on GitHub
+   keep their original commits on their pages; only GitHub can remove those.
+
+Done with a script that rebuilds every commit from the snapshot of the original, without the removed paths. The
+state before is kept as a git bundle outside the repository (SHA-256 `571f6302c1d4606f13de51230097b0b7c02ff0af28f4d904449aa732e1f39fb6`). Checks run on
+the result: one root, no merge commit; no removed path in any commit; for every remaining commit the tree equals the
+original tree without the removed paths, and author, committer and their dates are equal; the blob of the
+pre-registration file in each registration commit equals the original; the test suite gives the same result before
+and after, also in a fresh clone without the old objects.
+
+The manuscripts and PDFs in `papers/` (versions of 6 October 2026), the social cards and the dated records under
+`docs/` cite the hashes before this rewrite; the tables map them. A rebuild of a manuscript resolves its `% src git:`
+declarations against the current history, so the hashes in the manuscripts have to be updated before the next build.
+
+### Pre-registration commits (hash before 25 October 2026, new hash, blob and SHA-256 of the pre-registration file)
+
+| Version | Author time | Before | New | Blob (identical before and after) | SHA-256 |
+|---|---|---|---|---|---|
+| Paper 1 pre-registration | 2026-09-17 15:47 +0200 | `cf1f432` | `5bddae9` | `0376d559bba2fb626377cffc4b85b01ef34a0bc0` | `d233186e8a376998…` |
+| Paper 1 Addendum 1 | 2026-09-17 16:43 +0200 | `143f695` | `3c5449e` | `5103b6edb1109cac08e863bdaf624df7cf595c99` | `4503883512ab264b…` |
+| Paper 1 Addendum 2 | 2026-09-18 00:02 +0200 | `634c276` | `54450f3` | `fc02ab9959756dec32bcfff326881861c795f2f3` | `5e3a3af72340e154…` |
+| Paper 1 Addendum 3 | 2026-09-25 09:10 +0200 | `e4a3873` | `4845c98` | `6da6185be44a127180d6a9173b2e5fc921aed783` | `c3d17de9716ae910…` |
+| Paper 1 Addendum 4 | 2026-10-05 23:51 +0200 | `9d37c19` | `2e569f2` | `b6d5a86bd06c74dd5ee4867a43294a44dabec254` | `f218c174a383554d…` |
+| Paper 2 pre-registration | 2026-09-24 22:33 +0200 | `c9e9162` | `4600d5d` | `f251a0c5493e81a9dca98b1aecab54d2bde4349b` | `d777206a923e8eca…` |
+| Paper 2 Addendum 1 | 2026-09-25 00:26 +0200 | `b5c905c` | `241422f` | `83693818948078d9f308e1083541056cd2924ac4` | `7f5f701d014d8fd5…` |
+| Paper 2 Addendum 2 | 2026-09-25 00:29 +0200 | `60896fe` | `b6dbde9` | `461a9af11090c853e2bbf0495c8f1b42c760f434` | `c2e6d5334c85d7de…` |
+| Paper 2 Addendum 3 | 2026-09-25 00:29 +0200 | `2416902` | `4a33d66` | `55ea5cc2868ae7244fa693af5718171aef78673f` | `536a39cbac9a762d…` |
+| Paper 2 Addendum 4 | 2026-09-25 01:29 +0200 | `a02058a` | `33108ad` | `96986c732c85408daa4e704c519601bb531fdc4b` | `eb5e269571df785c…` |
+| Paper 2 Addendum 5 | 2026-09-27 14:23 +0200 | `8c066a7` | `2a6a0c2` | `c2d7378bfa0d51ac63d819ec9ded8571535ab4a6` | `01203c1814a9f20f…` |
+| Paper 2 Addendum 6 | 2026-09-30 12:42 +0200 | `6f2436e` | `1d1abb0` | `06a0004cda02936baf42db3101f2bd24e50f54a8` | `0febb8e4d1a20ed6…` |
+| Paper 2 Addendum 7 | 2026-10-05 23:51 +0200 | `7c01e85` | `8419479` | `f492585cf4a3308154ba764ef4616e09d3d68621` | `0931cfaa3995f7eb…` |
+
+### Every commit (author date, hash before 25 October 2026, new hash, new message)
+
+| Date | Before | New | Message |
+|---|---|---|---|
+| 2026-09-03 09:18 | `6beafe7` | `ca139f9` | chore: initial commit with a README title |
+| 2026-09-03 08:04 | `9d9dbe6` | `d1510dd` | feat(surface): add data pipeline, Black-76/SVI surface and animations |
+| 2026-09-03 10:19 | `f21e900` | – | *merge dropped; same tree as `9d9dbe6`, now `d1510dd`* |
+| 2026-09-03 12:04 | `e4741ca` | `0e6bac0` | feat(surface): add live recording and depth snapshot, harden SVI fits |
+| 2026-09-03 12:20 | `2ee365f` | `35c0e57` | *folded into the next commit* |
+| 2026-09-03 12:21 | `35d19d6` | `35c0e57` | docs(surface): fill the README with measured basis, greek noise and SSR |
+| 2026-09-03 14:34 | `6759512` | – | *merge dropped; same tree as `35d19d6`, now `35c0e57`* |
+| 2026-09-03 12:40 | `8e356d4` | `49a648c` | docs(surface): translate README to English, publish BTC/ETH animations |
+| 2026-09-03 15:02 | `ab70741` | – | *merge dropped; same tree as `8e356d4`, now `49a648c`* |
+| 2026-09-03 13:07 | `b594256` | `e69c392` | *folded into the next commit* |
+| 2026-09-03 13:07 | `229d5a6` | `e69c392` | chore(surface): re-render all animations with English frame labels |
+| 2026-09-03 13:08 | `fd365c2` | `6432173` | chore(surface): remove the unreferenced German-labelled vanna still |
+| 2026-09-03 15:09 | `4699368` | – | *merge dropped; same tree as `fd365c2`, now `6432173`* |
+| 2026-09-17 15:47 | `cf1f432` | `5bddae9` | docs(p1): pre-register Paper 1 hypotheses before any markout is computed |
+| 2026-09-17 15:47 | `0829308` | `5950026` | feat(p1): fetch the full-field option tape in single-page windows |
+| 2026-09-17 15:47 | `ae9ba56` | `7db6419` | feat(p1): fetch the vol-feed (SVI) history from Derive Chain |
+| 2026-09-17 15:48 | `8da0424` | `48423a0` | feat(p1): download settlements, liquidations, programmes and fees |
+| 2026-09-17 15:48 | `4ee1cab` | `b31c7c1` | feat(p1): pair maker and taker rows into fills and classify takers |
+| 2026-09-17 15:48 | `e7a6868` | `06bb47e` | feat(p1): add the p1 CLI and a vol-feed check script |
+| 2026-09-17 15:53 | `fe5c541` | `df32262` | fix: retry unparseable API replies, walk liquidations in 7-day windows |
+| 2026-09-17 15:58 | `aa543d3` | `d4e85d4` | fix(p1): walk liquidations daily with page-size fallback and halving |
+| 2026-09-17 16:07 | `5b67761` | `e644c97` | fix(p1): harden tape caching, MM-programme lookup and feed timestamps |
+| 2026-09-17 16:11 | `ea99f98` | – | *removed: it changed only removed files* |
+| 2026-09-17 16:23 | `9d85cbc` | `3ca5fd4` | feat(p1): add a curated vault wallet list with sources |
+| 2026-09-17 16:24 | `efe2481` | `d32e257` | fix(p1): raise the tape settle window to 60 min |
+| 2026-09-17 16:26 | `be6c037` | `2cef120` | feat(p1): add a script that writes the data status from data/p1 |
+| 2026-09-17 16:28 | `c7666bd` | `0b67fdc` | feat(p1): add mark path (b), Black-76 on the latest on-chain SVI curve |
+| 2026-09-17 16:43 | `143f695` | `3c5449e` | docs(p1): add pre-registration addendum 1 before any markout is computed |
+| 2026-09-17 16:43 | `b36e511` | `0d1e487` | feat(p1): compute markouts on mark paths a, b and c in three units |
+| 2026-09-17 16:43 | `e0fea45` | `86684fc` | feat(p1): add the p1 markouts command |
+| 2026-09-17 16:51 | `3663ad2` | `fa4c350` | feat(p1): verify svi_vol on the freshest signed curve, measure push lag |
+| 2026-09-17 17:13 | `ab59856` | `d5079e5` | feat(p1): compare rebuilt mark and tape by clock, forward and quarter |
+| 2026-09-17 18:19 | `114d6d9` | `3b6341a` | perf(p1): fetch liquidation windows in parallel with progress logging |
+| 2026-09-17 18:43 | `234fe8d` | `138ce20` | fix(p1): read liquidations at the largest page size that works |
+| 2026-09-17 22:07 | `b903a0b` | `327869a` | feat(p1): reuse liquidation files in ref, survive maker score give-ups |
+| 2026-09-17 22:13 | `61e04ce` | `7715256` | feat(p1): report liquidation coverage in the pilot data status |
+| 2026-09-18 00:02 | `634c276` | `54450f3` | docs(p1): add pre-registration addendum 2 before the first inference |
+| 2026-09-18 00:03 | `f945ec7` | `f2626cd` | feat(p1): add the inference for H1 to H4 and the net edge per cell |
+| 2026-09-18 00:06 | `fb108c6` | `120b896` | feat(p1): add the p1 inference command and the pilot results |
+| 2026-09-18 00:09 | `04b5221` | `c209ee2` | feat(p1): split class markouts into half spread and adverse selection |
+| 2026-09-18 08:34 | `c6bdb11` | `cca099c` | feat(p1): add figure style with CAS widths and the Okabe-Ito palette |
+| 2026-09-18 08:35 | `34d13d5` | `5acaf98` | docs(p1): add a CAS manuscript skeleton that builds with tectonic |
+| 2026-09-18 08:37 | `c1d1129` | `36ff78d` | feat(p1): compare the two mark paths as a robustness check |
+| 2026-09-18 08:38 | `0a889c8` | `1fa4cd8` | feat(p1): add the data aggregations behind the figures |
+| 2026-09-18 08:39 | `c7bf089` | `ae5a8a4` | perf(p1): bootstrap the median as a weighted median over one sort |
+| 2026-09-18 09:07 | `e17065a` | `29ad81f` | chore(p1): add the mark-path comparison to the pilot results |
+| 2026-09-18 09:09 | `a7286e2` | `8ab9f57` | feat(p1): reconstruct the quoted SVI curve for the mechanism figure |
+| 2026-09-18 09:10 | `ac0df45` | `93f21eb` | feat(p1): add a result loader and a cell matrix for the figures |
+| 2026-09-18 09:11 | `df8f628` | `f5ea428` | docs(p1): record findings from building the figures |
+| 2026-09-18 09:15 | `cb02f29` | `ceacb86` | fix(p1): use one bootstrap size for every number of an inference run |
+| 2026-09-18 09:17 | `a408bfe` | `fed8ebf` | chore(p1): recompute the pilot inference with one bootstrap size |
+| 2026-09-18 09:20 | `1d59cbd` | – | *removed: it changed only removed files* |
+| 2026-09-18 09:23 | `76ab684` | – | *removed: it changed only removed files* |
+| 2026-09-18 09:34 | `8b0af87` | `ebcae00` | *folded into the next commit* |
+| 2026-09-18 09:44 | `3dffd82` | `ebcae00` | feat(p1): draw the nine figures and add the p1 figures command |
+| 2026-09-18 09:48 | `223dc94` | `45b48d8` | feat(p1): place the figures in the manuscript and check their numbers |
+| 2026-09-18 09:48 | `7437272` | – | *removed: it changed only removed files* |
+| 2026-09-18 09:49 | `c4c633b` | – | *removed: it changed only removed files* |
+| 2026-09-18 11:30 | `3d62bea` | `d5dc716` | docs(p1): write the Paper 1 manuscript under a word budget |
+| 2026-09-18 12:21 | `48b4377` | `1bcd831` | *folded into the next commit* |
+| 2026-09-18 12:22 | `071383c` | `1bcd831` | feat(p1): add social media cards for Paper 1 |
+| 2026-09-19 15:45 | `2139e62` | `568efab` | docs(p1): add SSRN statements and a check for the manuscript build |
+| 2026-09-24 12:42 | `de3291e` | `909a547` | docs(p1): add the PDF of the first Paper 1 version of 19 September |
+| 2026-09-25 08:04 | `fd5abd6` | `871c1ee` | docs(p1): record the fee unit error in the Paper 1 net edge |
+| 2026-09-25 09:10 | `e4a3873` | `4845c98` | fix(p1): add pre-registration addendum 3 and correct the fee unit |
+| 2026-09-25 10:49 | `4b4b8a4` | `fed6f81` | fix(p1): store wallets in the Lorenz file only as salted pseudonyms |
+| 2026-09-25 12:03 | `356a1f9` | – | *merge dropped; same tree as `4b4b8a4`, now `fed6f81`* |
+| 2026-09-25 12:37 | `9c3828c` | `8b853e5` | docs(p1): translate the Paper 1 documentation and generators to English |
+| 2026-09-25 12:37 | `42b529f` | – | *merge dropped; same tree as `9c3828c`, now `8b853e5`* |
+| 2026-09-24 22:29 | `6642ff8` | `dba6c27` | docs(p2): document the get_margin semantics and the capital measure |
+| 2026-09-24 22:33 | `c9e9162` | `4600d5d` | docs(p2): pre-register H1 to H4 before the first capital figure |
+| 2026-09-24 22:37 | `cc714b8` | – | *removed: it changed only removed files* |
+| 2026-09-24 22:38 | `2748b13` | `da1cc87` | feat(p2): add a throttled chain client with a block clock |
+| 2026-09-24 22:59 | `55629ff` | `85f3ba1` | docs(p2): add the checked literature and the manuscript skeleton |
+| 2026-09-25 00:26 | `c8ab517` | `e737d8e` | feat(p2): add feed history, parameter timelines and margin replicas |
+| 2026-09-25 00:26 | `b5c905c` | `241422f` | docs(p2): add pre-registration addendum 1 before any capital figure |
+| 2026-09-25 00:27 | `b8c676a` | `9382925` | chore(p2): add a machine-wide lock for memory-heavy jobs |
+| 2026-09-25 00:29 | `60896fe` | `b6dbde9` | docs(p2): add pre-registration addendum 2 on fee and rebate per fill |
+| 2026-09-25 00:29 | `2416902` | `4a33d66` | docs(p2): add pre-registration addendum 3 before the inference |
+| 2026-09-25 01:29 | `a02058a` | `33108ad` | docs(p2): add pre-registration addendum 4 before any test statistic |
+| 2026-09-25 01:30 | `f97a117` | `7fb900d` | feat(p2): validate the replica and compute capital per fill |
+| 2026-09-25 02:16 | `c55d47b` | `376499c` | feat(p2): add the H1 to H4 inference with an independent recomputation |
+| 2026-09-25 02:49 | `743d403` | `28ef407` | feat(p2): add the H2 maintenance margin sensitivity and an API snapshot |
+| 2026-09-25 03:49 | `74a89c5` | `06ed5d6` | feat(p2): add nine figures, the capital surface GIF and social cards |
+| 2026-09-25 04:05 | `5e256d8` | `93e932e` | feat(p2): write the manuscript with build, number and figure checks |
+| 2026-09-25 05:02 | `89ab2d4` | `60a75ab` | docs(p2): add an internal audit of the whole paper (69 findings) |
+| 2026-09-25 07:40 | `afb3006` | `ee7d609` | fix(p2): correct the audit findings in code, inference, figures and text |
+| 2026-09-25 07:41 | `e8b5b2c` | – | *removed: it changed only removed files* |
+| 2026-09-27 12:31 | `c5c36ba` | `f6a3dcd` | fix(p2): keep Paper 2 working on the revised Paper 1 code |
+| 2026-09-27 12:34 | `b36daec` | `67f4d06` | docs(p2): record the rewrite of the Paper 2 history |
+| 2026-09-27 13:38 | `61bf971` | `dfa6d63` | docs(p2): rename the Paper 2 documents and generators to English names |
+| 2026-09-27 13:38 | `2ce6d18` | `2268ef5` | docs(p2): translate the Paper 2 documentation and generators to English |
+| 2026-09-27 14:23 | `124f0e9` | `246ea6e` | chore(p2): rename the get_margin semantics result files to English |
+| 2026-09-27 14:23 | `8c066a7` | `2a6a0c2` | docs(p2): add pre-registration addendum 5 recording the history rewrite |
+| 2026-09-29 18:33 | `f36477d` | `0edd777` | docs(p2): simplify the manuscript text and declutter Figure 7 panel b |
+| 2026-09-30 12:42 | `6f2436e` | `1d1abb0` | docs(p2): add pre-registration addendum 6 on multi-leg RFQ package fees |
+| 2026-09-30 12:51 | `5474f8e` | `be16567` | feat(p2): report H2 by maker side and H1 without RFQ fills |
+| 2026-09-30 12:51 | `f067389` | `5a95fed` | fix(p2): tie the H4 placebo cache to panel rules and code |
+| 2026-09-30 12:51 | `fc74275` | `a1e34a1` | fix(p2): hatch the H4 social card up to the placebo P95 |
+| 2026-09-30 12:51 | `dab0ac9` | `1e1ee18` | docs(p1,p2): add the DOI of burlig2018 to both bibliographies |
+| 2026-09-30 12:51 | `0ee0ac0` | `ec12edd` | fix(p2): make the number check bind direction words |
+| 2026-10-05 09:03 | `6e011fb` | `a17e522` | feat(p2): compute the Addendum 6 sensitivity of H1 on the pilot cut |
+| 2026-10-05 12:24 | `f9ed321` | `6abae37` | *folded into the next commit* |
+| 2026-10-05 13:02 | `ee4a3bb` | `6abae37` | *folded into the next commit* |
+| 2026-10-05 13:28 | `32d2ba5` | `6abae37` | docs(p2): revise the Paper 2 text, figures and layout page by page |
+| 2026-10-05 13:34 | `ad897e4` | `1b90d64` | docs(p2): cite the companion paper by its SSRN number and DOI |
+| 2026-10-05 23:51 | `7c01e85` | `8419479` | docs(p2): add pre-registration addendum 7 on the second history rewrite |
+| 2026-10-05 23:51 | `9d37c19` | `2e569f2` | docs(p1): add pre-registration addendum 4 on the history rewrite |
+| 2026-10-06 00:00 | `d616f95` | `bbe5ba3` | docs(p1,p2): cite the rewritten commit hashes in both papers |
+| 2026-10-06 00:00 | `9ad4bbf` | – | *merge dropped; same tree as `d616f95`, now `bbe5ba3`* |
+| 2026-10-06 08:42 | `c90dfb8` | `c2eba43` | docs: show both papers in the README after the surface animations |
+| 2026-10-06 09:24 | `878e4d1` | `093f9ee` | docs(p1,p2): drop the "Use of generative tools" section from both papers |
+| 2026-10-06 09:26 | `22902e7` | `9410a68` | docs(p1,p2): cite the repository as gelatotrade/Derive-Research |
+| 2026-10-06 10:05 | `9d0baa6` | `901aee5` | docs: date the Paper 1 revision 6 October 2026 in the README |
+| 2026-10-06 10:21 | `968fb88` | `e5da6f6` | chore: keep only code, papers, data and pre-registrations in the tree |
+| 2026-10-06 12:10 | `a8e119e` | `feb122a` | feat(p1): run Paper 1 on the registered sample to 30 September 2026 |
+| 2026-10-06 12:27 | `70e7c0b` | `34c3f11` | feat(p2): run Paper 2 on the registered sample to 30 September 2026 |
+| 2026-10-06 13:07 | `f089ff7` | `a58d7d8` | fix(p1,p2): follow the registered rules in the final data run |
+| 2026-10-06 13:54 | `bfcc386` | `8a0d8d1` | docs(p1,p2): polish layout, wording and figure labels of both papers |
+| 2026-10-06 15:14 | `5af1341` | `34da1cc` | fix(p1,p2): correct how both papers describe the registered analysis |
+| 2026-10-06 15:33 | `be775df` | `11f5283` | fix(p1): state the coefficient rule as registered |
+| 2026-10-08 16:00 | `b93362b` | `bd326b9` | docs: add a statement on the use of AI tools to the papers and README |

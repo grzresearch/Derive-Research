@@ -1,10 +1,15 @@
 # Audit of Paper 2 (capital-adjusted edge)
 
-> **Commit hashes.** This document was written before the history rewrite of 5 October 2026 (Addendum 7 of the Paper 2 pre-registration, Addendum 4 of the Paper 1 pre-registration). Its hashes refer to the history at the time of writing; `docs/paper2/HISTORY_REWRITE.md` maps every one of them to the current hash. Current hashes: Paper 1 pre-registration `cf1f432`; Paper 2 pre-registration `c9e9162`, Addenda 1 to 6 `b5c905c`, `60896fe`, `2416902`, `a02058a`, `8c066a7`, `6f2436e`, Addendum 7 `7c01e85`.
+> **Commit hashes.** This document was written before the history rewrite of 5 October 2026 (Addendum 7 of the Paper 2 pre-registration, Addendum 4 of the Paper 1 pre-registration). Its hashes refer to the history at the time of writing; `docs/paper2/HISTORY_REWRITE.md` maps every one of them to the current hash. Hashes after that rewrite: Paper 1 pre-registration `cf1f432`; Paper 2 pre-registration `c9e9162`, Addenda 1 to 6 `b5c905c`, `60896fe`, `2416902`, `a02058a`, `8c066a7`, `6f2436e`, Addendum 7 `7c01e85`. Since the rewrite of 25 October 2026 (same file, section "Rewrite of 25 October 2026") they are `5bddae9`; `4600d5d`, `241422f`, `b6dbde9`, `4a33d66`, `33108ad`, `2a6a0c2`, `1d1abb0` and `8419479`.
 
 > **Working documents.** Plans, drafts, status notes and number sheets named here were removed from the current
-> tree on 6 October 2026; they remain in the git history. The scripts write the number sheets and check reports
-> again when they run.
+> tree on 6 October 2026. On 25 October 2026 the plans and design specifications, drafts, status and handover notes,
+> figure-selection notes, manuscript outlines and the draft article for X were also removed from the git history
+> (`docs/paper2/HISTORY_REWRITE.md`, section "Rewrite of 25 October 2026"); number sheets and check reports
+> remain in the history, and the scripts write them again when they run.
+
+> **Layout.** Since 25 October 2026 `paper/` is `papers/paper1/`, `paper2/` is `papers/paper2/` and `derive_surface/` is
+> `src/derive_surface/`; paths below are those before the move.
 
 
 > English translation, made on 27 September 2026, of the German audit record of 25 September 2026. Line numbers
