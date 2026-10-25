@@ -14,14 +14,14 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
 from derive_surface import figdata, figures_p1                      # noqa: E402
 from derive_surface.inference_p1 import analysis_frame              # noqa: E402
 
 ROOT = Path("data/p1")
 RESULTS = Path("results/p1")
-FIGURES = Path("paper/figures")
+FIGURES = Path("papers/paper1/figures")
 SHEET = Path("docs/paper1/FIGURE_CHECKS.md")
 TOLERANCE = 1e-6
 
@@ -130,7 +130,7 @@ def main() -> int:
     for c in checks:
         lines.append("| {} | {} | {:.6g} | {:.6g} | {} |".format(
             c["figure"], c["quantity"], c["drawn"], c["registered"], "yes" if c["agrees"] else "**no**"))
-    lines += ["", "Captions are kept in `derive_surface/figures_p1.py` under `CAPTIONS` and go from there",
+    lines += ["", "Captions are kept in `src/derive_surface/figures_p1.py` under `CAPTIONS` and go from there",
               "into the manuscript.", ""]
     SHEET.write_text("\n".join(lines))
     print("\n".join(lines[-len(checks) - 4:]))

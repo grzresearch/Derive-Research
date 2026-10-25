@@ -38,7 +38,7 @@ from eth_abi import decode, encode
 from eth_hash.auto import keccak
 
 ROOT = Path(__file__).resolve().parents[3]
-sys.path.insert(0, str(ROOT))
+sys.path.insert(0, str(ROOT / "src"))
 from derive_surface.p2chain import Rpc, block_at_ts, ts_at_block  # noqa: E402
 
 OUT = Path(__file__).resolve().parent

@@ -61,7 +61,7 @@ from .p2feeds import FEEDS
 from .p2params import PM2_ADDR, SRM, Timeline
 from .p2types import YEAR
 
-REPO = Path(__file__).resolve().parents[1]
+REPO = Path(__file__).resolve().parents[2]
 LOG_PATH = REPO / "data" / "p2" / "logs" / "C5b.jsonl"
 CSV_PATH = REPO / "results" / "p2" / "api_snapshot.csv"
 META_PATH = REPO / "data" / "p2" / "api_snapshot" / "meta.json"
@@ -931,7 +931,7 @@ def render_doc(df: pd.DataFrame, meta: Mapping) -> str:
     L.append("")
     L.append("### Interfaces")
     L.append("")
-    L.append("- `derive_surface/p2api.py`: `run(ccys, ...)`, `snapshot_ccy`, `measure_instrument`, `chain_calls`, "
+    L.append("- `src/derive_surface/p2api.py`: `run(ccys, ...)`, `snapshot_ccy`, `measure_instrument`, `chain_calls`, "
              "`decode_chain`, `replica_capital`, `replica_api_semantics`, `choose_expiry`, `choose_instrument`, "
              "`cell_types`, `render_doc`; `ApiClient` and `SharedRpc` share a `Throttle` (2 per second).")
     L.append("- CLI: `python3 -m derive_surface p2 api run [--ccy BTC ETH HYPE]` and `p2 api report` (document "

@@ -15,7 +15,7 @@ the reference book when it carries them (data contract, section 10) and is other
 the same engine and state. The single legs under SM are computed the same way; they are not drawn and serve social
 card 2 (``social_p2``). Nothing here needs the feed history.
 
-Command line: ``python3 -m derive_surface.figs_p2.t2`` (writes ``paper2/figures/t2.{pdf,png}`` and
+Command line: ``python3 -m derive_surface.figs_p2.t2`` (writes ``papers/paper2/figures/t2.{pdf,png}`` and
 ``results/p2/fig_t2_{a,b,c}.csv``, prints the checks).
 """
 from __future__ import annotations
@@ -382,7 +382,7 @@ def _panel_c(fig, data: dict) -> None:
 
 # ---------------------------------------------------------------------------------------------------- build
 
-def build(out_dir: Path = Path("paper2/figures"), results_dir: Path = Path("results/p2")) -> List[Path]:
+def build(out_dir: Path = Path("papers/paper2/figures"), results_dir: Path = Path("results/p2")) -> List[Path]:
     """Write ``fig_t2_{a,b,c}.csv`` to ``results_dir`` and ``t2.pdf``/``t2.png`` (400 dpi) to ``out_dir``."""
     data = load(results_dir)
     paths = [kit.write_csv(df, results_dir, name) for name, df in tables(data).items()]

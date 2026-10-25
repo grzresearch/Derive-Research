@@ -4,7 +4,7 @@ Every slot lives in its own module ``derive_surface/figs_p2/<slot>.py`` (build i
 ``docs/paper2/FIGURE_SELECTION.md``, sections 6 and 7). A slot module has
 
 * ``build(out_dir, results_dir) -> list[Path]``: writes the numbers of the figure as ``results/p2/fig_<slot>*.csv``
-  and ``<slot>.pdf`` / ``<slot>.png`` (400 dpi) at print size to ``paper2/figures/`` (laid out at 7.0 or 3.4 in,
+  and ``<slot>.pdf`` / ``<slot>.png`` (400 dpi) at print size to ``papers/paper2/figures/`` (laid out at 7.0 or 3.4 in,
   saved at the width main.tex sets it, 6.84 or 3.29 in: ``figs_p2._print``);
 * ``CAPTION``: the caption of the manuscript (English, no dashes, result numbers as ``\\PH{key}``);
 * ``CHECKS``: the test numbers of the build instruction, the value in the figure table against the file in
@@ -15,10 +15,10 @@ any of them and returns one table with the columns ``slot, check, figure, source
 
 Command line (``python3 -m derive_surface p2 figures ...``)::
 
-    build [--only t1,f2] [--results results/p2] [--out paper2/figures]
+    build [--only t1,f2] [--results results/p2] [--out papers/paper2/figures]
     prepare-t1                    # heavy: capital grids of T1 from the feed history, via scripts/p2_heavy.py
     gif [--weekly|--daily]        # heavy: GIF of the BTC PM2 capital surface, via scripts/p2_heavy.py
-    social                        # three social cards 1600 x 900 under paper2/social/
+    social                        # three social cards 1600 x 900 under papers/paper2/social/
 """
 from __future__ import annotations
 
@@ -40,7 +40,7 @@ CAPTIONS: Dict[str, str] = {s: m.CAPTION for s, m in FIGURES.items()}
 SIZES: Dict[str, tuple] = {"t1": (6.84, 4.2), "t2": (6.84, 2.6), "f1": (6.84, 3.9), "f2": (6.84, 6.2),
                            "f3": (3.29, 4.0), "f4": (3.29, 4.0), "f5": (6.84, 4.47), "f6": (6.84, 4.2), "a1": (6.84, 2.5)}
 FS_MIN = 7.0
-OUT_DIR = Path("paper2/figures")
+OUT_DIR = Path("papers/paper2/figures")
 RESULTS_DIR = Path("results/p2")
 
 
@@ -188,7 +188,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     g.add_argument("--results", type=Path, default=RESULTS_DIR)
     s = sub.add_parser("social", help="three social cards 1600 x 900")
     s.add_argument("--results", type=Path, default=RESULTS_DIR)
-    s.add_argument("--out", type=Path, default=Path("paper2/social"))
+    s.add_argument("--out", type=Path, default=Path("papers/paper2/social"))
     args = ap.parse_args(list(argv) if argv is not None else None)
     if args.cmd == "build":
         for slot, paths in build(args.only, args.out, args.results).items():

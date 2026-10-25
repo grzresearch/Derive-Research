@@ -538,7 +538,7 @@ def make_figure(results_dir: Path = Path("results/p2")):
     return fig, tables
 
 
-def build(out_dir: Path = Path("paper2/figures"), results_dir: Path = Path("results/p2")) -> List[Path]:
+def build(out_dir: Path = Path("papers/paper2/figures"), results_dir: Path = Path("results/p2")) -> List[Path]:
     """Write ``fig_f2_{a,b,c,shift}.csv`` to ``results_dir`` and ``f2.pdf`` / ``f2.png`` to ``out_dir``."""
     results_dir = Path(results_dir)
     fig, tables = make_figure(results_dir)
@@ -708,7 +708,7 @@ def run_checks(results_dir: Path = Path("results/p2")) -> pd.DataFrame:
 def main(argv: Optional[Sequence[str]] = None) -> int:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--results", type=Path, default=Path("results/p2"))
-    ap.add_argument("--out", type=Path, default=Path("paper2/figures"))
+    ap.add_argument("--out", type=Path, default=Path("papers/paper2/figures"))
     ap.add_argument("--check", action="store_true", help="print the checks after the build")
     args = ap.parse_args(argv)
     logging.basicConfig(level=logging.WARNING, format="%(message)s")

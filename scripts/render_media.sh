@@ -2,6 +2,7 @@
 # Re-render every animation in docs/media from the data in data/ (sequentially: matplotlib is CPU-bound).
 set -euo pipefail
 cd "$(dirname "$0")/.."
+export PYTHONPATH="$PWD/src${PYTHONPATH:+:$PYTHONPATH}"
 python -m derive_surface merge
 for c in BTC ETH HYPE; do
   python -m derive_surface animate live  "$c"

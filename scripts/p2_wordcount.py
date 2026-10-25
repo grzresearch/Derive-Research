@@ -7,7 +7,7 @@ parameter: ``check`` takes any budget, tolerance and set of hard limits, and the
 budget from a JSON file.  The default is the budget of ``docs/paper2/MANUSCRIPT.md`` with a tolerance of
 ten per cent; the abstract is a hard limit of 200 words without tolerance.
 
-    python3 scripts/p2_wordcount.py [paper2/main.tex] [--budget budget.json] [--tolerance 0.1]
+    python3 scripts/p2_wordcount.py [papers/paper2/main.tex] [--budget budget.json] [--tolerance 0.1]
 """
 from __future__ import annotations
 
@@ -18,7 +18,7 @@ import sys
 from pathlib import Path
 from typing import Dict, Iterable, List, Optional
 
-TEX = Path("paper2/main.tex")
+TEX = Path("papers/paper2/main.tex")
 
 BUDGET: Dict[str, int] = {
     "abstract": 200,

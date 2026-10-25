@@ -12,11 +12,11 @@ logs/
 data/p1/
 
 # manuscript build output
-paper/main.pdf
+papers/paper1/main.pdf
 
 # paper 2 probe archives (large)
 data/p2/
-paper2/main.pdf
+papers/paper2/main.pdf
 
 # operating system and editor artefacts
 .DS_Store

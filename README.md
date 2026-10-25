@@ -74,9 +74,9 @@ and tests, and every number in the papers are in the repository. The numbers use
 
 Working paper, revised 6 October 2026 ·
 [SSRN 7496818](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7496818) (doi:10.2139/ssrn.7496818) ·
-PDF in this repository: [`paper/Derive Orderbook Adverse Selection.pdf`](paper/Derive%20Orderbook%20Adverse%20Selection.pdf)
+PDF in this repository: [`papers/paper1/Derive Orderbook Adverse Selection.pdf`](papers/paper1/Derive%20Orderbook%20Adverse%20Selection.pdf)
 
-![Where an options maker's edge goes](paper/social/s1_decomposition.png)
+![Where an options maker's edge goes](papers/paper1/social/s1_decomposition.png)
 
 > A market maker on an options book loses to counterparties who know something and earns from those who do not, but on
 > an anonymous venue the two can only be told apart by proxy. Derive settles on chain, so its public tape names both
@@ -89,13 +89,13 @@ PDF in this repository: [`paper/Derive Orderbook Adverse Selection.pdf`](paper/D
 > are rejected.
 
 Pre-registration: [`docs/paper1/PRAEREGISTRIERUNG.md`](docs/paper1/PRAEREGISTRIERUNG.md) (binding) ·
-[English translation](docs/paper1/PREREGISTRATION.md) · manuscript: [`paper/main.tex`](paper/main.tex) · code:
-`derive_surface/` (`fulltape`, `classify`, `markpath`, `markouts`, `inference_p1`, `figures_p1`) and `scripts/p1_*`.
+[English translation](docs/paper1/PREREGISTRATION.md) · manuscript: [`papers/paper1/main.tex`](papers/paper1/main.tex) · code:
+`src/derive_surface/` (`fulltape`, `classify`, `markpath`, `markouts`, `inference_p1`, `figures_p1`) and `scripts/p1_*`.
 
 ### Paper 2 · What does the edge cost? Capital-adjusted market making under a public portfolio-margin engine
 
 Working paper, 6 October 2026 ·
-PDF in this repository: [`paper2/Derive Capital-Adjusted Market Making.pdf`](paper2/Derive%20Capital-Adjusted%20Market%20Making.pdf)
+PDF in this repository: [`papers/paper2/Derive Capital-Adjusted Market Making.pdf`](papers/paper2/Derive%20Capital-Adjusted%20Market%20Making.pdf)
 
 ![BTC: capital of one short contract under PM2 over the surface, weekly from June 2025](docs/media/p2_btc_capital_surface.gif)
 
@@ -117,9 +117,9 @@ the parameter changes that moved it.*
 
 Pre-registration: [`docs/paper2/PRAEREGISTRIERUNG.md`](docs/paper2/PRAEREGISTRIERUNG.md) (binding, Addenda 1 to 7) ·
 [English translation](docs/paper2/PREREGISTRATION.md) ·
-manuscript: [`paper2/main.tex`](paper2/main.tex) · code: margin replicas `derive_surface/margin_sm.py`, `margin_pm.py`,
+manuscript: [`papers/paper2/main.tex`](papers/paper2/main.tex) · code: margin replicas `src/derive_surface/margin_sm.py`, `margin_pm.py`,
 `margin_pm2.py`, capital and books `capital.py`, `books.py`, inference `inference_p2.py`, `inference_p2_h4.py`,
-figures `derive_surface/figs_p2/`, scripts `scripts/p2_*`.
+figures `src/derive_surface/figs_p2/`, scripts `scripts/p2_*`.
 
 ---
 
@@ -155,7 +155,7 @@ The three coordinates are the two that identify an option and the one number the
 * **z · implied volatility** from the **orderbook mid**, not from the exchange mark. The mid is the price bid and ask
   currently agree on; the mark is the exchange's model.
 
-Pipeline per timestamp (`derive_surface/surface.py`):
+Pipeline per timestamp (`src/derive_surface/surface.py`):
 
 1. Top of book of all options → mid; two-sided books only, relative spread ≤ 80 %, |ln(K/F)| ≤ 1.2.
 2. Only the **OTM side** of each strike (calls above, puts below the forward): that is where the liquidity is, and
@@ -243,7 +243,7 @@ the fixed-strike mids as tracers: their motion *relative to the surface* is the 
 ## 7 · Reproduce
 
 ```bash
-pip install -r requirements.txt
+pip install -e ".[test]"
 python -m pytest -q                                   # put-call parity, IV round trip, every greek vs. finite differences, SVI recovery, calendar check
 
 python -m derive_surface download BTC ETH HYPE        # complete trade tape + spot history  (~10 min)
@@ -264,7 +264,7 @@ Every call needs only the public API: no wallet, no key.
 ## 8 · Repository
 
 ```
-derive_surface/
+src/derive_surface/
   api.py        JSON-RPC/WebSocket client (retry, slim-ticker parser, instrument names incl. fractional strikes like 77_5)
   history.py    trade tape (paginated, atomic, resumable) + spot feed → parquet
   recorder.py   live recorder: top of book per expiry, WebSocket depth with reconnect, complete depth snapshot
@@ -276,8 +276,8 @@ derive_surface/
   shock.py      spot-shock scenario (sticky-delta / sticky-strike)
   fulltape.py, classify.py, markpath.py, markouts.py, inference_p1.py, figures_p1.py        Paper 1
   margin_*.py, capital.py, books.py, p2*.py, inference_p2*.py, figs_p2/, figures_p2.py      Paper 2
-paper/          Paper 1: manuscript, figures, cards, PDF
-paper2/         Paper 2: manuscript, figures, cards, PDF
+papers/paper1/  Paper 1: manuscript, figures, cards, PDF
+papers/paper2/  Paper 2: manuscript, figures, cards, PDF
 results/        p1/, p2/: every number of the two papers (JSON, CSV)
 tests/          1095 tests (surface, Paper 1, Paper 2)
 data/           trade tape, spot, live recording, depth snapshot (parquet; schema in data/README.md)

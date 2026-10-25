@@ -576,5 +576,5 @@ def test_build_script_can_read_every_module_caption():
     finally:
         sys.modules.pop(spec.name, None)
     for slot in SLOTS:
-        cap = build.module_caption(REPO / "derive_surface" / "figs_p2" / f"{slot}.py")
+        cap = build.module_caption(REPO / "src" / "derive_surface" / "figs_p2" / f"{slot}.py")
         assert cap is not None and build._norm(cap) == build._norm(figures_p2.CAPTIONS[slot]), slot

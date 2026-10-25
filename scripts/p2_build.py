@@ -2,16 +2,16 @@
 """Build the Paper 2 manuscript and refuse to call a flawed run a success.
 
 tectonic keeps going after a recoverable LaTeX error and still writes a PDF, so a missing section can hide
-behind a clean-looking console.  This builds ``paper2/main.tex`` with the full log kept, then fails on any of:
+behind a clean-looking console.  This builds ``papers/paper2/main.tex`` with the full log kept, then fails on any of:
 
 * an error in the log or a non-zero exit of tectonic;
 * an overfull box, an undefined reference or citation, a missing file, or ``??`` in the PDF text;
 * a required part missing from the PDF (sections, back matter, references, JEL codes, the abstract);
 * a placeholder ``\\PH{...}`` left in the text, or a dash (em or en dash, ``--``, a spaced hyphen) in the prose;
-* a citation key that is not in ``paper2/refs.bib`` or not among the checked sources of
+* a citation key that is not in ``papers/paper2/refs.bib`` or not among the checked sources of
   ``docs/paper2/LITERATURE.md``;
 * a figure slot missing, a figure file missing, or a figure never referenced in the text;
-* a caption that differs from the ``CAPTION`` of ``derive_surface/figs_p2/<slot>.py`` where that module has one
+* a caption that differs from the ``CAPTION`` of ``src/derive_surface/figs_p2/<slot>.py`` where that module has one
   (a ``\\PH{key}`` in the module caption stands for any number in the manuscript; deliberate departures are
   listed with their reason in ``CAPTION_EXCEPTIONS`` and printed on every build);
 * a section over its word budget (``p2_wordcount.py``);
@@ -24,7 +24,7 @@ behind a clean-looking console.  This builds ``paper2/main.tex`` with the full l
 
     python3 scripts/p2_build.py [--allow-caption-drift] [--no-numbers]
 
-Exit status 0 only if nothing of the above was found.  The PDF is written to ``paper2/main.pdf``.
+Exit status 0 only if nothing of the above was found.  The PDF is written to ``papers/paper2/main.pdf``.
 """
 from __future__ import annotations
 
@@ -43,10 +43,10 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import p2_number_check as nc  # noqa: E402
 import p2_wordcount as wc  # noqa: E402
 
-PAPER = Path("paper2")
+PAPER = Path("papers/paper2")
 BIB = PAPER / "refs.bib"
 LITERATURE = Path("docs/paper2/LITERATURE.md")
-FIGS = Path("derive_surface/figs_p2")
+FIGS = Path("src/derive_surface/figs_p2")
 RESULTS = Path("results/p2")
 SLOTS = ["t1", "t2", "f1", "f2", "f3", "f4", "f5", "f6", "a1"]
 MUST_CONTAIN = ["A B S T R A C T", "Introduction", "The engine and what it returns", "Data and measurement",
@@ -68,7 +68,7 @@ class Compiled:
 
 
 def compile_pdf(paper: Path = PAPER, runner: Callable = subprocess.run) -> Compiled:
-    """tectonic with the log kept; the PDF is copied to ``paper/main.pdf``."""
+    """tectonic with the log kept; the PDF is copied to ``papers/paper2/main.pdf``."""
     with tempfile.TemporaryDirectory() as tmp:
         run = runner(["tectonic", "--keep-logs", "--outdir", tmp, "main.tex"], cwd=str(paper),
                      capture_output=True, text=True)
@@ -415,7 +415,7 @@ def render(rep: Report) -> str:
 def main(argv: Optional[List[str]] = None) -> int:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--allow-caption-drift", action="store_true",
-                    help="report captions that differ from derive_surface/figs_p2 without failing")
+                    help="report captions that differ from src/derive_surface/figs_p2 without failing")
     ap.add_argument("--no-numbers", action="store_true", help="skip the number check")
     args = ap.parse_args(argv)
     rep = build(numbers=not args.no_numbers, allow_caption_drift=args.allow_caption_drift)

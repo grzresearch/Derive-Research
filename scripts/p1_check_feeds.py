@@ -18,7 +18,7 @@ from pathlib import Path
 
 import numpy as np
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
 from derive_surface.api import DeriveClient, OptionName, expiry_date_str  # noqa: E402
 from derive_surface.chainfeeds import (  # noqa: E402

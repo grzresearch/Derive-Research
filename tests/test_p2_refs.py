@@ -1,4 +1,4 @@
-"""Offline checks on the Paper 2 bibliography (paper2/refs.bib) and its record docs/paper2/LITERATURE.md.
+"""Offline checks on the Paper 2 bibliography (papers/paper2/refs.bib) and its record docs/paper2/LITERATURE.md.
 
 Every entry is recorded in LITERATURE.md, entries shared with Paper 1 are identical character for character,
 published works carry the DOI that was checked against Crossref, and the primary sources of the margin rules
@@ -11,8 +11,8 @@ from pathlib import Path
 from typing import Dict, Tuple
 
 ROOT = Path(__file__).resolve().parents[1]
-BIB2 = ROOT / "paper2" / "refs.bib"
-BIB1 = ROOT / "paper" / "refs.bib"
+BIB2 = ROOT / "papers" / "paper2" / "refs.bib"
+BIB1 = ROOT / "papers" / "paper1" / "refs.bib"
 LITERATURE = ROOT / "docs" / "paper2" / "LITERATURE.md"
 
 ENTRY = re.compile(r"^@(\w+)\s*\{\s*([^,\s]+)\s*,.*?^\}", re.S | re.M)

@@ -224,10 +224,10 @@ def test_build_fails_on_the_layout(tmp_path):
 
 def test_pdf_layout_reads_figures_and_callouts_of_the_manuscript():
     """On the built manuscript every figure caption is found once, and the text cites every figure."""
-    pdf = Path(__file__).resolve().parents[1] / "paper2" / "main.pdf"
+    pdf = Path(__file__).resolve().parents[1] / "papers" / "paper2" / "main.pdf"
     if not pdf.exists():
         import pytest
-        pytest.skip("paper2/main.pdf not built")
+        pytest.skip("papers/paper2/main.pdf not built")
     pages = pb.pdf_layout(pdf)
     printed = [n for p in pages for n in p.figures]
     assert sorted(printed) == list(range(1, 10))

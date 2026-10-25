@@ -107,7 +107,7 @@ MISSING = "n/a"    # a value the data do not give (as in the Paper 1 sheet)
 SUPERSCRIPT = str.maketrans("-0123456789", "⁻⁰¹²³⁴⁵⁶⁷⁸⁹")
 
 try:  # the preregistered end of the sample, only used to say whether these are pilot numbers
-    sys.path.insert(0, str(REPO))
+    sys.path.insert(0, str(REPO / "src"))
     from derive_surface.p2events import SAMPLE_END_TS as PREREG_END_TS  # noqa: E402
 except Exception:  # pragma: no cover - the sheet still works without the package
     PREREG_END_TS = None

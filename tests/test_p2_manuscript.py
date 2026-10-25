@@ -13,7 +13,7 @@ from typing import Optional
 import pytest
 
 REPO = Path(__file__).resolve().parents[1]
-TEX = REPO / "paper2" / "main.tex"
+TEX = REPO / "papers" / "paper2" / "main.tex"
 
 # Wordings the audit showed to be wrong (finding in brackets).
 RETRACTED = {

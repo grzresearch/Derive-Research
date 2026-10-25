@@ -50,7 +50,7 @@ from . import p2ids
 from .chainfeeds import RpcError
 from .p2chain import Rpc, block_at_ts, ts_at_block
 
-REPO = Path(__file__).resolve().parents[1]
+REPO = Path(__file__).resolve().parents[2]
 PARAMS_DIR = REPO / "results" / "p2" / "params"
 DATA_DIR = REPO / "data" / "p2" / "params"
 LOG_PATH = REPO / "data" / "p2" / "logs" / "A2.jsonl"

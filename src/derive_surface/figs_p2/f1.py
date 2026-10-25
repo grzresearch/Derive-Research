@@ -42,7 +42,7 @@ from derive_surface.markouts import DELTA_LABELS, TENOR_LABELS  # noqa: E402
 
 log = logging.getLogger(__name__)
 
-REPO = Path(__file__).resolve().parents[2]
+REPO = Path(__file__).resolve().parents[3]
 SLOT = "f1"
 WIDTH, HEIGHT = figstyle.DOUBLE, 3.9
 FS_MIN = float(getattr(figstyle, "FS_MIN", 7.0))
@@ -494,7 +494,7 @@ def make_figure(results_dir: Path = Path("results/p2")):
     return fig, {"a": a, "b": b}
 
 
-def build(out_dir: Path = Path("paper2/figures"), results_dir: Path = Path("results/p2")) -> List[Path]:
+def build(out_dir: Path = Path("papers/paper2/figures"), results_dir: Path = Path("results/p2")) -> List[Path]:
     """Write ``fig_f1_a.csv`` and ``fig_f1_b.csv`` to ``results_dir`` and ``f1.pdf`` / ``f1.png`` to ``out_dir``."""
     results_dir = Path(results_dir)
     fig, tables = make_figure(results_dir)
@@ -739,7 +739,7 @@ def run_checks(results_dir: Path = Path("results/p2")) -> pd.DataFrame:
 def main(argv: Optional[Sequence[str]] = None) -> int:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--results", type=Path, default=Path("results/p2"))
-    ap.add_argument("--out", type=Path, default=Path("paper2/figures"))
+    ap.add_argument("--out", type=Path, default=Path("papers/paper2/figures"))
     ap.add_argument("--regimes", action="store_true", help="rebuild fig_f1_regimes.csv from the parquet files")
     ap.add_argument("--check", action="store_true", help="print the checks after the build")
     args = ap.parse_args(argv)

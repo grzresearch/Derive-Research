@@ -71,7 +71,7 @@ def check(tex: str, budget: Optional[Dict[str, int]] = None, tolerance: float = 
 
 
 def main(argv: List[str]) -> int:
-    path = Path(argv[1]) if len(argv) > 1 else Path("paper/main.tex")
+    path = Path(argv[1]) if len(argv) > 1 else Path("papers/paper1/main.tex")
     rows = check(path.read_text())
     total = sum(r["words"] for r in rows)
     width = max(len(r["section"]) for r in rows) if rows else 10

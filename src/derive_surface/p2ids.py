@@ -28,7 +28,7 @@ from typing import Iterable, List, Optional, Sequence
 
 import pandas as pd
 
-REPO = Path(__file__).resolve().parents[1]
+REPO = Path(__file__).resolve().parents[2]
 SALT_PATH = REPO / "data" / "p2" / "secret_salt.txt"
 MARKOUTS = REPO / "data" / "p1" / "derived" / "markouts.parquet"
 TOP_MAKERS = REPO / "data" / "p2" / "books" / "top_makers.json"  # written by ``books top`` (A5)

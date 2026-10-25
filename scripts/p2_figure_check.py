@@ -5,11 +5,11 @@
   from its ``results/p2/fig_<slot>*.csv``, against the result file it comes from (never against the figure table
   itself). The column "Build instruction" compares with the number printed in ``docs/paper2/FIGURE_SELECTION.md``
   where the slot records one (pilot cut 17 September 2026).
-* Checks the print size of every ``paper2/figures/<slot>.pdf`` and, when they exist, the GIF (at most 8 MB) and the
+* Checks the print size of every ``papers/paper2/figures/<slot>.pdf`` and, when they exist, the GIF (at most 8 MB) and the
   social cards (1600 x 900).
 * Checks that every element a caption announces is drawn (``CAPTION_ELEMENTS``): a phrase of the manuscript caption
   needs its rows in the figure table, so a caption cannot describe a band or a group of rows that the data left out.
-* Compares every caption of ``paper2/main.tex`` with ``CAPTIONS`` of ``figures_p2`` (a ``\\PH{key}`` of the module
+* Compares every caption of ``papers/paper2/main.tex`` with ``CAPTIONS`` of ``figures_p2`` (a ``\\PH{key}`` of the module
   caption stands for any text in the manuscript). Differences are reported, never changed; deliberate departures
   listed in ``CAPTION_EXCEPTIONS`` of ``scripts/p2_build.py`` are marked as such.
 
@@ -32,18 +32,18 @@ from typing import Dict, List, Mapping, Optional, Sequence, Tuple
 
 import pandas as pd
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 warnings.filterwarnings("ignore")
 
 from derive_surface import figures_p2  # noqa: E402
 
 RESULTS = Path("results/p2")
-FIGURES = Path("paper2/figures")
-TEX = Path("paper2/main.tex")
+FIGURES = Path("papers/paper2/figures")
+TEX = Path("papers/paper2/main.tex")
 SHEET = Path("docs/paper2/FIGURE_CHECKS.md")
 BUILD_SCRIPT = Path("scripts/p2_build.py")
 GIF = Path("docs/media/p2_btc_capital_surface.gif")
-SOCIAL = Path("paper2/social")
+SOCIAL = Path("papers/paper2/social")
 GIF_MAX_BYTES = 8 * 1024 * 1024
 SIZE_TOL = 0.02
 
@@ -442,7 +442,7 @@ def sheet(checks: pd.DataFrame, shapes: pd.DataFrame, captions: pd.DataFrame, re
     lines += ["", "## Shape", "", "| File | measured | target | yes/no |", "|---|---|---|---|"]
     for r in shapes.to_dict("records"):
         lines.append(f"| `{r['what']}` | {r['figure']} | {r['target']} | {_yes(r['ok'])} |")
-    lines += ["", "## Captions: `paper2/main.tex` against `figures_p2.CAPTIONS`", "",
+    lines += ["", "## Captions: `papers/paper2/main.tex` against `figures_p2.CAPTIONS`", "",
               "Reported, not changed. `\\PH{key}` of the module caption stands for any text in the manuscript; "
               "exceptions from `CAPTION_EXCEPTIONS` in `scripts/p2_build.py`.", "",
               "| Slot | Status | Note |", "|---|---|---|"]

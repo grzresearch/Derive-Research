@@ -23,7 +23,7 @@ from typing import Dict
 import numpy as np
 import pandas as pd
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
 from derive_surface import figdata, figures_p1                                   # noqa: E402
 from derive_surface.inference_p1 import (B, NEAR_LAG_S, SEED, analysis_frame,     # noqa: E402

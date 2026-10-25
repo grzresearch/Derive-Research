@@ -2,7 +2,7 @@
 
 The expectations are written by hand from the fixture values below, not computed with the module under test.
 The mutation test and the swap cases (audit A19 to A21 and A33; data/p2/audit/zahlen/swap_check.py) run on a
-manuscript whose sentences are copied from paper2/main.tex and declared in the format of the module docstring;
+manuscript whose sentences are copied from papers/paper2/main.tex and declared in the format of the module docstring;
 the mutants are generated with a regular expression of their own, not with the tokenizer of the module.
 """
 from __future__ import annotations
@@ -543,7 +543,7 @@ def test_template_lists_every_number_in_order_with_suggestions(results):
 
 
 # ---------------------------------------------------------------------------------------------------------------
-# Mutations and swaps on sentences of paper2/main.tex (audit A19 to A21, A33)
+# Mutations and swaps on sentences of papers/paper2/main.tex (audit A19 to A21, A33)
 # ---------------------------------------------------------------------------------------------------------------
 MANUSCRIPT = r"""\begin{document}
 \begin{abstract}

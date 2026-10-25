@@ -14,7 +14,7 @@ import json
 import sys
 from pathlib import Path
 
-sys.path.insert(0, ".")
+sys.path.insert(0, "src")
 from derive_surface.p2chain import Rpc, block_at_ts, ts_at_block  # noqa: E402
 
 OUT = Path("tests/fixtures/p2")

@@ -195,7 +195,7 @@ def _panel_a(ax, tab: pd.DataFrame, h: dict) -> None:
     ax.set_ylabel("share of fills")
 
 
-def build(out_dir: Path = Path("paper2/figures"), results_dir: Path = Path("results/p2")) -> List[Path]:
+def build(out_dir: Path = Path("papers/paper2/figures"), results_dir: Path = Path("results/p2")) -> List[Path]:
     """Write ``fig_f3_a.csv``, ``fig_f3_b.csv`` to ``results_dir`` and ``f3.pdf``/``f3.png`` to ``out_dir``."""
     fig, tables = make(results_dir)
     paths = [fr.write_csv(tables["a"], Path(results_dir) / "fig_f3_a.csv"),

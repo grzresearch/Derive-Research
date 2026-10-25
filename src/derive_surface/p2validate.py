@@ -52,7 +52,7 @@ from .p2feeds import FEEDS, FeedExpiryState
 from .p2params import PM2_ADDR, PM_ADDR, SRM
 from .p2types import YEAR, Book, MarketState, OptionLeg
 
-REPO = Path(__file__).resolve().parents[1]
+REPO = Path(__file__).resolve().parents[2]
 OUT_DIR = REPO / "data" / "p2" / "validation"
 LOG_PATH = REPO / "data" / "p2" / "logs" / "B1.jsonl"
 CSV_PATH = REPO / "results" / "p2" / "validation.csv"

@@ -16,7 +16,9 @@ dependencies = [
 test = ["pytest>=7"]
 
 [tool.setuptools.packages.find]
+where = ["src"]
 include = ["derive_surface*"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+pythonpath = ["src", "."]

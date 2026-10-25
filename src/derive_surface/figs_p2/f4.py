@@ -207,7 +207,7 @@ def _panel_a(ax, tab: pd.DataFrame) -> None:
     ax.set_ylabel("SM / PM2 capital (log)")
 
 
-def build(out_dir: Path = Path("paper2/figures"), results_dir: Path = Path("results/p2")) -> List[Path]:
+def build(out_dir: Path = Path("papers/paper2/figures"), results_dir: Path = Path("results/p2")) -> List[Path]:
     """Write ``fig_f4_a.csv``, ``fig_f4_b.csv`` to ``results_dir`` and ``f4.pdf``/``f4.png`` to ``out_dir``."""
     fig, tables = make(results_dir)
     paths = [fr.write_csv(tables["a"], Path(results_dir) / "fig_f4_a.csv"),

@@ -20,7 +20,7 @@ from collections import OrderedDict
 from pathlib import Path
 from typing import List, NamedTuple, Optional, Sequence
 
-REPO = Path(__file__).resolve().parents[1]
+REPO = Path(__file__).resolve().parents[2]
 
 
 class Command(NamedTuple):

@@ -66,7 +66,7 @@ from scipy.stats import norm
 
 from . import p2events
 
-REPO = Path(__file__).resolve().parents[1]
+REPO = Path(__file__).resolve().parents[2]
 RESULTS_DIR = REPO / "results" / "p2"
 PARTS_DIR = REPO / "data" / "p2" / "derived" / "h4_placebo"
 PARAMS_DIR = REPO / "results" / "p2" / "params"

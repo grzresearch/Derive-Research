@@ -770,7 +770,7 @@ def _gray(png: Path, out: Path) -> Path:
     return out
 
 
-def build(out_dir: Path = Path("paper2/figures"), results_dir: Path = Path("results/p2")) -> List[Path]:
+def build(out_dir: Path = Path("papers/paper2/figures"), results_dir: Path = Path("results/p2")) -> List[Path]:
     """Write ``fig_t1_ab.csv``, ``fig_t1_cd.csv``, ``fig_t1_meta.csv`` (results) and ``t1.pdf``, ``t1.png`` (figures)."""
     rd, out = Path(results_dir), Path(out_dir)
     data = load(rd)
@@ -833,7 +833,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     ap = argparse.ArgumentParser(prog="python3 -m derive_surface.figs_p2.t1")
     ap.add_argument("cmd", choices=["prepare", "build", "check"])
     ap.add_argument("--results", default="results/p2")
-    ap.add_argument("--out", default="paper2/figures")
+    ap.add_argument("--out", default="papers/paper2/figures")
     args = ap.parse_args(argv)
     if args.cmd == "prepare":
         print(json.dumps(prepare(Path(args.results)), indent=1))

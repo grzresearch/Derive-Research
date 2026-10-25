@@ -52,7 +52,7 @@ HATCH_GREY = "#999999"
 MANAGER = {"pm2": ("#0072B2", "-", "PM2"), "pm": ("#009E73", ":", "legacy PM"), "sm": ("#D55E00", "--", "SM")}
 FOOTER = "Derive, chain 957 · replica of the deployed margin contracts · pre-registration c9e9162"
 RESULTS = Path("results/p2")
-OUT = Path("paper2/social")
+OUT = Path("papers/paper2/social")
 MINUS = "−"
 RC = {
     "font.size": 16.0, "axes.titlesize": 16.0, "axes.labelsize": 15.0, "xtick.labelsize": 14.0,

@@ -15,7 +15,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import p1_wordcount as wc  # noqa: E402
 
-PAPER = Path("paper")
+PAPER = Path("papers/paper1")
 MUST_CONTAIN = ["Competing interest", "Data, code and pre-registration", "References", "Conclusion", "G13"]
 
 
@@ -42,8 +42,9 @@ def main() -> int:
     print("missing parts   {}".format(", ".join(missing) if missing else "none"))
     print("over budget     {}".format(", ".join(r["section"] for r in over) if over else "none"))
     # every number of the text against its declared source (scripts/p2_number_check.py --paper 1)
-    check = subprocess.run([sys.executable, str(PAPER.parent / "scripts" / "p2_number_check.py"), "--paper", "1",
-                            "--no-report"], cwd=PAPER.parent, capture_output=True, text=True)
+    here = Path(__file__).resolve().parent
+    check = subprocess.run([sys.executable, str(here / "p2_number_check.py"), "--paper", "1",
+                            "--no-report"], cwd=here.parent, capture_output=True, text=True)
     number_errors = next((ln.split()[-1] for ln in check.stdout.splitlines() if ln.startswith("errors")), "?")
     print("number errors   {}".format(number_errors))
     if missing:

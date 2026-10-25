@@ -1,4 +1,4 @@
-"""Print width of the Paper 2 figures: the canvas is the width at which ``paper2/main.tex`` sets it.
+"""Print width of the Paper 2 figures: the canvas is the width at which ``papers/paper2/main.tex`` sets it.
 
 cas-dc sets ``figure*`` at the text width, 494.50888 pt, and ``figure`` at the column width, 238.25444 pt (TeX points,
 72.27 to the inch): 6.8425 and 3.2967 in. The slots are laid out on canvases of 7.0 and 3.4 in (FIGURE_SELECTION 6.1);

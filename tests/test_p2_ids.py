@@ -183,7 +183,7 @@ def test_cli_salt_and_label(tmp_path, monkeypatch, capsys):
 # --------------------------------------------------------------------------------------------
 
 TEXT_SUFFIXES = {".json", ".jsonl", ".csv", ".md", ".txt", ".tex", ".bib", ".tsv", ".py"}
-GUARDED_ROOTS = ("results", "docs/paper2", "paper2", "tests")
+GUARDED_ROOTS = ("results", "docs/paper2", "papers/paper2", "tests")
 
 
 def _guarded_files(roots=GUARDED_ROOTS):

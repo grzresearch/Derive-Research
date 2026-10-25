@@ -69,7 +69,7 @@ must agree with the direction as well: a negative change cannot rise.  In "falls
 rank 76 to 4" the printed numbers must move as the word says (a smaller rank is a rise).  So a changed verb fails
 although every number still matches.
 
-    python3 scripts/p2_number_check.py [--tex paper2/main.tex] [--results results/p2]
+    python3 scripts/p2_number_check.py [--tex papers/paper2/main.tex] [--results results/p2]
                                        [--report docs/paper2/NUMBER_CHECK.md] [--no-report] [--template]
 
 ``--template`` prints, unit by unit, every number in the order of the text with its present binding and, where it
@@ -91,7 +91,7 @@ from pathlib import Path
 from typing import Callable, Dict, List, Optional, Sequence, Set, Tuple
 
 REPO = Path(__file__).resolve().parents[1]
-TEX = Path("paper2/main.tex")
+TEX = Path("papers/paper2/main.tex")
 RESULTS = Path("results/p2")
 REPORT = Path("docs/paper2/NUMBER_CHECK.md")
 PREREG = "docs/paper2/PRAEREGISTRIERUNG.md"
@@ -1181,7 +1181,7 @@ def render(verdicts: Sequence[Verdict], tex_path: str, results_path: str,
     return "\n".join(lines) + "\n"
 
 
-PAPER_DEFAULTS = {1: ("paper/main.tex", "results/p1", "docs/paper1/NUMBER_CHECK.md"),
+PAPER_DEFAULTS = {1: ("papers/paper1/main.tex", "results/p1", "docs/paper1/NUMBER_CHECK.md"),
                   2: (str(TEX), str(RESULTS), str(REPORT))}
 
 
@@ -1194,7 +1194,7 @@ def use_paper(paper: int) -> None:
 def main(argv: Optional[List[str]] = None) -> int:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--paper", type=int, choices=(1, 2), default=2,
-                    help="1: paper/main.tex against results/p1 with the constants of the Paper 1 pre-registration")
+                    help="1: papers/paper1/main.tex against results/p1 with the constants of the Paper 1 pre-registration")
     ap.add_argument("--tex", default=None)
     ap.add_argument("--results", default=None)
     ap.add_argument("--report", default=None)

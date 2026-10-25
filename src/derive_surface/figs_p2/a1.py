@@ -21,7 +21,7 @@ go. The spot feed has no such limit in the validation; the sentence counts the f
 the heartbeat of the spot feed (``p2feeds.HEARTBEAT["spot"]``), which stay in the sample as registered. Its numbers
 are bound in ``main.tex`` to ``fig_a1_meta.csv`` (``spot_stale_fills``, ``spot_limit_s``).
 
-Command line: ``python3 -m derive_surface.figs_p2.a1`` (writes ``paper2/figures/a1.{pdf,png}`` and
+Command line: ``python3 -m derive_surface.figs_p2.a1`` (writes ``papers/paper2/figures/a1.{pdf,png}`` and
 ``results/p2/fig_a1_{a,b,meta}.csv``, prints the checks).
 """
 from __future__ import annotations
@@ -387,7 +387,7 @@ def _panel_b(fig, data: dict) -> None:
 
 # ---------------------------------------------------------------------------------------------------- build
 
-def build(out_dir: Path = Path("paper2/figures"), results_dir: Path = Path("results/p2"),
+def build(out_dir: Path = Path("papers/paper2/figures"), results_dir: Path = Path("results/p2"),
           capital_path: Optional[Path] = CAPITAL) -> List[Path]:
     """Write ``fig_a1_{a,b,meta}.csv`` to ``results_dir`` and ``a1.pdf``/``a1.png`` (400 dpi) to ``out_dir``."""
     data = load(results_dir, capital_path=capital_path)

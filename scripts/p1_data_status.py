@@ -15,7 +15,7 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
 from derive_surface.chainfeeds import VOL_FEEDS, load_feed, svi_vol  # noqa: E402
 from derive_surface.classify import load_vault_wallets  # noqa: E402

@@ -470,7 +470,7 @@ def figure(results_dir: Path = Path("results/p2"), panel_path: Path = PANEL):
     return fig
 
 
-def build(out_dir: Path = Path("paper2/figures"), results_dir: Path = Path("results/p2"),
+def build(out_dir: Path = Path("papers/paper2/figures"), results_dir: Path = Path("results/p2"),
           panel_path: Path = PANEL) -> List[Path]:
     """Write ``fig_f6_{a,b,c,d,head}.csv`` to ``results_dir`` and ``f6.pdf``/``f6.png`` to ``out_dir``."""
     rd = Path(results_dir)

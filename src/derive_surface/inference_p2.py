@@ -68,7 +68,7 @@ from .p2types import YEAR
 
 log = logging.getLogger(__name__)
 
-REPO = Path(__file__).resolve().parents[1]
+REPO = Path(__file__).resolve().parents[2]
 B = 9_999
 SEED = 20260924
 LEVEL = 0.90

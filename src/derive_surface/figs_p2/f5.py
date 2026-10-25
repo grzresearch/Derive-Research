@@ -470,7 +470,7 @@ def figure(results_dir: Path = Path("results/p2")):
     return fig
 
 
-def build(out_dir: Path = Path("paper2/figures"), results_dir: Path = Path("results/p2")) -> List[Path]:
+def build(out_dir: Path = Path("papers/paper2/figures"), results_dir: Path = Path("results/p2")) -> List[Path]:
     """Write ``fig_f5_{a,b,c}.csv`` to ``results_dir`` and ``f5.pdf``/``f5.png`` to ``out_dir``."""
     rd = Path(results_dir)
     paths = [kit.write_csv(table_a(rd), rd, "fig_f5_a.csv"), kit.write_csv(table_b(rd), rd, "fig_f5_b.csv"),

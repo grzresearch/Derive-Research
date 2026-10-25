@@ -38,7 +38,7 @@ from .p2chain import ANCHOR_TS, BLOCK_SECONDS
 from .p2params import Timeline
 from .p2types import YEAR
 
-REPO = Path(__file__).resolve().parents[1]
+REPO = Path(__file__).resolve().parents[2]
 DERIVED_DIR = REPO / "data" / "p2" / "derived"
 DOSE_DIR = DERIVED_DIR / "h4_doses"                 # one file per event (resumable)
 PANEL_PATH = DERIVED_DIR / "h4_panel.parquet"

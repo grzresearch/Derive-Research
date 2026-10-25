@@ -50,8 +50,8 @@ OVERRIDES_GLOB = "*_pm2_overrides_raw.json"
 MOVED_FIXTURES = tuple(f"tests/fixtures/p2/{name}" for name in (
     "pm_chain_accounts.json", "sm_chain_accounts.json", "books_chain_snapshot.json", "books_events_day.json",
     "b1_chain_cases.json", "gen_b1_fixture.py"))
-SCRUB_ROOTS = ("results/p2/", "docs/paper2/", "paper2/", "tests/")
-LABEL_ROOTS = ("results/p2/", "docs/paper2/", "paper2/")  # raw ids become labels here, placeholders in tests/
+SCRUB_ROOTS = ("results/p2/", "docs/paper2/", "paper2/", "papers/paper2/", "tests/")
+LABEL_ROOTS = ("results/p2/", "docs/paper2/", "paper2/", "papers/paper2/")  # raw ids become labels here, placeholders in tests/
 TEXT_SUFFIXES = (".json", ".jsonl", ".csv", ".md", ".txt", ".tex", ".bib", ".tsv", ".py")
 SYNTHETIC_TOP = [104, 101, 110, 107, 102, 109, 103, 108, 105, 106]  # as in tests/test_p2_ids.py
 PLACEHOLDER_ID = 4242
@@ -135,7 +135,7 @@ class Scrubber:
 
     def label(self, i: int) -> str:
         if self._labeler is None:
-            sys.path.insert(0, str(REPO))
+            sys.path.insert(0, str(REPO / "src"))
             from derive_surface.p2ids import Labeler  # lazy: pandas is imported only when a label is needed
             if self.salt is None:
                 raise FileNotFoundError("salt needed to label an account")
