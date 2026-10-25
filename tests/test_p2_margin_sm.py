@@ -469,7 +469,7 @@ def test_legs_of_one_instrument_are_netted_like_subaccounts(is_initial):
         margin_sm.net_margin(Book(cash=50.0), st, params, is_initial, vols=vols)
 
 
-def test_reviewer_example_btc_call_is_not_doubled():
+def test_btc_call_netting_is_not_doubled():
     """Legs +1 and -2 on BTC 90000 C (net -1) must give the margin of the single leg -1, not twice it."""
     params = json.loads((FIX / "a4_params_today.json").read_text())["sm"]["BTC"]
     e = 30 * 86400

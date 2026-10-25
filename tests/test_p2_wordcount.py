@@ -56,7 +56,7 @@ def test_tolerance_stretches_sections_but_not_the_hard_abstract():
     assert rows["Introduction"]["over"]
 
 
-def test_default_budget_is_that_of_the_manuscript_plan():
+def test_default_word_budget():
     assert wc.BUDGET["Introduction"] == 600 and wc.BUDGET["Results"] == 1400
     assert wc.BUDGET["Discussion"] == 400 and wc.BUDGET["Conclusion"] == 200 and wc.BUDGET["abstract"] == 200
     assert wc.TOLERANCE == 0.10 and "abstract" in wc.HARD

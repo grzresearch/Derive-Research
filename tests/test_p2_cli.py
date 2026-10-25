@@ -31,7 +31,7 @@ def test_p2_is_routed_and_help_lists_every_command(capsys):
         assert cmd in out
 
 
-def test_commands_map_to_the_modules_of_the_plan():
+def test_commands_map_to_their_modules():
     assert {c: s.module for c, s in p2cli.COMMANDS.items()} == {
         "feeds": "p2feeds", "params": "p2params", "validate": "p2validate", "capital": "capital", "books": "books",
         "events": "p2events", "infer": "inference_p2", "infer-h4": "inference_p2_h4", "numbers": "p2_numbers",
