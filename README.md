@@ -1,80 +1,40 @@
-# Derive Option Surface
+# Derive Research
 
-Implied-volatility surfaces for **BTC, ETH and HYPE** built from the option orderbook of [Derive](https://derive.xyz),
-drawn as a 3D coordinate system *(delta, tenor, implied vol)* that moves as the underlying moves — plus the question
-behind it: **which greeks actually describe that motion?**
+Implied-volatility surfaces for **BTC, ETH and HYPE** built from the public option order book of the
+[Derive](https://derive.xyz) exchange, and two pre-registered working papers that use the same data: who trades
+against the option maker, and what the maker's edge costs in capital. Code, data, manuscripts, binding
+pre-registrations and every number in the papers are in this repository.
 
-Three views, each as a GIF (MP4 next to it in `docs/media/`):
+| | |
+|---|---|
+| **Paper 1** | *Who trades against the maker? Adverse selection with counterparty identity on an on-chain options order book* · [SSRN 7496818](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7496818) |
+| **Paper 2** | *What does the edge cost? Capital-adjusted market making under a public portfolio-margin engine* · working paper |
+| **Data** | Public Derive JSON-RPC/WebSocket API and Derive Chain; no wallet, no key |
+| **Stack** | Python ≥ 3.10 · NumPy · SciPy · pandas · pyarrow · Matplotlib · pytest · LaTeX (tectonic) for the manuscripts |
 
-| | What the animation shows | Data |
-|---|---|---|
-| **Live** | Orderbook mids and surface in real time, recorded over 1.9 h (07:33–09:30 UTC, 2026-09-03) | Top of book of **every** live option every 20 s (`get_tickers`) |
-| **Tape** | How the surface travelled over the last 60 days (BTC +23 %, ETH +37 % in August) | Every fill of the trade tape (= a crossed quote) + the spot feed |
-| **Shock** | The mechanics in isolation: forward ±6 %, smile shape frozen, ladder re-priced with Black-76 | The last live snapshot |
+## Contents
 
-Two pre-registered working papers use the same data: one asks who trades against the option maker, the other what
-the maker's edge costs in capital. Abstracts, PDFs and pre-registrations are in [Papers](#papers-built-on-these-data)
-below the animations.
+1. [Papers](#papers)
+2. [The option surface](#the-option-surface)
+3. [Quick start](#quick-start)
+4. [Repository layout](#repository-layout)
+5. [Data](#data)
+6. [Method](#method)
+7. [Limitations](#limitations)
+8. [Citation](#citation)
+9. [Use of AI tools](#use-of-ai-tools)
 
----
+## Papers
 
-## 1 · Live: orderbook mid → surface
-
-Top left the Derive index, bottom left the option orderbook of the front weekly (mid per strike, band = bid/ask),
-right the surface fitted to **all** options at that moment. The grey dots on the surface are the fixed-strike mids it
-was fitted to: on a delta axis they **slide** when spot moves, while the surface itself only shows what changes
-*relative to spot*. That separation is the regime information (section 6). In these two hours spot moved by only
-0.6 % (BTC 77,570–78,045, ETH 2,395–2,412, HYPE 81.8–82.4), so the motion is subtle; the big moves are in section 2.
-
-![BTC live](docs/media/BTC_live.gif)
-
-![ETH live](docs/media/ETH_live.gif)
-
-![HYPE live](docs/media/HYPE_live.gif)
-
-## 2 · Tape: 60 days of surface history from the trade tape
-
-Derive keeps **no** historical orderbook snapshots (section 4). But every fill is a point where the orderbook
-demonstrably *was*. From the complete trade tape (590,378 fills since January 2024) the surface is reconstructed every
-12 h: Black-76 inversion of every fill, time- and size-weighted SVI fit over a 24-hour window. Bottom left: the fills
-behind the front smile.
-
-![BTC tape](docs/media/BTC_tape.gif)
-
-![ETH tape](docs/media/ETH_tape.gif)
-
-![HYPE tape](docs/media/HYPE_tape.gif)
-
-## 3 · Shock: what happens to ladder and surface when *only* spot moves
-
-The forward sweeps ±6 %, the smile shape in moneyness stays put (regime *sticky-delta*), and every two-sided option in
-the ladder is re-priced with Black-76. The surface is drawn in **strike coordinates** here so that you can see it
-*slide* (in delta coordinates it would be motionless under sticky-delta by construction); nothing is drawn outside the
-quoted strikes. The colour is **Δ_MV − Δ_BS = vega · ∂σ/∂S**, the amount by which a Black-Scholes delta hedge is wrong
-because of the skew (section 6): blue where the skew lowers the delta, red where it raises it.
-
-![BTC shock](docs/media/BTC_shock_sticky_delta.gif)
-
-![ETH shock](docs/media/ETH_shock_sticky_delta.gif)
-
-![HYPE shock](docs/media/HYPE_shock_sticky_delta.gif)
-
-`--regime sticky_strike` renders the counterpart (vol per strike frozen, smile slides in moneyness).
-
----
-
-## Papers built on these data
-
-Two working papers use the trade tape behind these surfaces. Both were pre-registered in this repository before their
-main numbers existed. The binding pre-registrations (in German, with English translations), the manuscripts, the code
-and tests, and every number in the papers are in the repository. The numbers use the registered sample to
+Both papers were pre-registered in this repository before their main numbers existed. The binding
+pre-registrations are in German, with English translations; the numbers use the registered sample to
 30 September 2026.
 
-### Paper 1 · Who trades against the maker? Adverse selection with counterparty identity on an on-chain options order book
+### Paper 1 · Who trades against the maker?
 
-Working paper, revised 6 October 2026 ·
-[SSRN 7496818](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7496818) (doi:10.2139/ssrn.7496818) ·
-PDF in this repository: [`papers/paper1/Derive Orderbook Adverse Selection.pdf`](papers/paper1/Derive%20Orderbook%20Adverse%20Selection.pdf)
+*Adverse selection with counterparty identity on an on-chain options order book.* Working paper, revised
+6 October 2026 · [SSRN 7496818](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7496818)
+(doi:10.2139/ssrn.7496818) · [PDF](papers/paper1/Derive%20Orderbook%20Adverse%20Selection.pdf)
 
 ![Where an options maker's edge goes](papers/paper1/social/s1_decomposition.png)
 
@@ -88,14 +48,17 @@ PDF in this repository: [`papers/paper1/Derive Orderbook Adverse Selection.pdf`]
 > move of the underlying, which hedging removes. Four hypotheses were registered before any markout was computed; three
 > are rejected.
 
-Pre-registration: [`docs/paper1/PRAEREGISTRIERUNG.md`](docs/paper1/PRAEREGISTRIERUNG.md) (binding) ·
-[English translation](docs/paper1/PREREGISTRATION.md) · manuscript: [`papers/paper1/main.tex`](papers/paper1/main.tex) · code:
-`src/derive_surface/` (`fulltape`, `classify`, `markpath`, `markouts`, `inference_p1`, `figures_p1`) and `scripts/p1_*`.
+| | |
+|---|---|
+| Pre-registration | [`docs/paper1/PRAEREGISTRIERUNG.md`](docs/paper1/PRAEREGISTRIERUNG.md) (binding) · [English translation](docs/paper1/PREREGISTRATION.md) |
+| Manuscript | [`papers/paper1/main.tex`](papers/paper1/main.tex) |
+| Code | `src/derive_surface/`: `fulltape`, `classify`, `markpath`, `markouts`, `inference_p1`, `figures_p1`; `scripts/p1_*` |
+| Results | [`results/p1/`](results/p1) |
 
-### Paper 2 · What does the edge cost? Capital-adjusted market making under a public portfolio-margin engine
+### Paper 2 · What does the edge cost?
 
-Working paper, 6 October 2026 ·
-PDF in this repository: [`papers/paper2/Derive Capital-Adjusted Market Making.pdf`](papers/paper2/Derive%20Capital-Adjusted%20Market%20Making.pdf)
+*Capital-adjusted market making under a public portfolio-margin engine.* Working paper, 6 October 2026 ·
+[PDF](papers/paper2/Derive%20Capital-Adjusted%20Market%20Making.pdf)
 
 ![BTC: capital of one short contract under PM2 over the surface, weekly from June 2025](docs/media/p2_btc_capital_surface.gif)
 
@@ -115,15 +78,130 @@ the parameter changes that moved it.*
 > large for a standard-margin subaccount. Contrary to H4, cheaper capital did not detectably narrow the half spread; the
 > test has little power. The sample ends on 30 September 2026.
 
-Pre-registration: [`docs/paper2/PRAEREGISTRIERUNG.md`](docs/paper2/PRAEREGISTRIERUNG.md) (binding, Addenda 1 to 7) ·
-[English translation](docs/paper2/PREREGISTRATION.md) ·
-manuscript: [`papers/paper2/main.tex`](papers/paper2/main.tex) · code: margin replicas `src/derive_surface/margin_sm.py`, `margin_pm.py`,
-`margin_pm2.py`, capital and books `capital.py`, `books.py`, inference `inference_p2.py`, `inference_p2_h4.py`,
-figures `src/derive_surface/figs_p2/`, scripts `scripts/p2_*`.
+| | |
+|---|---|
+| Pre-registration | [`docs/paper2/PRAEREGISTRIERUNG.md`](docs/paper2/PRAEREGISTRIERUNG.md) (binding, with dated addenda) · [English translation](docs/paper2/PREREGISTRATION.md) |
+| Manuscript | [`papers/paper2/main.tex`](papers/paper2/main.tex) |
+| Code | `src/derive_surface/`: margin replicas `margin_sm`, `margin_pm`, `margin_pm2`; `capital`, `books`; inference `inference_p2`, `inference_p2_h4`; figures `figs_p2/`; `scripts/p2_*` |
+| Results | [`results/p2/`](results/p2) |
+| Records | [audit](docs/paper2/AUDIT.md) · [validation of the replica](docs/paper2/VALIDATION.md) · [semantics of `get_margin`](docs/paper2/get_margin_semantics.md) · [literature check](docs/paper2/LITERATURE.md) · [history rewrites](docs/paper2/HISTORY_REWRITE.md) |
 
----
+## The option surface
 
-## 4 · What data Derive actually has
+The surface is drawn as a 3D coordinate system *(delta, tenor, implied vol)* that moves as the underlying moves, together
+with the question behind it: **which greeks actually describe that motion?** Three views, each as a GIF (MP4 next to it
+in `docs/media/`):
+
+| | What the animation shows | Data |
+|---|---|---|
+| **Live** | Orderbook mids and surface in real time, recorded over 1.9 h (07:33–09:30 UTC, 2026-09-03) | Top of book of **every** live option every 20 s (`get_tickers`) |
+| **Tape** | How the surface travelled over the last 60 days (BTC +23 %, ETH +37 % in August) | Every fill of the trade tape (= a crossed quote) + the spot feed |
+| **Shock** | The mechanics in isolation: forward ±6 %, smile shape frozen, ladder re-priced with Black-76 | The last live snapshot |
+
+### Live: orderbook mid → surface
+
+Top left the Derive index, bottom left the option orderbook of the front weekly (mid per strike, band = bid/ask),
+right the surface fitted to **all** options at that moment. The grey dots on the surface are the fixed-strike mids it
+was fitted to: on a delta axis they **slide** when spot moves, while the surface itself only shows what changes
+*relative to spot*. That separation is the regime information (see [Which greeks?](#which-greeks-first-second-or-third-order)). In these two hours spot moved by only
+0.6 % (BTC 77,570–78,045, ETH 2,395–2,412, HYPE 81.8–82.4), so the motion is subtle; the big moves are in the tape view below.
+
+![BTC live](docs/media/BTC_live.gif)
+
+![ETH live](docs/media/ETH_live.gif)
+
+![HYPE live](docs/media/HYPE_live.gif)
+
+### Tape: 60 days of surface history from the trade tape
+
+Derive keeps **no** historical orderbook snapshots (see [Data](#data)). But every fill is a point where the orderbook
+demonstrably *was*. From the complete trade tape (590,378 fills since January 2024) the surface is reconstructed every
+12 h: Black-76 inversion of every fill, time- and size-weighted SVI fit over a 24-hour window. Bottom left: the fills
+behind the front smile.
+
+![BTC tape](docs/media/BTC_tape.gif)
+
+![ETH tape](docs/media/ETH_tape.gif)
+
+![HYPE tape](docs/media/HYPE_tape.gif)
+
+### Shock: what happens to ladder and surface when *only* spot moves
+
+The forward sweeps ±6 %, the smile shape in moneyness stays put (regime *sticky-delta*), and every two-sided option in
+the ladder is re-priced with Black-76. The surface is drawn in **strike coordinates** here so that you can see it
+*slide* (in delta coordinates it would be motionless under sticky-delta by construction); nothing is drawn outside the
+quoted strikes. The colour is **Δ_MV − Δ_BS = vega · ∂σ/∂S**, the amount by which a Black-Scholes delta hedge is wrong
+because of the skew (see [Which greeks?](#which-greeks-first-second-or-third-order)): blue where the skew lowers the delta, red where it raises it.
+
+![BTC shock](docs/media/BTC_shock_sticky_delta.gif)
+
+![ETH shock](docs/media/ETH_shock_sticky_delta.gif)
+
+![HYPE shock](docs/media/HYPE_shock_sticky_delta.gif)
+
+`--regime sticky_strike` renders the counterpart (vol per strike frozen, smile slides in moneyness).
+
+## Quick start
+
+```bash
+git clone https://github.com/grzresearch/Derive-Research.git
+cd Derive-Research
+python -m venv .venv && source .venv/bin/activate
+pip install -e ".[test]"                              # the package from src/, plus pytest
+
+pytest -q                                             # put-call parity, IV round trip, greeks vs. finite differences, SVI recovery, both papers
+```
+
+Rebuild the data and the animations (public API only):
+
+```bash
+python -m derive_surface download BTC ETH HYPE        # complete trade tape + spot history  (~10 min)
+python -m derive_surface record tickers --duration 7200 &   # top of book every 20 s
+python -m derive_surface record depth   --duration 7200 &   # price levels near the money
+python -m derive_surface depth-snapshot               # all resting orders of all options, now
+python -m derive_surface merge
+
+python -m derive_surface animate live  BTC                       # docs/media/BTC_live.gif + .mp4
+python -m derive_surface animate live  BTC --color-by skew --suffix _skew
+python -m derive_surface animate tape  ETH --days 60 --step-hours 12
+python -m derive_surface animate shock HYPE --regime sticky_strike --color-by gamma
+scripts/render_media.sh                               # every animation in docs/media
+python scripts/readme_numbers.py                      # the figures quoted in this README, from the data on disk
+```
+
+The papers have their own command groups (`python -m derive_surface p1 --help`, `python -m derive_surface p2 --help`)
+and build scripts (`scripts/p1_build.py`, `scripts/p2_build.py`; they need [tectonic](https://tectonic-typesetting.github.io)
+and `pypdf`). Large intermediate data of the papers live under the git-ignored `data/p1/` and `data/p2/`.
+
+## Repository layout
+
+```
+src/derive_surface/      the Python package
+  api.py                 JSON-RPC/WebSocket client (retry, slim-ticker parser, fractional strikes like 77_5)
+  history.py             trade tape (paginated, atomic, resumable) + spot feed → parquet
+  recorder.py            live recorder: top of book per expiry, WebSocket depth, complete depth snapshot
+  pricing.py             Black-76, IV inversion (bisection), greeks of 1st–3rd order, forward delta
+  surface.py             quotes → SVI smiles → grid (delta / std / log-moneyness / strike), skew, calendar constraint
+  tape.py                surfaces from the trade tape (time- and size-weighted)
+  analysis.py            greek noise measure (bid vs. ask surface), skew-stickiness ratio
+  animate.py, shock.py   frames (index · ladder/smile · 3D surface) → GIF/MP4; spot-shock scenarios
+  fulltape.py, classify.py, markpath.py, markouts.py, inference_p1.py, figures_p1.py     Paper 1
+  margin_*.py, capital.py, books.py, p2*.py, inference_p2*.py, figs_p2/, figures_p2.py   Paper 2
+tests/                   pytest suite (surface, Paper 1, Paper 2) and fixtures
+scripts/                 builds, number and figure checks of the papers; render_media.sh, readme_numbers.py
+papers/paper1/           Paper 1: manuscript, figures, social cards, PDF
+papers/paper2/           Paper 2: manuscript, figures, social cards, PDF
+docs/                    API notes and media; paper1/ and paper2/: pre-registrations and the records they cite
+results/                 p1/, p2/: every number of the two papers (JSON, CSV)
+data/                    trade tape, spot, live recording, depth snapshot (parquet; schema in data/README.md)
+pyproject.toml           package metadata, dependencies, pytest configuration
+requirements.txt         the same runtime dependencies for `pip install -r` (pyproject.toml is the reference)
+```
+
+The dated records under `docs/` cite files as they were when the records were written, before the layout above:
+`paper/` is now `papers/paper1/`, `paper2/` is `papers/paper2/` and `derive_surface/` is `src/derive_surface/`.
+
+## Data
 
 Everything comes from the public JSON-RPC/WebSocket API (`api.lyra.finance`, no wallet needed). Endpoints,
 parameters and retention were verified live and are documented in [`docs/derive_api_notes.md`](docs/derive_api_notes.md);
@@ -142,7 +220,9 @@ the data schema is in [`data/README.md`](data/README.md).
 Every fill carries `trade_price`, `mark_price` and `index_price` at fill time; maker and taker rows are de-duplicated
 to the taker row (`direction` = aggressor side; `liquidity_role` marks the few fills without a taker row).
 
-## 5 · The surface: why (delta, tenor, implied vol)
+## Method
+
+### The surface: why (delta, tenor, implied vol)
 
 The three coordinates are the two that identify an option and the one number the whole orderbook prices it with:
 
@@ -171,7 +251,7 @@ Pipeline per timestamp (`src/derive_surface/surface.py`):
 6. Between expiries linear in total variance with a **calendar constraint** (total variance may not decrease in T; the
    share of lifted nodes is logged). On the delta axis via a strike ↔ delta fixed point.
 
-## 6 · Which greeks? First, second or third order?
+### Which greeks? First, second or third order?
 
 **Short answer:** no order of Black-Scholes greeks describes how the surface moves with the underlying. Delta belongs
 on the **axis**, not on the surface. On a delta–tenor surface, gamma, vanna, volga (and all the more speed, zomma,
@@ -240,52 +320,7 @@ short-dated ETH, mean vol rising *with* spot ("vol up on up", the crypto signatu
 textbook regimes captures. That is why the shock GIF shows both extremes as mechanics and the live animation carries
 the fixed-strike mids as tracers: their motion *relative to the surface* is the regime.
 
-## 7 · Reproduce
-
-```bash
-pip install -e ".[test]"
-python -m pytest -q                                   # put-call parity, IV round trip, every greek vs. finite differences, SVI recovery, calendar check
-
-python -m derive_surface download BTC ETH HYPE        # complete trade tape + spot history  (~10 min)
-python -m derive_surface record tickers --duration 7200 &   # top of book every 20 s
-python -m derive_surface record depth   --duration 7200 &   # price levels near the money
-python -m derive_surface depth-snapshot               # all resting orders of all options, now
-python -m derive_surface merge
-
-python -m derive_surface animate live  BTC                       # docs/media/BTC_live.gif + .mp4
-python -m derive_surface animate live  BTC --color-by skew --suffix _skew
-python -m derive_surface animate tape  ETH --days 60 --step-hours 12
-python -m derive_surface animate shock HYPE --regime sticky_strike --color-by gamma
-python scripts/readme_numbers.py                      # the figures quoted in this README, from the data on disk
-```
-
-Every call needs only the public API: no wallet, no key.
-
-## 8 · Repository
-
-```
-src/derive_surface/
-  api.py        JSON-RPC/WebSocket client (retry, slim-ticker parser, instrument names incl. fractional strikes like 77_5)
-  history.py    trade tape (paginated, atomic, resumable) + spot feed → parquet
-  recorder.py   live recorder: top of book per expiry, WebSocket depth with reconnect, complete depth snapshot
-  pricing.py    Black-76, IV inversion (bisection), greeks of 1st–3rd order, forward delta
-  surface.py    quotes → SVI smiles → grid (delta / std / log-moneyness / strike), skew, calendar constraint, greeks per node
-  tape.py       surfaces from the trade tape (time- and size-weighted)
-  analysis.py   greek noise measure (bid vs. ask surface), skew-stickiness ratio
-  animate.py    frames (index · ladder/smile · 3D surface with quote tracers) → GIF/MP4
-  shock.py      spot-shock scenario (sticky-delta / sticky-strike)
-  fulltape.py, classify.py, markpath.py, markouts.py, inference_p1.py, figures_p1.py        Paper 1
-  margin_*.py, capital.py, books.py, p2*.py, inference_p2*.py, figs_p2/, figures_p2.py      Paper 2
-papers/paper1/  Paper 1: manuscript, figures, cards, PDF
-papers/paper2/  Paper 2: manuscript, figures, cards, PDF
-results/        p1/, p2/: every number of the two papers (JSON, CSV)
-tests/          1095 tests (surface, Paper 1, Paper 2)
-data/           trade tape, spot, live recording, depth snapshot (parquet; schema in data/README.md)
-docs/           API notes, media; paper1/ and paper2/: pre-registrations and the records they cite
-scripts/        render_media.sh, readme_numbers.py; p1_* and p2_*: builds, number and figure checks
-```
-
-## 9 · Limitations
+## Limitations
 
 * Historical orderbook states do not exist at Derive; the tape is the densest public trace. For HYPE it is thin on
   quiet days: the fit then falls back to quadratic/flat, or the expiry is skipped.
@@ -296,6 +331,18 @@ scripts/        render_media.sh, readme_numbers.py; p1_* and p2_*: builds, numbe
   parameterisation and temporal smoothing of the parameters would further reduce frame-to-frame jitter.
 * With an 8-vol-point spread (HYPE) the mid is a convention, not a measurement; the bid/ask surfaces
   (`analysis.surface_from_side`) give the band.
+
+## Citation
+
+```bibtex
+@unpublished{albiez2026,
+  author = {Albiez, Gregor},
+  title  = {Who trades against the maker? {A}dverse selection with counterparty identity on an on-chain options order book},
+  note   = {SSRN working paper 7496818, University of Applied Sciences and Arts Northwestern Switzerland (FHNW), revised 6 October 2026},
+  year   = {2026},
+  doi    = {10.2139/ssrn.7496818}
+}
+```
 
 ## Use of AI tools
 
