@@ -1,7 +1,7 @@
 """Offline tests for scripts/p2_number_check.py on a synthetic results directory with known answers.
 
 The expectations are written by hand from the fixture values below, not computed with the module under test.
-The mutation test and the swap cases (audit A19 to A21 and A33; data/p2/audit/zahlen/swap_check.py) run on a
+The mutation test and the swap cases (audit A19 to A21 and A33) run on a
 manuscript whose sentences are copied from papers/paper2/main.tex and declared in the format of the module docstring;
 the mutants are generated with a regular expression of their own, not with the tokenizer of the module.
 """
@@ -696,7 +696,7 @@ dated addenda of 25 September 2026 follow.
 \end{document}
 """
 
-# the twelve swaps of data/p2/audit/zahlen/swap_check.py, verbatim
+# the twelve swaps of audit A33, verbatim
 SWAPS = [("$-3.42$ for BTC, $-1.90$ for ETH", "$-1.90$ for BTC, $-3.42$ for ETH"),
          ("0.943 in BTC, 0.902 in ETH and 0.875 in HYPE", "0.875 in BTC, 0.943 in ETH and 0.902 in HYPE"),
          ("it is 1.398 and 1.140 for BTC and ETH", "it is 1.382 and 1.355 for BTC and ETH"),

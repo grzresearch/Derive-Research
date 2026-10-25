@@ -1,7 +1,7 @@
-"""Shared helpers of the Paper 2 figures T2 and A1 (FIGURE_SELECTION section 6).
+"""Shared helpers of the Paper 2 figures T2 and A1.
 
 Canvas = print size (no ``bbox tight``, no padding), no text under ``FS_MIN``, manager colours, line styles and
-markers from section 6.2 (read from ``figstyle`` once it carries them), axes placed in inches from the top left corner,
+markers of the manager coding (read from ``figstyle`` once it carries them), axes placed in inches from the top left corner,
 a grey copy for the greyscale test, and the runner for the check lists (``CHECKS``) of the two slots.
 """
 from __future__ import annotations
@@ -120,7 +120,7 @@ def power_ticks(ax, which: str, values: Sequence[float], prefix: Optional[Mappin
                 fontsize: float = FS_MIN) -> List[matplotlib.text.Text]:
     """Tick labels 10^e at ``values`` of the bottom x axis (``which="x"``) or the left y axis (``"y"``), in place of
     the axis's own labels. Base and exponent are two texts of the same size, the exponent raised by ``SUP_RAISE``:
-    mathtext would set the exponent at 70 per cent, under ``FS_MIN`` (section 6.1). ``prefix`` puts text before the
+    mathtext would set the exponent at 70 per cent, under ``FS_MIN``. ``prefix`` puts text before the
     base of single values (such as "≤" at the edge of the axis). The axis label keeps its distance from these texts
     (the axis places it by its own labels, which are off). Returns the texts, base and exponent in turn."""
     from matplotlib.transforms import ScaledTranslation

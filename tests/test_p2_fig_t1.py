@@ -25,7 +25,7 @@ DAY = 86_400
 # ---------------------------------------------------------------------------------------------- synthetic inputs
 
 def pm2_params(width: float = 0.14) -> dict:
-    """PM2 parameters in the A2 schema with a core grid of +-width, dampened tails and two skew scenarios."""
+    """PM2 parameters in the p2params schema with a core grid of +-width, dampened tails and two skew scenarios."""
     step = width / 4.0
     core = []
     for s in np.round(1.0 + step * np.arange(4, -5, -1), 6):
@@ -332,8 +332,8 @@ def test_expiry_ticks_sit_outside_the_rule_panels(results_dir):
 
 
 def test_panel_letters_are_bold_and_titles_regular(results_dir):
-    """F15: as in T2 and A1 (FIGURE_SELECTION 6.1, panel letters 8 pt bold), the letter is bold and the title next to
-    it has regular weight; the z label of the surfaces reads from bottom to top like every other rotated label (F13)."""
+    """As in T2 and A1 (panel letters 8 pt bold), the letter is bold and the title next to
+    it has regular weight; the z label of the surfaces reads from bottom to top like every other rotated label."""
     data = t1.load(results_dir)
     fig = t1.draw(data, t1.tables(data))
     try:
@@ -360,7 +360,7 @@ def test_panel_letters_are_bold_and_titles_regular(results_dir):
 
 
 def test_delta_grid_lines_are_the_bucket_edges_mirrored_for_puts(results_dir):
-    """C1: the lines of c and d at call delta 0.10, 0.25, 0.40 are the call edges 10, 25, 40 per cent and those at
+    """The lines of c and d at call delta 0.10, 0.25, 0.40 are the call edges 10, 25, 40 per cent and those at
     0.60, 0.75, 0.90 the put edges 40, 25, 10 per cent; the table records which is which for the caption."""
     assert t1.DELTA_LINES == pytest.approx((0.10, 0.25, 0.40, 0.60, 0.75, 0.90))
     meta = t1.tables(t1.load(results_dir))["meta"]

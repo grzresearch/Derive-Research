@@ -3,7 +3,7 @@
 
 * Runs the check list (``CHECKS``) of every slot of ``derive_surface.figures_p2``: the value the figure prints, read
   from its ``results/p2/fig_<slot>*.csv``, against the result file it comes from (never against the figure table
-  itself). The column "Build instruction" compares with the number printed in ``docs/paper2/FIGURE_SELECTION.md``
+  itself). The column "Build instruction" compares with the check number recorded in the slot module
   where the slot records one (pilot cut 17 September 2026).
 * Checks the print size of every ``papers/paper2/figures/<slot>.pdf`` and, when they exist, the GIF (at most 8 MB) and the
   social cards (1600 x 900).
@@ -328,7 +328,7 @@ def media_checks(results: Path = RESULTS) -> pd.DataFrame:
                          [lo, hi, extend], [kmin, kmax], arrows_ok,
                          "" if arrows_ok else "values beyond the colour scale without arrows"))
         mp4 = meta.get("mp4")
-        rows.append(_row("gif", "MP4 next to the GIF (section 8)", mp4, str(Path(meta["gif"]).with_suffix(".mp4")),
+        rows.append(_row("gif", "MP4 next to the GIF", mp4, str(Path(meta["gif"]).with_suffix(".mp4")),
                          bool(mp4) and Path(mp4).exists() and Path(mp4) == Path(meta["gif"]).with_suffix(".mp4")))
     for i in (1, 2, 3):
         path = rd / f"fig_s{i}.csv"
@@ -427,7 +427,7 @@ def sheet(checks: pd.DataFrame, shapes: pd.DataFrame, captions: pd.DataFrame, re
         f"Generated {now} with `scripts/p2_figure_check.py` from `{results}`. Every row compares the value that the "
         "figure prints (its table `results/p2/fig_<slot>_*.csv`) with the file in `results/p2` it comes from, never "
         "with itself. Column *Build instruction*: the same number against the check number in "
-        "`docs/paper2/FIGURE_SELECTION.md` (pilot cut 17 September 2026), where the slot has one.", "",
+        "the slot module (pilot cut 17 September 2026), where the slot has one.", "",
         f"**Result:** {n - bad} of {n} checks yes"
         + (f", **{bad} no**" if bad else "") + f"; build instruction {int(instr.sum())} of {len(instr)} yes; "
         f"shape {int(shapes['ok'].sum())} of {len(shapes)} yes; captions "

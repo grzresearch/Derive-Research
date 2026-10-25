@@ -1,4 +1,4 @@
-"""A1 · Does the replica match the chain? (FIGURE_SELECTION.md section 7, A1, appendix), 7.0 x 2.5 in.
+"""A1 · Does the replica match the chain? (appendix), 7.0 x 2.5 in.
 
 Absolute relative deviation of initial-margin capital between the offline replicas and ``eth_call`` on the deployed
 managers, from ``results/p2/validation.csv`` (``status == "ok"``, ``is_initial``; maintenance margin only in the
@@ -77,7 +77,7 @@ def _seconds(v: float) -> str:
 def feed_prefix(fa: dict) -> str:
     """The first part of the feed-age sentence with the vol and forward limits of the validation filled in."""
     return FEED_SENTENCE.format(vol=_seconds(fa["vol_limit_s"]), fwd=_seconds(fa["fwd_limit_s"]))
-# says what is drawn and how to read it (FIGURE_SELECTION 6.8); the off-chain discount is said in Figure 1 and
+# says what is drawn and how to read it; the off-chain discount is said in Figure 1 and
 # Section 2, the feed ages in the text of Appendix A
 CAPTION = (
     r"\textbf{Does the replica match the chain?} Absolute relative deviation of initial-margin capital between each "
@@ -564,7 +564,7 @@ CHECKS: List[dict] = (
 
 
 def run_checks(results_dir: Path = Path("results/p2"), with_expected: bool = True) -> pd.DataFrame:
-    """Every check of :data:`CHECKS` (figure table against source file, and against the build instruction)."""
+    """Every check of :data:`CHECKS` (figure table against source file, and against the recorded check number)."""
     return kit.run_checks(CHECKS, results_dir, with_expected=with_expected)
 
 

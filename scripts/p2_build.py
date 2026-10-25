@@ -156,7 +156,7 @@ def pdf_layout(pdf: Path) -> List[PageLayout]:
 
 
 def layout_problems(pages: Sequence[PageLayout]) -> Tuple[Dict[str, List[str]], List[str]]:
-    """Problems of the float placement (PDF audit L2) and notes on figures one page before their first callout."""
+    """Problems of the float placement and notes on figures one page before their first callout."""
     first: Dict[int, int] = {}
     for no, page in enumerate(pages, 1):
         for n in page.callouts:

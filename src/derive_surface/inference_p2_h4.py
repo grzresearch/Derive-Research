@@ -33,7 +33,7 @@ Stored placebo parts carry a fingerprint of the data, the events, the doses, the
 and the source of the functions that build and fit a placebo panel (audit A32); parts with another fingerprint stop
 the run. ``--fresh`` discards them first, ``--out`` and ``--parts-dir`` reproduce the run outside ``results/p2``.
 
-Descriptive figure tables (FIGURE_SELECTION section 10; no registered number changes): ``fig_h4_fwl_bins.csv``, the
+Descriptive figure tables (no registered number changes): ``fig_h4_fwl_bins.csv``, the
 residualised regressor and outcome in 20 equal-count bins with their histogram and the slope ``beta``, and
 ``h4_placebo_days.csv``, the candidate placebo days of every kept event with the gap rule and the number of draws.
 ``run`` writes both; ``figtables`` rebuilds them from the stored panel and results without the placebo stage::
@@ -492,7 +492,7 @@ def event_figure_table(panel: pd.DataFrame, events: pd.DataFrame) -> pd.DataFram
 
 def fwl_bins(panel: pd.DataFrame, n_bins: int = FWL_BINS, n_hist: int = FWL_HIST_BINS,
              f: Optional[Fit] = None) -> pd.DataFrame:
-    """Descriptive picture of ``beta`` (Frisch-Waugh-Lovell, FIGURE_SELECTION section 10).
+    """Descriptive picture of ``beta`` (Frisch-Waugh-Lovell).
 
     ``post * dose`` and ``y`` after removing both fixed effects, x in log-% (100 times the residualised regressor).
     ``kind = bin``: ``n_bins`` equal-count bins of the rows sorted by residualised x (stable), with the means of x and
@@ -838,7 +838,7 @@ def event_oi_share(events: pd.DataFrame, oi: pd.DataFrame) -> Dict[str, float]:
 
 def review_extras(panel: pd.DataFrame, h4: Mapping, events: pd.DataFrame, oi: Optional[pd.DataFrame] = None,
                   b: int = B, seed: int = SEED) -> dict:
-    """Review round 1, exploratory (docs/paper2/MANUSCRIPT.md); no registered number changes.
+    """Exploratory readings (Appendix B of the paper); no registered number changes.
 
     ``readings``: level of the outcome in the panel (rows and distinct fills) and the change in the half spread that
     ``beta`` and its descriptive interval imply for capital ten per cent cheaper (dose ``ln 0.9``). ``sells_only`` and
@@ -1135,8 +1135,8 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     r.add_argument("--parts-dir", type=Path, default=PARTS_DIR, help="placebo parts (default data/p2/derived/h4_placebo)")
     r.add_argument("--fresh", action="store_true", help="discard the stored placebo parts and recompute them")
     sub.add_parser("figtables", help="rebuild fig_h4_fwl_bins.csv and h4_placebo_days.csv from stored results")
-    x = sub.add_parser("extras", help="review-round readings, side splits and audit entries into "
-                                      "sensitivity_h4.json (review, audit) from stored results")
+    x = sub.add_parser("extras", help="exploratory readings, side splits and audit entries into "
+                                      "sensitivity_h4.json (exploratory, audit) from stored results")
     x.add_argument("--b", type=int, default=B)
     x.add_argument("--seed", type=int, default=SEED)
     a = ap.parse_args(argv)

@@ -1,4 +1,4 @@
-"""Pair maker and taker rows into fills and classify the taker of every fill (paper 1, spec §3).
+"""Pair maker and taker rows into fills and classify the taker of every fill (Paper 1, pre-registration section "Cells and classes").
 
 Class priority (first match wins): liquidation > vault > rfq > dominant maker > MM programme > large > other.
 Every flag is also kept as its own column so that analyses can cross-tabulate.

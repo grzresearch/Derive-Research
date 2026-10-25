@@ -575,7 +575,7 @@ def test_main_run_and_sensitivity_write_all_outputs(tmp_path):
         assert "subaccount" not in (out / name).read_text()
 
 
-# ------------------------------------------------------------------------------------------------ review round 1
+# ------------------------------------------------------------------------------------------------ exploratory readings
 
 def test_regime_bounds_match_the_figures_and_event_second_is_later_regime():
     from derive_surface.figs_p2 import f1

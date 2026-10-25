@@ -183,7 +183,7 @@ def test_caption_is_english_without_dashes():
 
 
 def test_caption_explains_both_hatches_and_the_grey_counts():
-    """Audit C3 and C10: panel a hatches the counterfactual SM range and prints the maker-days per bin in grey; panel
+    """Panel a hatches the counterfactual SM range and prints the maker-days per bin in grey; panel
     b hatches the rejection region of the registered row. The caption names all three."""
     assert "the grey numbers above the axis are the maker-days per bin" in f4.CAPTION
     assert "$K_{\\mathrm{SM}}$ is counterfactual (hatched)" in f4.CAPTION

@@ -33,30 +33,30 @@ RETRACTED = {
 }
 
 
-# Wordings and settings that the audit of the rendered PDF (5 October 2026) replaced (finding in brackets).
+# Wordings and settings replaced after a reading of the rendered PDF (5 October 2026), with the reason.
 WITHDRAWN = {
-    "hypothetical portfolios, not account balances": "R6: the actual books are not hypothetical",
-    "Figures are from a pilot cut": "B3: the numbers are preliminary; give the date of the pilot cut",
-    "its contracts can be called at any past block": "R3: code is 'smart contracts', 'contracts' are options",
-    "Two of the four are rejected": "R1: name the rejected hypotheses",
-    "longnamesfirst": "T12: works of three or more authors cite as et al.",
-    "\\sep JEL:": "B11: the JEL codes go into the template's \\JEL",
-    "the standard library": "R8/T2: a 'library' is a PM2 parameter set, and 'standard' means SM",
-    "Fills against the book's binding scenario": "R18: say that the fill offsets or adds to the worst-scenario loss",
-    "between fill price and the SVI mark": "T1: SVI is written out at its first use",
-    "Pooled, the net edge is 3.38": "R11: the pooled edge per fill is a flow, not a return per unit of time",
-    "the next single contract; Addendum 4 chose": "R17: the H2 estimate comes before the provenance of the measure",
-    "of the straddle by 22.9 per cent": "R9: the simple change stands next to the log change of the same step",
-    "The top of the capital map rests on": "R12: the H1 verdict comes first; the top cells owe their edge to RFQ legs "
+    "hypothetical portfolios, not account balances": "the actual books are not hypothetical",
+    "Figures are from a pilot cut": "the numbers are preliminary; give the date of the pilot cut",
+    "its contracts can be called at any past block": "code is 'smart contracts', 'contracts' are options",
+    "Two of the four are rejected": "name the rejected hypotheses",
+    "longnamesfirst": "works of three or more authors cite as et al.",
+    "\\sep JEL:": "the JEL codes go into the template's \\JEL",
+    "the standard library": "a 'library' is a PM2 parameter set, and 'standard' means SM",
+    "Fills against the book's binding scenario": "say that the fill offsets or adds to the worst-scenario loss",
+    "between fill price and the SVI mark": "SVI is written out at its first use",
+    "Pooled, the net edge is 3.38": "the pooled edge per fill is a flow, not a return per unit of time",
+    "the next single contract; Addendum 4 chose": "the H2 estimate comes before the provenance of the measure",
+    "of the straddle by 22.9 per cent": "the simple change stands next to the log change of the same step",
+    "The top of the capital map rests on": "the H1 verdict comes first; the top cells owe their edge to RFQ legs "
                                            "and the SVI mark (post hoc)",
-    "a narrowing of that size": "R19: give the narrowing the test cannot exclude (39 per cent, Section 4.4)",
-    "Capital is measured on hypothetical portfolios": "R6: capital is measured on positions",
-    "and two are rejected": "R1: name the rejected hypotheses",
-    "public contracts with parameters on chain": "R3: the rules are smart contracts",
-    "Four dated addenda of 25 September 2026 (UTC+2) follow": "B8/R16: six addenda, the first four of 25 September",
-    "its library counts as offsetting risk": "T2/R8: a 'library' is a PM2 parameter set",
-    "the account libraries": "T2/R8: a 'library' is a PM2 parameter set",
-    "The history uses the on-chain semantics": "R5: capital follows the on-chain engine; no 'history', no 'semantics'",
+    "a narrowing of that size": "give the narrowing the test cannot exclude (39 per cent, Section 4.4)",
+    "Capital is measured on hypothetical portfolios": "capital is measured on positions",
+    "and two are rejected": "name the rejected hypotheses",
+    "public contracts with parameters on chain": "the rules are smart contracts",
+    "Four dated addenda of 25 September 2026 (UTC+2) follow": "six addenda, the first four of 25 September",
+    "its library counts as offsetting risk": "a 'library' is a PM2 parameter set",
+    "the account libraries": "a 'library' is a PM2 parameter set",
+    "The history uses the on-chain semantics": "capital follows the on-chain engine; no 'history', no 'semantics'",
 }
 
 # url.sty's default break characters. Each must stay in \UrlBreaks or \UrlOrds: a character in neither list
@@ -94,32 +94,32 @@ def _do_list(pre: str, name: str) -> Optional[str]:
 
 
 def typesetting_problems(tex: str) -> list:
-    """Preamble fixes of the PDF audit of 5 October 2026: no URL, path or DOI breaks after a dot or after the colon
-    of "https:" and no character lost from url.sty's lists (B4, T7, L5, B6), page 1 numbered in the footer font of
-    every page (L6), numbered bookmarks (B10), the JEL codes in the template's \\JEL (B11), no reference that leaves
-    a single line in the next column, and a balanced last page (L1)."""
+    """Preamble fixes after the reading of the PDF of 5 October 2026: no URL, path or DOI breaks after a dot or after the colon
+    of "https:" and no character lost from url.sty's lists, page 1 numbered in the footer font of
+    every page, numbered bookmarks, the JEL codes in the template's \\JEL, no reference that leaves
+    a single line in the next column, and a balanced last page."""
     text = _prose(tex)
     pre = text[:text.find("\\begin{document}")]
     out = []
     breaks, ords = _do_list(pre, "UrlBreaks"), _do_list(pre, "UrlOrds")
     if breaks is None or "." in breaks:
-        out.append("B4: url.sty may break after a dot")
+        out.append("url.sty may break after a dot")
     else:
         lost = [c for c in URL_DEFAULT_BREAKS if c not in breaks and c not in (ords or "")]
         if lost:
-            out.append("B4: characters in neither \\UrlBreaks nor \\UrlOrds: " + "".join(lost))
+            out.append("characters in neither \\UrlBreaks nor \\UrlOrds: " + "".join(lost))
     big = _do_list(pre, "UrlBigBreaks")
     if big is None or ":" in big or ":" not in (ords or ""):
-        out.append("L5: url.sty may break after the colon of https:")
+        out.append("url.sty may break after the colon of https:")
     if "\\cs_set_eq:NN \\__first_foot: \\__cas_foot:" not in pre:
-        out.append("L6: page 1 sets its number outside the footer font")
+        out.append("page 1 sets its number outside the footer font")
     if "bookmarksnumbered=true" not in pre:
-        out.append("B10: bookmarks without section numbers")
+        out.append("bookmarks without section numbers")
     if "\\JEL{" not in text:
-        out.append("B11: JEL codes not in \\JEL")
+        out.append("JEL codes not in \\JEL")
     # natbib's thebibliography sets both penalties to 4000; only a patch at its end restores the class value.
     if not re.search(r"\\apptocmd\{\\thebibliography\}\{\\clubpenalty\\@M\s*\\widowpenalty\\@M\}", pre):
-        out.append("L1: a reference may leave its last line alone in the next column")
+        out.append("a reference may leave its last line alone in the next column")
     if not re.search(r"\\AddToHook\{shipout/after\}\{.*\\lastpage.*\\balance", pre):
         out.append("L1: the columns of the last page are not balanced")
     return out
@@ -226,8 +226,8 @@ def test_typesetting_fixes_of_the_pdf_audit(tex):
 
 def test_typesetting_check_names_a_character_lost_from_the_url_lists():
     pre = "\\def\\UrlBreaks{\\do\\/\\do\\_}\n\\begin{document}\n"
-    lost = [p for p in typesetting_problems(pre) if p.startswith("B4")]
-    assert lost and ")" in lost[0] and "." not in lost[0].split(": ")[1]
+    lost = [p for p in typesetting_problems(pre) if p.startswith("characters in neither")]
+    assert lost and ")" in lost[0] and "." not in lost[0].split(": ")[0]
 
 
 def test_checks_catch_the_version_before_the_audit():

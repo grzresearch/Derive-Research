@@ -420,7 +420,7 @@ def _reproduce_frame(inputs: Dict[str, pd.DataFrame], ours: pd.DataFrame) -> dic
 # ---------------------------------------------------------------------------------------------- assembly
 
 def _p1_manuscript_references() -> Dict[str, float]:
-    """Headline decomposition as printed in paper/main.tex and docs/paper2/HANDOVER.md (two decimals)."""
+    """Headline decomposition as printed in the Paper 1 manuscript of the pilot cut (then paper/main.tex; two decimals)."""
     return {"half spread": 15.70, "adverse selection": -2.65, "maker fee": -1.56, "maker rebate": 0.59,
             "hedge cost": -3.15, "net edge": 8.93, "markout": 13.05}
 
@@ -470,6 +470,7 @@ def assemble(parts: Path = None, out_dir: Path = None, b_cells: int = B_CELLS) -
         for _, r in d.iterrows():
             ref, src, digits = np.nan, "", None
             if unit == "p1" and r["item"] in manuscript:
+                # provenance label as recorded in results/p1_finding on 25 September 2026
                 ref, src, digits = manuscript[r["item"]], "paper/main.tex, HANDOVER.md (2 decimals)", 2
             add("decomposition", r["item"], unit, r["value"], r["lo"], r["hi"], r["level"], r["n"], int(r["b"]),
                 ref=ref, source=src, digits=digits)

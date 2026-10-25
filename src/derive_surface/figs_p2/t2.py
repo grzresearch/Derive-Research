@@ -1,4 +1,4 @@
-"""T2 · What ``get_margin`` returns, and how PM2 prices a book (FIGURE_SELECTION.md section 7, T2), 7.0 x 2.6 in.
+"""T2 · What ``get_margin`` returns, and how PM2 prices a book, 7.0 x 2.6 in.
 
 * a, b: the four historical probe books of ``results/p2/semantics/factors.csv`` (``measurement`` starts with
   "historical", no "H0_", ``case`` A or B). a splits ``C - net`` of the mixed book of 24 Sep 2026 into the requirement
@@ -11,7 +11,7 @@
 
 The engine is rerun on the reference row only after it reproduces ``K_pm2`` and ``K_sm`` of that row (relative
 1e-9); otherwise the figure is not built. The capital of the single legs is read from ``K_pm2_call``/``K_pm2_put`` of
-the reference book when it carries them (data contract, section 10) and is otherwise computed on the same row with
+the reference book when it carries them (data contract of the reference book) and is otherwise computed on the same row with
 the same engine and state. The single legs under SM are computed the same way; they are not drawn and serve social
 card 2 (``social_p2``). Nothing here needs the feed history.
 
@@ -492,7 +492,7 @@ CHECKS: List[dict] = [
 
 
 def run_checks(results_dir: Path = Path("results/p2"), with_expected: bool = True) -> pd.DataFrame:
-    """Every check of :data:`CHECKS` (figure table against source file, and against the build instruction)."""
+    """Every check of :data:`CHECKS` (figure table against source file, and against the recorded check number)."""
     return kit.run_checks(CHECKS, results_dir, with_expected=with_expected)
 
 

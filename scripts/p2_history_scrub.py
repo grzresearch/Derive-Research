@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Scrub account identifiers from the Paper 2 history on a NEW branch (audit A01, Addendum 1.4).
 
-Guide: docs/paper2/HISTORY_CLEANUP.md. The run of 27 September 2026 (docs/paper2/HISTORY_REWRITE.md) replayed the
+The run of 27 September 2026 (docs/paper2/HISTORY_REWRITE.md) replayed the
 Paper 2 commits onto main as the new branch paper2-capital and scrubbed them there:
 
     FILTER_BRANCH_SQUELCH_WARNING=1 git filter-branch \\

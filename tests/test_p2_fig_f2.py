@@ -114,11 +114,11 @@ def test_fmt_edge_at_most_four_characters_with_the_true_minus():
     got = [f2.fmt_edge(v) for v in vals]
     assert got == ["3.4", "−0.8", "240", "−35", "3k", "−12k", "10", "1k", "−1k", "0.0", "−725"]
     assert all(len(s) <= 4 for s in got)
-    assert not any("-" in s for s in got)                  # U+2212, as in every other figure (audit T9)
+    assert not any("-" in s for s in got)                  # U+2212, as in every other figure
 
 
 def test_cells_print_sells_in_bp_and_buys_in_per_cent():
-    """F1/T9: in bp a buy row reads -418 -397 -109 -255; in per cent it is -4.2 -4.0 -1.1 -2.6, and 5k bp is 50."""
+    """In bp a buy row reads -418 -397 -109 -255; in per cent it is -4.2 -4.0 -1.1 -2.6, and 5k bp is 50."""
     assert [f2.printed_cell("sell", v) for v in (-725.3, -7.3, 0.1, 164.0)] == ["−725", "−7.3", "0.1", "164"]
     assert [f2.printed_cell("buy", v) for v in (-418.0, -397.0, 4980.0, -2049.0, 8.8, -6.3)] == [
         "−4.2", "−4.0", "50", "−20", "0.1", "−0.1"]
@@ -138,8 +138,8 @@ def _maps(fig):
 
 
 def test_neighbouring_cell_numbers_keep_a_gap_at_print_size(rd):
-    """F1/T9 and round 2 of the PDF review: the widest pairs that the formats allow, side by side in two cells of a
-    map, keep at least 2.5 pt between their advance boxes (the measure of the review, wider than the ink), with the
+    """The widest pairs that the formats allow, side by side in two cells of a
+    map, keep at least 2.5 pt between their advance boxes (measured on the advance boxes, wider than the ink), with the
     true minus at 7 pt: sells "−8.8" next to "−888", buys "−8.8" next to "−8.8". At 19.3 pt cells "−7.3" next
     to "−126" kept 1.2 pt."""
     fig, _ = f2.make_figure(rd)
@@ -147,7 +147,7 @@ def test_neighbouring_cell_numbers_keep_a_gap_at_print_size(rd):
     maps = _maps(fig)
     assert len(maps) == 6
     cell_pt = maps[0].get_window_extent(r).width / len(TENOR_LABELS) * 72.0 / fig.dpi
-    assert cell_pt >= 1.33 * 19.3                           # a third wider than in round 1
+    assert cell_pt >= 1.33 * 19.3                           # a third wider than in the first layout
 
     def advance_pt(s):
         t = fig.text(0, 0, s, fontsize=7.0)
@@ -220,7 +220,7 @@ def test_cell_numbers_stand_apart_in_the_pdf(rd, tmp_path):
 
 
 def test_hatched_cells_leave_the_number_free_and_keep_the_grid_line(rd):
-    """F1: a box behind the number wider than its cell covered the white grid line, so "-418-397" ran together."""
+    """A box behind the number wider than its cell covered the white grid line, so "-418-397" ran together."""
     fig, _ = f2.make_figure(rd)
     maps = [ax for ax in fig.axes if len(ax.get_xticks()) == len(TENOR_LABELS) and ax.get_ylim()[0] > 6]
     for ax in maps:
@@ -303,7 +303,7 @@ def test_row_without_rfq_fills_follows_the_data_contract(tmp_path):
 
 
 def test_row_rfq_fee_over_legs_follows_the_data_contract(tmp_path):
-    """C4: Addendum 6 adds H1 with the fee of an RFQ package spread over its legs; a registered sensitivity row,
+    """Addendum 6 adds H1 with the fee of an RFQ package spread over its legs; a registered sensitivity row,
     left out while sensitivity.json has no c2_rfq_package entry."""
     with_pkg, without = tmp_path / "p", tmp_path / "n"
     synth(with_pkg)
@@ -320,7 +320,7 @@ def test_row_rfq_fee_over_legs_follows_the_data_contract(tmp_path):
 
 
 def test_forest_labels_short_and_n_column_headed(rd):
-    """Section 6.5: row labels at most 18 characters; C10/F11: the count column is headed n."""
+    """Row labels at most 18 characters; the count column is headed n."""
     assert all(len(label) <= f2.LABEL_MAX for label, *_ in f2.FOREST_ROWS)
     fig, _ = f2.make_figure(rd)
     assert "n" in [t.get_text() for t in texts(fig)]
@@ -328,7 +328,7 @@ def test_forest_labels_short_and_n_column_headed(rd):
 
 
 def test_forest_rows_are_set_with_leading(rd):
-    """F4: rows of 7 pt type were set solid at 7.0 pt; every row of the forest now gets at least 7.9 pt."""
+    """Rows of 7 pt type were set solid at 7.0 pt; every row of the forest now gets at least 7.9 pt."""
     fig, t = f2.make_figure(rd)
     ax = [a for a in fig.axes if a.get_xlabel() == "Spearman's ρ"][0]
     rows = len(ax.get_yticks())
@@ -339,7 +339,7 @@ def test_forest_rows_are_set_with_leading(rd):
 
 @pytest.mark.parametrize("h1_stat", [(0.83, 0.78, 0.87), (0.3, 0.2, 0.45)])
 def test_no_text_runs_into_another_at_print_size(tmp_path, h1_stat):
-    """F12/C7 (header of a), F6/T13 (row title against the tick 90-100), the upright tenor ticks against the tenor
+    """The header of a, the row title against the tick 90-100, the upright tenor ticks against the tenor
     title, the tenor title against the letters, legend of b and verdict of c below it, the y title of b against its
     ticks, also when the verdict reads "not rejected" (a longer line)."""
     d = tmp_path / "r"
@@ -401,7 +401,7 @@ def test_buy_row_is_not_called_edge_per_premium_without_the_money_qualifier():
 
 
 def test_caption_says_what_the_hatch_the_dotted_lines_the_units_and_n_are():
-    """C3: the hatched stretch of the registered row is the rejection region, in the words of Figures 5 and 6;
+    """The hatched stretch of the registered row is the rejection region, in the words of Figures 5 and 6;
     F3: the sign lines are dotted; F1: the two units of panel a; C10/F11: n."""
     assert ("The hatched stretch of the registered row, right of the threshold, is the rejection region: the rule "
             "rejects H1 if the interval reaches into it.") in f2.CAPTION
@@ -411,7 +411,7 @@ def test_caption_says_what_the_hatch_the_dotted_lines_the_units_and_n_are():
 
 
 def test_sign_lines_are_dotted_and_the_rank_intervals_carry_end_ticks(rd):
-    """F3: boundary lines and interval crosses were drawn alike (grey, 0.6 pt, solid)."""
+    """Boundary lines and interval crosses were drawn alike (grey, 0.6 pt, solid)."""
     fig, t = f2.make_figure(rd)
     ax = [a for a in fig.axes if a.get_xlabel().startswith("rank by edge per notional")][0]
     sign = [ln for ln in ax.get_lines() if ln.get_color() == f2.SIGN_GREY]
@@ -424,14 +424,14 @@ def test_sign_lines_are_dotted_and_the_rank_intervals_carry_end_ticks(rd):
 
 def test_caption_names_the_selection_per_replicate_and_the_hidden_interval():
     """A04: the sign rows choose their cells again in every replicate; A50: the registered interval is printed above
-    the panel. On the axis from 0.4 (review round 3) the interval is a visible bar, no longer hidden by its circle."""
+    the panel. On the axis from 0.4 the interval is a visible bar, no longer hidden by its circle."""
     assert "the cells are chosen again in every replicate" in f2.CAPTION
     assert "interval (bar, also printed above the panel)" in f2.CAPTION and "narrower than its circle" not in f2.CAPTION
     assert "Darker grey marks a larger absolute value on a log scale" in f2.CAPTION
 
 
 def test_rho_axis_spans_what_the_rows_need():
-    """Round 2 of the PDF review: on -0.2 to 1.0 the estimates 0.46 to 0.93 crowded into a few millimetres. The axis
+    """On -0.2 to 1.0 the estimates 0.46 to 0.93 crowded into a few millimetres. The axis
     runs from 0.4 while every row, the band and the threshold lie in it, and drops only as far as a row needs."""
     def table(lows):
         return pd.DataFrame({"kind": ["registered"] + ["exploratory"] * len(lows) + ["band", "header"],
@@ -474,8 +474,8 @@ def test_forest_on_the_narrow_axis_keeps_threshold_hatch_and_band(tmp_path):
 
 
 def test_maps_span_the_width_and_b_and_c_share_the_row_below(rd):
-    """Round 2 of the PDF review: panel a takes the full width on top, panels b and c sit side by side below it,
-    each about half the width; the data area of c is far wider than the 0.64 in of round 1."""
+    """Panel a takes the full width on top, panels b and c sit side by side below it,
+    each about half the width; the data area of c is far wider than the 0.64 in of the first layout."""
     fig, _ = f2.make_figure(rd)
     r = _print_canvas(fig)
     W = fig.bbox.width

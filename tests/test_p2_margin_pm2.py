@@ -6,7 +6,7 @@ Three layers:
   ``PMRMLib_2.addPrecomputes`` + ``getMarginAndMarkToMarket`` at the same block),
 * the vectorised single-contract path against the book path, plus hand-checked pieces.
 
-The parameter dicts follow the A2 schema (Solidity struct and field names, values as floats, ``dteFloor`` in
+The parameter dicts follow the schema of ``p2params`` (Solidity struct and field names, values as floats, ``dteFloor`` in
 seconds). The adapters below build that schema from raw chain snapshots and from the v2-core case files; they are
 test helpers only.
 """
@@ -41,7 +41,7 @@ class _Expiry(ExpiryState):
 
 
 # ----------------------------------------------------------------------------------------------------------------
-# Adapter: raw chain snapshot -> A2 parameter schema (test helper, not production code)
+# Adapter: raw chain snapshot -> parameter schema of p2params (test helper, not production code)
 # ----------------------------------------------------------------------------------------------------------------
 MARGIN_FIELDS = ["imFactor", "mmFactor", "shortRateMultScale", "longRateMultScale", "shortRateAddScale",
                  "longRateAddScale", "shortBaseStaticDiscount", "longBaseStaticDiscount"]
@@ -58,7 +58,7 @@ def _d(x) -> float:
 
 
 def params_from_snapshot(snap: dict) -> dict:
-    """Getter tuples of PMRMLib_2 / PMRM_2 (raw uint/int strings) -> A2 schema."""
+    """Getter tuples of PMRMLib_2 / PMRM_2 (raw uint/int strings) -> parameter schema."""
     vol = {k: _d(v) for k, v in zip(VOL_FIELDS, snap["volShock"])}
     vol["dteFloor"] = float(int(snap["volShock"][4]))  # seconds, not 1e18-scaled
     return {
@@ -106,7 +106,7 @@ CHAIN = _chain()
 
 
 # ----------------------------------------------------------------------------------------------------------------
-# Adapter: v2-core portfolio case -> A2 schema, Book, MarketState (test helper)
+# Adapter: v2-core portfolio case -> parameter schema, Book, MarketState (test helper)
 # ----------------------------------------------------------------------------------------------------------------
 V2_DIR = {"None": 0, "Up": 1, "Down": 2, "LINEAR": 3, "ABS": 4}
 

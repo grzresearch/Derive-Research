@@ -368,7 +368,7 @@ def test_exactly_one_slot_is_three_dimensional(built):
 
 def test_manager_colours_are_told_apart_in_greyscale_by_more_than_colour():
     """PM2, SM and legacy PM share hue families that fall within 15 % luminance of each other (Okabe-Ito blue,
-    vermillion, green); section 6.2 double-codes them, so every pair differs in line style and marker."""
+    vermillion, green); the manager coding double-codes them, so every pair differs in line style and marker."""
     from derive_surface.figs_p2 import _kit_f5f6, _kit_t2a1
 
     for manager in (_kit_f5f6.MANAGER, _kit_t2a1.MANAGER):

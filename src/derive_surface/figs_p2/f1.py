@@ -1,4 +1,4 @@
-"""F1 of Paper 2: what one contract costs (docs/paper2/FIGURE_SELECTION.md, sections 6 and 7, slot F1).
+"""F1 of Paper 2: what one contract costs.
 
 Left, six maps (maker sells above, maker buys below; BTC, ETH, HYPE): PM2 capital per contract in per cent of
 notional, ``kappa = 100 sum_K / sum_index`` of the ``pm2`` map in ``results/p2/fig_edge_maps.csv`` (ratio of sums over
@@ -59,7 +59,7 @@ DELTA_TICKS = ["0–10", "10–25", "25–40", "40–60", "60–75", "75–90", 
 TENOR_TICKS = ["≤2", "2–7", "7–30", "30–90", ">90"]
 DELTA_TITLE = "|delta| of the traded option, %"
 TENOR_TITLE = "tenor, days"
-GREY_LO, GREY_HI = 0.08, 0.72          # section 6.4: Greys between 0.08 and 0.72
+GREY_LO, GREY_HI = 0.08, 0.72          # Greys between 0.08 and 0.72
 WHITE_TEXT_BELOW = 0.45                # luminance under which a cell number is white
 HATCH_DARK = "#D0D0D0"                 # hatch on cells with white text: #666666 vanishes on Greys 0.6 to 0.72
 # Band about the centre of a hatched cell, in points below and above it, that the hatch leaves free for the number
@@ -67,7 +67,7 @@ HATCH_DARK = "#D0D0D0"                 # hatch on cells with white text: #666666
 # sits on a box wider than its cell, and the white grid line is drawn again on top of it.
 NUMBER_BAND_PT = (-3.0, 4.4)
 
-# Section 6.6: R1 to 23 Jan 2026 04:24:05, R2 to 24 May 2026 04:05:07, R3 to 20 Aug 2026 22:09:25 UTC, R4 after.
+# Parameter regimes: R1 to 23 Jan 2026 04:24:05, R2 to 24 May 2026 04:05:07, R3 to 20 Aug 2026 22:09:25 UTC, R4 after.
 # The bounds are the PM2 events in results/p2/events.csv; a fill at the event second belongs to the later regime.
 REGIME_BOUNDS = (1769142245, 1779595507, 1787263765)
 REGIMES = ("R1", "R2", "R3", "R4")
@@ -125,7 +125,7 @@ def fig_xy(fig, x_in: float, y_in: float) -> Tuple[float, float]:
 
 
 def fmt_sig2(v: float) -> str:
-    """Two significant digits, at most two decimals (section 7 F1: 0.07, 0.12, 9.9, 13, 39)."""
+    """Two significant digits, at most two decimals (0.07, 0.12, 9.9, 13, 39)."""
     if v is None or not np.isfinite(v):
         return ""
     if v == 0:
@@ -180,7 +180,7 @@ def map_grid(df: pd.DataFrame, col: str, ccy: str, side: str, fill=np.nan) -> np
 
 def draw_map(ax, occupied: np.ndarray, shade: np.ndarray, printed: np.ndarray, hatched: Optional[np.ndarray] = None,
              *, ylabels: bool, xlabels: bool) -> None:
-    """One map after section 6.4: one number per cell on grey, white text on dark cells, an empty grey cross for
+    """One map: one number per cell on grey, white text on dark cells, an empty grey cross for
     cells under 200 fills, hatched negative cells (hatch #666666, light grey on the dark cells that carry white
     text, where #666666 would not show). In a hatched cell the hatch fills the strips above and below the number
     (``NUMBER_BAND_PT``), so no hatch line crosses the minus and nothing covers the grid line to the next cell."""
@@ -234,7 +234,7 @@ def full_grid() -> pd.DataFrame:
 # =====================================================================================================================
 
 def regime_of(ts_s) -> np.ndarray:
-    """Regime label for UNIX seconds after section 6.6 (a fill at the event second is in the later regime)."""
+    """Regime label for UNIX seconds (a fill at the event second is in the later regime)."""
     k = np.searchsorted(np.asarray(REGIME_BOUNDS, dtype=np.int64), np.asarray(ts_s, dtype=np.int64), side="right")
     return np.asarray(REGIMES, dtype=object)[k]
 
@@ -388,7 +388,7 @@ def load_inputs(results_dir: Path) -> Dict[str, Optional[pd.DataFrame]]:
     reg_path = results_dir / "fig_f1_regimes.csv"
     regimes = pd.read_csv(reg_path) if reg_path.exists() else None
     if regimes is None:
-        log.warning("%s missing: F1 is drawn without the R4 rows (section 10 fallback)", reg_path)
+        log.warning("%s missing: F1 is drawn without the R4 rows (regime file missing)", reg_path)
     else:
         check_regimes_against_maps(regimes, maps)
     return {"maps": maps, "regimes": regimes}

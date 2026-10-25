@@ -1,9 +1,9 @@
-"""F5 of Paper 2: the engine over time (FIGURE_SELECTION section 7, F5; 7.0 x 4.47 in).
+"""F5 of Paper 2: the engine over time (7.0 x 4.47 in).
 
 a  share of option open interest per manager at the start of each month (``manager_oi_share.csv`` samples
    00:00:01 UTC on the 1st), one strip per underlying (PM2 at the bottom).
 b  five rails (BTC legacy PM, BTC PM2, ETH legacy PM, ETH PM2, HYPE PM2): every row of the parameter timeline as a
-   grey tick, the registered H4 events in the status grammar of section 6.2 (filled = in the H4 panel, left half =
+   grey tick, the registered H4 events in the status grammar of the event symbols (filled = in the H4 panel, left half =
    kept without a panel cell, hollow = dropped by the dose rule), the effect of the parameters alone on the reference
    straddle in log-%, the +-14 day windows of the kept events and the admissible placebo days. Each rail has three
    lanes: the numbers stand above their symbols (numbers of close events pushed apart, ``label_offsets``; a leader
@@ -336,7 +336,7 @@ def _panel_a(fig, a: pd.DataFrame) -> None:
 
 
 def _marker_kw(manager: str, st: str) -> dict:
-    """Event symbol in the status grammar of section 6.2: shape and colour = manager, fill = status."""
+    """Event symbol in the status grammar of the event symbols: shape and colour = manager, fill = status."""
     color, _, marker = kit.MANAGER[manager]
     fill = {"panel": "full", "kept_no_cell": "left", "dropped": "none"}[st]
     return dict(linestyle="none", marker=marker, markersize=MARKER_PT[marker], markeredgecolor=color,

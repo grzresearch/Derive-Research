@@ -76,8 +76,8 @@ ticker `mark_price`:
 | PM2 on-chain and PM2/SM on v3 | D = e^(−r_feed·τ), with r_feed 3.64 to 3.82 % from `LyraRateFeed` |
 | Ticker | D = S/F from the basis. `mark_price` is rounded to 1 USD; exactly, M = −rho/τ |
 
-Two reviewers measured the 2 % rate independently with box spreads: one over all 14 expiries with
-|r − 0.02| ≤ 3e−7 (`results/p2/semantics/box_discount.json`, repeated at 11:44 UTC), the other over 9 expiries with
+The 2 % rate was measured twice, independently, with box spreads: once over all 14 expiries with
+|r − 0.02| ≤ 3e−7 (`results/p2/semantics/box_discount.json`, repeated at 11:44 UTC), once over 9 expiries with
 |r − 0.02| < 1e−8 (`data/p2/semantik_20260924/verify-mtm/box_api.json`). The error made by taking ticker marks
 instead of V_eng grows roughly with (b − r_Engine)·τ·V:
 
@@ -99,7 +99,7 @@ respectively. The remainder is price drift between separate requests.
 
 ## 4. The contradiction 11 versus 1.2 is resolved
 
-Both original scripts were found in old session logs. The two measurements used **different books** and both read
+Both original scripts were recovered from the logs of the earlier probes. The two measurements used **different books** and both read
 the requirement as `C − net`. Both books were rebuilt and recomputed at the historical block.
 
 | | 17 September, 10:45 UTC | 24 September, 09:25 UTC |
@@ -214,7 +214,7 @@ The SM option parameters for BTC have been unchanged since 4 December 2023. The 
 2 % rate of the v2 API is off-chain, so the history of the API cannot be reconstructed, only that of the chain
 semantics.
 
-## 9. Corrections to the handover
+## 9. Corrections to earlier notes
 
 - "Requirement read as capital minus `post_initial_margin`" is R − V and not a requirement.
 - "Portfolio margin" on 24 September was PM2. The factor of 1.2 to 1.5 given there follows from the book and the

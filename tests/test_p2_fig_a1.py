@@ -1,4 +1,4 @@
-"""A1: does the replica match the chain? (FIGURE_SELECTION section 7, A1)."""
+"""A1: does the replica match the chain?"""
 from __future__ import annotations
 
 import json
@@ -188,7 +188,7 @@ def test_spot_feed_age_is_counted_and_named_in_the_appendix_sentence(res, tmp_pa
 
 
 def test_caption_says_what_is_drawn_and_the_feed_ages_go_to_appendix_a():
-    """C11: the caption says what is drawn and how to read it (FIGURE_SELECTION 6.8). The feed ages describe nothing
+    """The caption says what is drawn and how to read it. The feed ages describe nothing
     drawn and stand in the text of Appendix A; the off-chain discount is said in Figure 1 and Section 2."""
     assert "feed older" not in a1.CAPTION and "heartbeat" not in a1.CAPTION
     assert "off-chain" not in a1.CAPTION and "discount" not in a1.CAPTION
@@ -196,7 +196,7 @@ def test_caption_says_what_is_drawn_and_the_feed_ages_go_to_appendix_a():
 
 
 def test_appendix_sentence_names_vol_and_forward_and_the_spot_count():
-    """The limits are printed as numbers (reader audit, round 2: "the limits of the validation blocks" said none)."""
+    """The limits are printed as numbers."""
     assert a1.APPENDIX_SENTENCE.startswith(
         "In the PM2 window no fill uses a volatility feed older than \\PH{a1-vol-limit}~seconds or a forward feed "
         "older than \\PH{a1-fwd-limit}~seconds, the feed ages the validation allows")
@@ -219,7 +219,7 @@ def _panel_a(fig):
 
 
 def test_bound_labels_and_key_write_p95_as_figure_8_does(res):
-    """F9 against F8: the 95th percentile is "P95" in the bound labels of both panels and in the key of panel a."""
+    """The 95th percentile is "P95" in the bound labels of both panels and in the key of panel a."""
     data = _load(res)
     fig = a1.draw(data)
     try:
@@ -238,7 +238,7 @@ def test_bound_labels_and_key_write_p95_as_figure_8_does(res):
 
 
 def test_count_column_is_headed_once_by_a_grey_n(res):
-    """F9 as F3 to F6: one grey "n" heads the counts, which print bare and right-aligned, one per row."""
+    """As in F3 to F6, one grey "n" heads the counts, which print bare and right-aligned, one per row."""
     data = _load(res)
     fig = a1.draw(data)
     try:
@@ -267,7 +267,7 @@ def test_count_column_is_headed_once_by_a_grey_n(res):
 
 
 def test_bound_labels_of_panel_b_sit_on_their_own_lines(res):
-    """F9: the two bounds are one decade apart; each label sits on its own line (centred on it, breaking it) and
+    """The two bounds are one decade apart; each label sits on its own line (centred on it, breaking it) and
     reaches neither the other line nor the text block below."""
     data = _load(res)
     fig = a1.draw(data)
@@ -288,7 +288,7 @@ def test_bound_labels_of_panel_b_sit_on_their_own_lines(res):
 
 
 def test_log_axes_are_labelled_as_powers_of_ten_with_no_type_under_7pt(res):
-    """F8/T8: both log axes read 10^e as the caption and the appendix do, not '1e-11'; base and exponent are
+    """Both log axes read 10^e as the caption and the appendix do, not '1e-11'; base and exponent are
     separate texts of 7 pt (mathtext would set the exponent at 4.9 pt)."""
     fig = a1.draw(_load(res))
     try:

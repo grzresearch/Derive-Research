@@ -270,7 +270,7 @@ def test_colour_bar_shows_arrows_when_a_scale_cuts_values():
 
 
 def test_build_writes_the_mp4_and_records_the_scale(tmp_path, monkeypatch):
-    """A23: the MP4 of section 8 is written next to the GIF (``animate.write_mp4``) and the meta records it, the
+    """A23: the MP4 is written next to the GIF (``animate.write_mp4``) and the meta records it, the
     scale and the nodes outside the scale (none)."""
     pytest.importorskip("imageio_ffmpeg")
     rd = tmp_path / "results"

@@ -478,7 +478,7 @@ def test_log_caches_follow_a_new_end_block(tmp_path):
     topics = [pp.TOPICS["OptionMarginParamsSet"]]
     logs = [_log(150), _log(250)]
     rpc = FakeRpc(logs=logs)
-    # state after the first A2 run: plain list cache that covers blocks up to meta.to_block = 200
+    # state after the first parameter run: plain list cache that covers blocks up to meta.to_block = 200
     (tmp_path / "meta.json").write_text(json.dumps({"to_block": 200}))
     (tmp_path / "logs_srm.json").write_text(json.dumps([logs[0]]))
     ld = pp.Loader(rpc, data_dir=tmp_path, out_dir=tmp_path / "out")
@@ -629,7 +629,7 @@ def _two_lib_world(tmp_path):
 
 
 def test_changed_ranking_does_not_silently_switch_the_lib(tmp_path, monkeypatch):
-    """Review of B0: the lib of an account must not follow its rank-dependent label.
+    """The lib of an account must not follow its rank-dependent label.
 
     The export in ``out`` was labelled under the ranking [5, 7] (5 = M1, 7 = M2). Under the new ranking [7, 5],
     account 7 is M1, and a lookup through the label would return lib A of the old M1. The resolution goes through
@@ -655,7 +655,7 @@ def test_changed_ranking_does_not_silently_switch_the_lib(tmp_path, monkeypatch)
 
 
 def test_books_pm2_params_resolves_through_raw_ids(tmp_path, monkeypatch):
-    """``books._Pm2Params`` (B3/B4) calls ``load_overrides(ccy, root)`` and ``account_lib`` with the raw id."""
+    """``books._Pm2Params`` calls ``load_overrides(ccy, root)`` and ``account_lib`` with the raw id."""
     books = pytest.importorskip("derive_surface.books")
     data, out, raw = _two_lib_world(tmp_path)
     monkeypatch.setattr(pp, "DATA_DIR", data)

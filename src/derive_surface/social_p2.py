@@ -1,5 +1,4 @@
-"""Social cards of Paper 2 at 1600 x 900, drawn to be read on a phone
-(``docs/paper2/FIGURE_SELECTION.md``, section 9).
+"""Social cards of Paper 2 at 1600 x 900, drawn to be read on a phone.
 
 Pattern ``figures_social.py`` (fixed size, no tight bounding box, one idea per card). Every number is read from
 ``results/p2``, never typed, and each number of a title stands in the drawing as well. Type at least 28 px, colour
@@ -8,12 +7,12 @@ only for the managers and always together with a line style or hatch, simple per
 * ``s1_three_engines.png``: one short BTC straddle under the three margin managers over time (the series of F5 c),
   the steps of the parameter changes kept for H4 and the three values of the last day;
 * ``s2_straddle_vs_call.png``: one short call against the short straddle under PM2 and SM, from the same reference
-  row as T2 c; the title follows the rule of section 9 (the card is left out when neither title holds);
+  row as T2 c; the title follows the rule of the card (the card is left out when neither title holds);
 * ``s3_verdicts.png``: the four registered tests with estimate, interval, threshold and rejection side, H4 with
   the placebo 95th percentile and the one-sided p; the verdicts are rebuilt with the rules of the verdict ruler
   (``figs_p2.f2.verdict``, ``figs_p2.f6.checklist``). Title and layout do not depend on the outcome.
 
-Departures from section 9, and why: the first card says "margin managers", not "margin engines", because the paper
+Departures from the card design, and why: the first card says "margin managers", not "margin engines", because the paper
 keeps "engine" for the two implementations (off-chain and on chain) of the managers; the footer names the commit of
 the pre-registration (``c9e9162``, ``cc0a29f`` before the rewrite of 5 October 2026), not that of Addendum 4; H4 shows no interval, since its interval is descriptive
 and too narrow for the spread between placebo dates (audit A05); the statement of H2 names the whole fill, which is
@@ -65,7 +64,7 @@ RC = {
 }
 TAKE_CHARS = 84                                 # 14 pt at 160 dpi: a line of the takeaway fits the card
 TITLE_CHARS = 46                                # 24 pt bold: a longer title breaks into two lines
-LINE_PX = 4.0                                   # section 9: lines of 4 px
+LINE_PX = 4.0                                   # lines of 4 px
 
 
 def pct(x: float, digits: int = 1) -> str:
@@ -235,7 +234,7 @@ TITLE_LITTLE = "Under PM2 the second leg of a straddle adds little capital."
 
 
 def straddle_title(k_straddle: float, k_call: float) -> Optional[str]:
-    """Section 9: the first title only if the straddle needs less than one call under PM2, the second if the second
+    """The first title only if the straddle needs less than one call under PM2, the second if the second
     leg adds less than a quarter of the call; otherwise no card."""
     if k_straddle < k_call:
         return TITLE_LESS

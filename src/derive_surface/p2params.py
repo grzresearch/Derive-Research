@@ -1,4 +1,4 @@
-"""Parameter timelines of the three Derive margin managers per currency (Paper 2, task A2).
+"""Parameter timelines of the three Derive margin managers per currency (Paper 2).
 
 Every timeline is a JSON list ``[{"from_block", "from_ts", "from_utc", "source", "changed", "params", ...}]`` in
 ascending order under ``results/p2/params/{CCY}_{mgr}.json`` (``mgr`` in ``sm``, ``pm``, ``pm2``). ``params`` uses the
@@ -537,7 +537,7 @@ def decode_event(log: dict) -> dict:
 
 
 def all_event_filters() -> List[Tuple[str, List[str], List[str]]]:
-    """(name, addresses, topics) of every event query of this task (override libs are queried separately)."""
+    """(name, addresses, topics) of every event query of this module (override libs are queried separately)."""
     out = [("srm", [SRM], [TOPICS[e] for e in SM_EVENTS])]
     out.append(("pm", [PM_ADDR[c]["manager"] for c in PM_ADDR] + [PM_ADDR[c]["lib"] for c in PM_ADDR],
                 [TOPICS[e] for e in PM_MANAGER_EVENTS]))
@@ -773,7 +773,7 @@ def pm2_params_for_account(ccy: str, account_id, ts: int, root: Optional[Path] =
 
 
 def _unsalted_sha10(account_id: int) -> str:
-    """Pseudonym of the first A2 run (reversible for small ids); only used to check files before relabelling."""
+    """Pseudonym of the first parameter run (reversible for small ids); only used to check files before relabelling."""
     return hashlib.sha256(str(int(account_id)).encode()).hexdigest()[:10]
 
 
@@ -863,7 +863,7 @@ class Loader:
 
     # ---- events ------------------------------------------------------------------------------------------------------
     def _migrate_log_caches(self, covered_to: Optional[int]) -> None:
-        """Log caches of the first A2 run are plain lists that cover ``[lo, meta.to_block]``; record that range."""
+        """Log caches of the first parameter run are plain lists that cover ``[lo, meta.to_block]``; record that range."""
         for path in sorted(self.data_dir.glob("logs_*.json")):
             logs = json.loads(path.read_text())
             if isinstance(logs, list):

@@ -1,4 +1,4 @@
-"""Tests for scripts/p2_history_scrub.py (audit A01, docs/paper2/HISTORY_CLEANUP.md).
+"""Tests for scripts/p2_history_scrub.py (audit A01, docs/paper2/HISTORY_REWRITE.md).
 
 All ids, hashes and the salt below are synthetic; the "real" top list of these tests is made up.
 """

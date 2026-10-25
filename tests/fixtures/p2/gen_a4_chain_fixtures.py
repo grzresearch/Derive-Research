@@ -1,4 +1,4 @@
-"""Generate the Task A4 chain fixtures (not collected by pytest).
+"""Generate the chain fixtures of the margin replicas (not collected by pytest).
 
     python3 tests/fixtures/p2/gen_a4_chain_fixtures.py {sm,pm,accounts,pm_accounts} [--max-seconds 520]
 
@@ -10,7 +10,7 @@
   ``StandardManager.getMarginAndMarkToMarket`` with all feed values of the account's markets.
 * ``pm_chain_accounts.json``: whole legacy-PM maker accounts against ``PMRM.getMargin(account, isInitial)`` (and the
   MtM of ``getMarginAndMarkToMarket(account, true, 0)``) with every feed value; accounts are chosen from
-  ``data/p2/books/snapshots.parquet`` (Task A5) by fixed criteria.
+  ``data/p2/books/snapshots.parquet`` by fixed criteria.
 
 The two account fixtures identify real accounts (whole balances at a block, ``sha256(str(id))[:10]`` is reversible by
 enumeration), so they are written to ``data/p2/fixtures_private`` (not tracked, Addendum 1.4, audit A01); the tests

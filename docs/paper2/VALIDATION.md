@@ -1,4 +1,4 @@
-# Validation of the replica against the chain (task B1)
+# Validation of the replica against the chain
 
 > **Commit hashes.** This document was written before the history rewrite of 5 October 2026 (Addendum 7 of the Paper 2 pre-registration, Addendum 4 of the Paper 1 pre-registration). Its hashes refer to the history at the time of writing; `docs/paper2/HISTORY_REWRITE.md` maps every one of them to the current hash. Current hashes: Paper 1 pre-registration `cf1f432`; Paper 2 pre-registration `c9e9162`, Addenda 1 to 6 `b5c905c`, `60896fe`, `2416902`, `a02058a`, `8c066a7`, `6f2436e`, Addendum 7 `7c01e85`.
 
@@ -136,12 +136,12 @@ MM (sensitivity), same cases:
 5. **Dormant branches.** The stable price lay between 0.99938 and 1.00144 at all blocks, above the depeg (SM) and
    peg-loss (PM2) thresholds of 0.99; `stable` = 1 in the replica changes nothing. The lowest confidence was 0.95
    (thresholds 0.55): the oracle contingencies were never active and are not checked against the chain here, only
-   against the v2-core reference cases from A3 and A4. No book exceeded `maxExpiries`.
+   against the v2-core reference cases. No book exceeded `maxExpiries`.
 
 ## Limits
 
 - The synthetic account has no override lib, so what is checked is the standard lib. The override libs differ only
-  in mmFactor (A2); IM is not affected by this, MM in the maker book is (B3, sensitivity).
+  in mmFactor; IM is not affected by this, MM in the maker book is (sensitivity).
 - What is checked is the book at the start of the day, not the book before a fill. The positions of the latter come
   from the snapshot plus `BalanceAdjusted` (Addendum 1); the valuation is the same.
 - For HYPE only one maker day is in the draw (M3, 235 legs). The book cells per underlying are small; the
@@ -172,7 +172,7 @@ checked …": the validation had passed and was recorded in Addendum 4 before th
 The manuscript likewise claims only this order ("Before any capital entered a test"). Not kept are step 3 of the
 specification and the wording of the heading. The validation draws its own samples and compares replica and chain
 directly; it uses none of the capital figures computed earlier. Whether the replica was still changed between 00:40
-and commit `591d2d5` (now `58551d6`) at 01:30:22 the history does not show, because Stage B is a single commit; the
+and commit `591d2d5` (now `58551d6`) at 01:30:22 the history does not show, because validation, capital per fill and doses were committed together; the
 audit recomputed samples of the capital figures independently (32 fills, 5 maker days, 7 H2 fills, 16 dose fills;
 `docs/paper2/AUDIT.md`, perspective engine). File and git times are set locally and prove nothing to third parties
 (audit A02).

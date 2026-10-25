@@ -1,4 +1,4 @@
-"""Regenerate the A1 feed fixtures (not collected by pytest; needs network, eth_abi from the system for the multicall
+"""Regenerate the feed fixtures (not collected by pytest; needs network, eth_abi from the system for the multicall
 reference encoding, no package dependency). Run from the repo root:
 
     python3 tests/fixtures/p2/gen_a1_feed_fixtures.py

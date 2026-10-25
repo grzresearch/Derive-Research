@@ -1,5 +1,4 @@
-"""T1 · The engine's view of the surface (Paper 2, ``docs/paper2/FIGURE_SELECTION.md`` section 7,
-slot T1).
+"""T1 · The engine's view of the surface (Paper 2).
 
 Panels a and b: the BTC implied-vol surface of the chain at 17 Sep 2026 08:00 UTC in 3D (height = implied vol), coloured
 with the capital that one short contract binds under PM2 and under SM (``cividis`` on one fixed scale, % of forward),
@@ -49,11 +48,11 @@ TS = 1_789_632_000                      # 17 Sep 2026 08:00:00 UTC, day of the p
 DAY = 86_400
 MANAGERS = ("pm2", "sm")
 WIDTH, HEIGHT = figstyle.DOUBLE, 4.2
-FS_MIN = 7.0                            # smallest type on the page (section 6.1)
+FS_MIN = 7.0                            # smallest type on the page
 FS_TAG = 8.0                            # panel letters (bold) and panel titles (regular), as in T2 and A1
 TITLE_GAP = 0.15                        # from the panel letter to its title, inches (T2, A1)
 INK = "#000000"
-ISO = (4.0, 8.0, 12.0, 14.0)            # iso-capital lines, % of forward (section 3, T1)
+ISO = (4.0, 8.0, 12.0, 14.0)            # iso-capital lines, % of forward
 CLIM = (3.0, 15.5)                      # colour scale, % of forward
 CBAR_TICKS = (4, 6, 8, 10, 12, 14)
 ATM_DELTA, ATM_DAYS = 0.5, 30.0         # the node quoted in the titles (nearest grid tenor: 30.44 days)
@@ -136,9 +135,9 @@ def _k(mgr, how):
     return _src_grid(lambda g: getattr(g.loc[g["manager"] == mgr, "K_pct"], how)())
 
 
-# Check numbers of the build instruction (section 7, T1): the value printed in the figure table against the source file in
+# Check numbers of the figure: the value printed in the figure table against the source file in
 # results/p2 (the engine grid and its metadata), never against the figure table itself. ``figure`` = (file, key,
-# manager); ``source`` = (file, recomputation); ``expected`` = the number of the build instruction; ``tol`` absolute.
+# manager); ``source`` = (file, recomputation); ``expected`` = the recorded check number; ``tol`` absolute.
 CHECKS: List[dict] = [
     {"id": "ts", "what": "block time of the surface", "figure": ("fig_t1_meta.csv", "ts", ""),
      "source": (META_FILE, _src_meta("ts")), "expected": 1_789_632_000, "tol": 0.0},

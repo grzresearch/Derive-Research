@@ -1,19 +1,18 @@
-"""F2 of Paper 2: the map in two denominators, H1 (docs/paper2/FIGURE_SELECTION.md, sections 6 and 7,
-slot F2).
+"""F2 of Paper 2: the map in two denominators, H1.
 
 Panel a takes the full width on top; b and c share the row below it, b on the left, c on the right.
 
 a  Six maps (maker sells above, maker buys below; BTC, ETH, HYPE) of net edge per unit of PM2 capital, ``B_bp`` of
    ``results/p2/h1_cells.csv``, grey by log|B| per row (floor 1 bp), negative cells hatched. The sells print in bp,
    the buys in per cent (``ROW_UNIT``): in bp a buy row reads "-418 -397 -109 -255", four characters with a true
-   minus that did not fit the 19.3 pt cells of round 1 side by side.
+   minus that did not fit the 19.3 pt cells of the first layout side by side.
 b  Rank by edge per notional against rank by edge per PM2 capital for the occupied cells (rank 1 top right), the
    diagonal (dashed), the sign lines after the cells with positive edge (dotted) and the rank intervals of the ten
    largest moves (solid, with end ticks).
-c  The registered test (``h1.json``) as a forest after section 6.5 (``ruler``) on the range of rho that its rows
+c  The registered test (``h1.json``) as a forest (``ruler``) on the range of rho that its rows
    need (``rho_axis``: 0.4 to 1.0 unless an interval reaches lower) with the sensitivities and exploratory
    rows of ``sensitivity.json``; the rows ``edge > 0 only`` / ``edge <= 0 only`` and the band ``sign pattern alone``
-   come from ``sensitivity.json["h1_sign"]`` and are left out while that entry is missing (section 10); likewise the
+   come from ``sensitivity.json["h1_sign"]`` and are left out while that entry is missing; likewise the
    row ``without RFQ fills`` (``sensitivity.json["i_rfq"]``, audit A12) and the Addendum 6 row ``RFQ fee over legs``
    (``sensitivity.json["c2_rfq_package"]``, the fee of an RFQ package spread over its legs).
 
@@ -58,7 +57,7 @@ EXPLORATORY_BAND = "#F0F0F0"
 HATCH_GREY = "#BBBBBB"
 MINUS = "\u2212"       # the true minus, as in every other figure
 # Unit of the printed number per map row: (label, factor on B_bp). In bp the buy row holds runs such as -418 -397
-# -109 -255, four characters of 17.9 pt ink each with the true minus, in the 19.3 pt cells of round 1; in per cent
+# -109 -255, four characters of 17.9 pt ink each with the true minus, in the 19.3 pt cells of the first layout; in per cent
 # they are -4.2 -4.0 -1.1 -2.6 (15.7 pt), and the large buys gain a digit (5k bp prints as 50). The sells keep bp:
 # their small cells (0.1 bp) would round away in per cent.
 ROW_UNIT = {"sell": ("bp", 1.0), "buy": ("%", 0.01)}
@@ -90,9 +89,9 @@ FOREST_ROWS = [
     ("edge > 0 only", "sens", "h1_sign.within_pos", "exploratory"),
     ("edge ≤ 0 only", "sens", "h1_sign.within_nonpos", "exploratory"),
 ]
-OPTIONAL_KEYS = {"h1_sign.within_pos", "h1_sign.within_nonpos",   # section 10: rows drop while missing
+OPTIONAL_KEYS = {"h1_sign.within_pos", "h1_sign.within_nonpos",   # rows drop while missing
                  "i_rfq.h1_pm2_no_rfq", "c2_rfq_package.h1_pm2"}
-LABEL_MAX = 18                                                     # section 6.5
+LABEL_MAX = 18                                                     # longest row label of the forest
 N_TITLE = "n"                                                      # head of the n column (cells)
 BAND_KEY = "h1_sign.sign_floor"
 BAND_LABEL = "sign pattern alone"
@@ -120,7 +119,7 @@ CAPTION = (
 # =====================================================================================================================
 
 def fmt_edge(v: float) -> str:
-    """At most four characters (section 7 F2): one decimal under 10, whole numbers under 1 000, whole thousands;
+    """At most four characters: one decimal under 10, whole numbers under 1 000, whole thousands;
     negative numbers carry the true minus."""
     if v is None or not np.isfinite(v):
         return ""
@@ -253,7 +252,7 @@ def table_c(h1: dict, sens: dict) -> pd.DataFrame:
         node = h1 if src == "h1" else _get(sens, key)
         if node is None:
             if key in OPTIONAL_KEYS:
-                log.warning("sensitivity.json has no %s: row %r left out (section 10)", key, label)
+                log.warning("sensitivity.json has no %s: row %r left out (entry missing)", key, label)
                 continue
             raise KeyError(f"sensitivity.json has no {key}")
         rows.append({"label": label, "source_key": "h1.json" if src == "h1" else f"sensitivity.json:{key}",
@@ -265,7 +264,7 @@ def table_c(h1: dict, sens: dict) -> pd.DataFrame:
                      "stat": float(band["mean"]), "lo": float(band["p05"]), "hi": float(band["p95"]),
                      "n": int(band.get("draws", 0) or 0), "n_days": np.nan, "printed": BAND_LABEL})
     else:
-        log.warning("sensitivity.json has no %s: band left out (section 10)", BAND_KEY)
+        log.warning("sensitivity.json has no %s: band left out (entry missing)", BAND_KEY)
     rows.append({"label": "header", "source_key": "h1.json", "kind": "header", "stat": float(h1["stat"]),
                  "lo": float(h1["lo"]), "hi": float(h1["hi"]), "n": int(h1["n"]), "n_days": int(h1["n_days"]),
                  "printed": header_text(h1, rejected)})
@@ -316,7 +315,7 @@ def ruler(ax, rows: pd.DataFrame, h: dict, *, side: str, xlim=X_RHO, header_x: f
           sample: Sequence[str] = (), band: Optional[dict] = None, xlabel: str = "",
           letter: Optional[Tuple[str, float]] = None, head_width: Optional[float] = None,
           xticks: Optional[Sequence[float]] = None) -> str:
-    """Forest after section 6.5. ``rows`` in drawing order (label, kind, stat, lo, hi, printed); the registered row is
+    """Forest of the registered test and its sensitivities. ``rows`` in drawing order (label, kind, stat, lo, hi, printed); the registered row is
     the first row of kind ``registered``. Draws the bold verdict line and the sample lines above the axes (left edge
     at ``header_x`` in axes coordinates), the dashed threshold, the rejection hatch in the height of the registered
     row, grey bands behind exploratory rows, ``band`` (dict with lo, hi, label) behind all rows and n to the right
@@ -408,7 +407,7 @@ def ruler(ax, rows: pd.DataFrame, h: dict, *, side: str, xlim=X_RHO, header_x: f
 
 
 # Layout in inches (canvas 7.0 x 6.2; saved 6.84 wide, so every x moves in by 2.3 per cent while type keeps its size).
-# Panel a spans the full width on top: a map cell is 28.2 pt wide in print (19.3 pt in round 1), so the closest
+# Panel a spans the full width on top: a map cell is 28.2 pt wide in print (19.3 pt in the first layout), so the closest
 # neighbours, "−7.3" next to "−126" and "−107" next to "−8.3", keep 10.1 pt between their glyph boxes in the PDF
 # (1.2 pt before) and the tenor ticks stand upright. Panels b and c share the row below, each about half the width.
 # That row is as high as the forest of c needs (15 rows at 8.0 pt plus the verdict line and two sample lines above
@@ -424,7 +423,7 @@ BOTTOM_MAP = TOP_MAP - 2 * MAP_H - ROW_GAP
 TENOR_Y = 2.45                           # bottom of the tenor title, under the upright tenor ticks
 BUY_TITLE_LIFT = 0.10                    # the two-line buy title sits a little high, clear of the tick "90–100"
 N_FOREST = 15                            # rows of c with every optional row and the band
-FOREST_PT = 8.0                          # row pitch of c (section 6.5, audit F4)
+FOREST_PT = 8.0                          # row pitch of c
 C_BOTTOM = 0.33
 C_TOP = C_BOTTOM + N_FOREST * FOREST_PT / 72.0
 LETTER_Y = C_TOP + verdict_offset_pt(2) / 72.0   # bottom of the letters b and c, on the verdict line of c
@@ -488,7 +487,7 @@ def _panel_b(fig, b: pd.DataFrame) -> None:
     s, u = b[b["side"] == "sell"], b[b["side"] == "buy"]
     ax.plot(s["rank_A"], s["rank_B"], ls="none", marker="v", ms=3.0, mfc=INK, mec=INK, mew=0.4, zorder=3)
     ax.plot(u["rank_A"], u["rank_B"], ls="none", marker="^", ms=3.0, mfc="white", mec=INK, mew=0.6, zorder=3)
-    ticks = sorted({t for t in (1, 50, 100, 150) if t <= n - 30} | {1, n})   # section 7: 1, 50, 100, 173
+    ticks = sorted({t for t in (1, 50, 100, 150) if t <= n - 30} | {1, n})   # 1, 50, 100, 173
     for setter in (ax.set_xticks, ax.set_yticks):
         setter(ticks)
     ax.set_xticklabels([str(x) for x in ticks], fontsize=7.0)

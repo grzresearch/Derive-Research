@@ -1,4 +1,4 @@
-"""Tests for the capital per fill of Paper 2 (derive_surface.capital, task B2).
+"""Tests for the capital per fill of Paper 2 (derive_surface.capital).
 
 K_p(q) = p q - net_IM(q; cash = 0) for the one-contract book q = maker_side (+1 maker buy, -1 maker sell) at the fill
 price p, under every manager whose window is open (PRAEREGISTRIERUNG.md, sections Sample and Semantics and capital).

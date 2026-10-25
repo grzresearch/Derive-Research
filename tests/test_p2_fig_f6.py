@@ -275,7 +275,7 @@ def test_caption_has_no_dashes():
 
 
 def test_caption_explains_strip_hatching_and_units():
-    """Audit findings F7/C10 (strip), C3 (hatching), C2 (log per cent against log units), C6 (the H4 panel)."""
+    """Strip, hatching, log per cent against log units, and the H4 panel."""
     cap = f6.CAPTION
     assert "events in the H4 panel" in cap
     # "rows" are the rows of the figure; the histogram runs over the observations of the regression

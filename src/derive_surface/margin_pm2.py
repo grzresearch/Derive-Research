@@ -18,7 +18,7 @@ Mechanics (all in floating point; the contract works in 1e18 fixed point, the di
   contingency ``(1 - c) confMargin notional`` when the minimum confidence c of a held expiry (forward, rate, vol of
   the held strikes, spot, perp if held) is below ``confThreshold``, and collateral haircuts.
 
-Parameters use the A2 schema: Solidity struct names and field names of ``IPMRMLib_2`` as keys, values as floats
+Parameters use the schema of ``p2params``: Solidity struct names and field names of ``IPMRMLib_2`` as keys, values as floats
 (1e18 scaling removed; ``VolShockParameters.dteFloor`` in seconds), plus ``scenarios`` (list of dicts with
 ``spotShock``, ``volShock`` in 0..4 or ``None|Up|Down|Linear|Abs``, ``dampeningFactor``) and ``maxExpiries``
 (not enforced here; the chain reverts beyond it).
@@ -62,7 +62,7 @@ class Collateral:
 
 
 class _Params:
-    """Parameter dict (A2 schema) flattened into floats and numpy arrays."""
+    """Parameter dict (``p2params`` schema) flattened into floats and numpy arrays."""
 
     def __init__(self, params: Mapping):
         m = params["MarginParameters"]

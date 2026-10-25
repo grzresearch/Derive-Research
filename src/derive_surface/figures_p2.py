@@ -1,16 +1,15 @@
 """Figures of paper 2: registry of the nine slots, build, checks and the media of the paper (GIF, social cards).
 
-Every slot lives in its own module ``derive_surface/figs_p2/<slot>.py`` (build instruction
-``docs/paper2/FIGURE_SELECTION.md``, sections 6 and 7). A slot module has
+Every slot lives in its own module ``src/derive_surface/figs_p2/<slot>.py``. A slot module has
 
 * ``build(out_dir, results_dir) -> list[Path]``: writes the numbers of the figure as ``results/p2/fig_<slot>*.csv``
   and ``<slot>.pdf`` / ``<slot>.png`` (400 dpi) at print size to ``papers/paper2/figures/`` (laid out at 7.0 or 3.4 in,
   saved at the width main.tex sets it, 6.84 or 3.29 in: ``figs_p2._print``);
 * ``CAPTION``: the caption of the manuscript (English, no dashes, result numbers as ``\\PH{key}``);
-* ``CHECKS``: the test numbers of the build instruction, the value in the figure table against the file in
+* ``CHECKS``: the recorded check numbers, the value in the figure table against the file in
   ``results/p2`` it comes from.
 
-The check lists of the slots come in four shapes (the slots were built in parallel); :func:`run_checks` evaluates
+The check lists of the slots come in four shapes; :func:`run_checks` evaluates
 any of them and returns one table with the columns ``slot, check, figure, source, ok, instruction, error``.
 
 Command line (``python3 -m derive_surface p2 figures ...``)::
@@ -72,7 +71,7 @@ def build(only: Optional[Sequence[str]] = None, out_dir: Path = OUT_DIR, results
 
 
 def grey_copy(png: Path, out: Path) -> Path:
-    """Luminance copy of a figure for the greyscale look (section 6.2), Rec. 709 weights as in ``_kit_t2a1``."""
+    """Luminance copy of a figure for the greyscale look, Rec. 709 weights as in ``_kit_t2a1``."""
     from PIL import Image
 
     out.parent.mkdir(parents=True, exist_ok=True)
@@ -125,8 +124,8 @@ def _bool_or_none(v) -> Optional[bool]:
 def run_checks(slot: str, results_dir: Path = RESULTS_DIR, checks: Optional[Sequence] = None) -> pd.DataFrame:
     """Evaluate the check list of ``slot`` against ``results_dir``.
 
-    ``ok`` is figure == source (the check of the build instruction, section 11); ``instruction`` compares the
-    figure with the number printed in the build instruction where the slot records one (pilot cut 2026-09-17),
+    ``ok`` is figure == source (the recorded check); ``instruction`` compares the
+    figure with the check number recorded in the slot module where it has one (pilot cut 2026-09-17),
     ``None`` where it does not. ``checks`` replaces the module's list (tests point F6 at a synthetic panel)."""
     mod = FIGURES[slot]
     rd = Path(results_dir)

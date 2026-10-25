@@ -1,4 +1,4 @@
-"""GIF of the BTC PM2 capital surface over the PM2 window (``docs/paper2/FIGURE_SELECTION.md``, section 8).
+"""GIF of the BTC PM2 capital surface over the PM2 window.
 
 One frame per week (Wednesday 08:00 UTC, plus the first PM2 day and the T1 block 17 Sep 2026 08:00 UTC as the last
 frame) or per day; for every kept BTC PM2 event three extra day frames: the last 08:00 block before the event, the
@@ -21,7 +21,7 @@ Heavy (feed history with SVI, loaded per quarter): run through ``scripts/p2_heav
 
 Writes ``docs/media/p2_btc_capital_surface.gif`` (at most 8 MB), ``..._end.png`` (the last frame, poster),
 ``docs/media/p2_btc_capital_surface.mp4`` (``animate.write_mp4``, needs ``imageio-ffmpeg`` of requirements.txt),
-``results/p2/gif_frames.csv`` and ``results/p2/gif_meta.json``. The file names differ from section 8
+``results/p2/gif_frames.csv`` and ``results/p2/gif_meta.json``. The file names differ from the first design
 (``BTC_p2_capital_pm2.*``): every Paper 2 medium in ``docs/media`` starts with ``p2_``.
 """
 from __future__ import annotations

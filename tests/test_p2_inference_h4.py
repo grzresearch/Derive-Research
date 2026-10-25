@@ -552,7 +552,7 @@ def test_main_cli_figtables(monkeypatch):
     assert seen == {}
 
 
-# ------------------------------------------------------------------------------------------------ review round 1
+# ------------------------------------------------------------------------------------------------ exploratory readings
 
 def test_review_extras_readings_and_side_splits():
     panel = _panel(seed=4, beta=5.0, n_events=4, n_cells=4)

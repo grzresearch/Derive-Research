@@ -1,4 +1,4 @@
-"""Capital per fill for Paper 2 (task B2): the one-contract capital of every fill under SM, legacy PM and PM2.
+"""Capital per fill for Paper 2: the one-contract capital of every fill under SM, legacy PM and PM2.
 
 Preregistration (``docs/paper2/PRAEREGISTRIERUNG.md``, section Semantics and capital, with Addendum 1):
 

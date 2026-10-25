@@ -1,4 +1,4 @@
-"""Validation of the margin replicas against the chain (Paper 2, task B1; gate of the pre-registration).
+"""Validation of the margin replicas against the chain (Paper 2; gate of the pre-registration).
 
 The replica (``FeedHistory.state_at`` from ``data/p2/feeds`` plus the Paper 1 SVI history, ``Timeline.at`` from
 ``results/p2/params`` and ``margin_sm`` / ``margin_pm`` / ``margin_pm2.net_margin``) is compared with the deployed
@@ -424,7 +424,7 @@ def replica_net(mgr: str, book: Book, state: MarketState, params: Mapping, is_in
 
 
 def replica_single(mgr: str, row: Mapping, params: Mapping, is_initial: bool) -> float:
-    """The same contract through the vectorised path of B2 (``FeedHistory.bulk`` columns + ``margin_*.single``)."""
+    """The same contract through the vectorised path of ``capital`` (``FeedHistory.bulk`` columns + ``margin_*.single``)."""
     arrays = {k: np.asarray([row[k]], dtype=float) for k in
               ("spot", "forward", "sigma", "rate", "vol_conf", "fwd_conf", "spot_conf", "rate_conf", "fwd_fixed",
                "rate_pm", "tau", "strike", "amount")}
@@ -817,7 +817,7 @@ def _labeler():
     try:
         from . import p2ids
         return p2ids.label
-    except Exception as err:  # pragma: no cover - labels are optional until B0 is done
+    except Exception as err:  # pragma: no cover - labels are optional until ``p2 ids`` has written them
         print(f"warning: no account labels ({err}); book column left without label")
         return None
 

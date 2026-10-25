@@ -260,7 +260,7 @@ def _panel_b_boxes(fig):
 
 
 def test_panel_b_numbers_clear_of_each_other_and_of_the_symbols(results):
-    """The instruction of 29 Sep 2026: in b no number may run into another number or into an event symbol, also for
+    """Since 29 September 2026: in b no number may run into another number or into an event symbol, also for
     events 15 days apart (BTC PM2 8 and 23 Jan in the mini data), and the symbols have a key in the panel."""
     fig = f5.figure(results)
     nums, syms, texts = _panel_b_boxes(fig)
@@ -294,7 +294,7 @@ def test_label_offsets_push_close_numbers_apart_in_time_order():
 
 
 def test_time_axis_labels_january_and_july_clear_of_the_y_axis(results):
-    """Audit F10/T10: panel c carried eleven ISO month labels ("2024-01" ...) about one space apart, the first one
+    """Panel c carried eleven ISO month labels ("2024-01" ...) about one space apart, the first one
     hanging under the y axis. Now every quarter has a tick, only January and July are labelled ("Jan 2024", the month
     style of the text), the labels stand well apart and the first starts at the y axis."""
     major, minor, printed = f5.calendar_ticks()
@@ -319,7 +319,7 @@ def test_time_axis_labels_january_and_july_clear_of_the_y_axis(results):
 
 
 def test_caption_names_the_h4_panel_and_the_event_lines_of_c():
-    """Audit C6 and C10: "the panel" of the H4 regression is the H4 panel (as in the key of b), and the grey vertical
+    """"The panel" of the H4 regression is the H4 panel (as in the key of b), and the grey vertical
     lines of panel c are explained."""
     assert "filled when they enter the H4 panel" in f5.CAPTION
     # the dose is in log per cent everywhere (Figure 8 prints "1 log-%")

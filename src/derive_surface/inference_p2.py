@@ -30,9 +30,9 @@ interval. Rejected if the lower bound is at most 2.
 Every verdict is a JSON object ``{stat, lo, hi, rejected, rule, n, ...}``. Accounts appear only as ``p2ids`` labels
 (the input tables carry them in ``label``); raw subaccount ids never reach ``results/``.
 
-Review round 1 (exploratory, docs/paper2/MANUSCRIPT.md): ``h1_sign`` in ``sensitivity.json`` (the rho that the sign
+Exploratory readings (Appendix B of the paper): ``h1_sign`` in ``sensitivity.json`` (the rho that the sign
 pattern alone gives when ranks are shuffled within each sign group, rho within sign groups and sides, overlap of the
-best cells), H2 and H3 per parameter regime (``regime=R1`` to ``R4``, section 6.6 of FIGURE_SELECTION), H3 per manager
+best cells), H2 and H3 per parameter regime (``regime=R1`` to ``R4``, bounds ``REGIME_BOUNDS``), H3 per manager
 of the account (``account_manager=SM/PM/PM2``) and on small books without the SM account, and the size of the H2
 population before the draw. None of it changes a registered number.
 
@@ -41,7 +41,7 @@ again in every replicate (A04, ``selection = per replicate``); ``h1_interval`` d
 interval of H1 (share of draws at or above the estimate, reflected and bias-corrected intervals; A28).
 
 CLI: ``python3 -m derive_surface p2 infer run`` (H1 to H3), ``... infer sensitivity`` (exploratory tables and
-figure data) and ``... infer extras`` (only the review-round entries, merged into the existing ``sensitivity.json``,
+figure data) and ``... infer extras`` (only the exploratory entries, merged into the existing ``sensitivity.json``,
 ``sens_h2.csv`` and ``sens_h3.csv``), each with ``--root`` (repository root), ``--out``, ``--b``, ``--seed``.
 """
 from __future__ import annotations
@@ -80,7 +80,7 @@ H2_MAX_MEDIAN = 0.5
 H3_MIN_MEDIAN = 2.0
 SM_MAX_OPTIONS = 63            # options an SM account on v2 can hold (addendum 4, item 2)
 SIGN_DRAWS = 4_000             # shuffles of the ranks within the sign groups (h1_sign.sign_floor)
-# Parameter regimes of the figures (FIGURE_SELECTION section 6.6): the PM2 events of 2026-01-23 04:24:05,
+# Parameter regimes of the figures: the PM2 events of 2026-01-23 04:24:05,
 # 2026-05-24 04:05:07 and 2026-08-20 22:09:25 UTC; an object at the event second belongs to the later regime. Fills
 # are placed by their time, maker days by the book time 00:00 UTC. Same bounds as figs_p2.f1.REGIME_BOUNDS (tested).
 REGIME_BOUNDS = (1769142245, 1779595507, 1787263765)
@@ -547,7 +547,7 @@ def h2_test(marginal: pd.DataFrame, variant: str = "ratio", b: int = B, seed: in
     if keep.any():
         days = pd.to_datetime(mg.loc[keep, "day"])
         out["first_day"], out["last_day"] = str(days.min().date()), str(days.max().date())
-    if variant in mg.columns:          # cross-check against the ratio stored by books.marginal (B3)
+    if variant in mg.columns:          # cross-check against the ratio stored by books.marginal
         stored = mg[variant].to_numpy(float)
         both = keep & np.isfinite(stored)
         out["check_stored_ratio_max_abs"] = float(np.max(np.abs(stored[both] - ratio[both]))) if both.any() else None
@@ -697,7 +697,7 @@ def h3_series(maker_days: pd.DataFrame) -> pd.DataFrame:
 
 
 # =====================================================================================================================
-# Review round 1: sign structure of H1, regimes, account managers (exploratory)
+# Exploratory readings (Appendix B): sign structure of H1, regimes, account managers
 # =====================================================================================================================
 
 def regime_of(ts_s) -> np.ndarray:
@@ -980,7 +980,7 @@ def h2_population(root: Path) -> Optional[dict]:
 
 def review_entries(pm2: pd.DataFrame, cells: pd.DataFrame, mg: pd.DataFrame, md: pd.DataFrame,
                    min_fills: int = MIN_CELL_FILLS, **kw) -> Tuple[dict, dict, dict, List[dict], List[dict], dict]:
-    """(h1_sign, d_h2 additions, e_h3 additions, sens_h2 rows, sens_h3 rows, h1_interval) of the review round and
+    """(h1_sign, d_h2 additions, e_h3 additions, sens_h2 rows, sens_h3 rows, h1_interval) of the exploratory readings and
     the audit (A04: sign groups chosen again in every replicate; A28: shape of the registered H1 interval). Both H1
     entries use the replicates of the registered map (same draws as ``h1.json``)."""
     full = edge_map(pm2, "K_pm2", min_fills=min_fills, return_replicates=True, **kw)
@@ -1005,7 +1005,7 @@ def _merge_rows(old: pd.DataFrame, new: List[dict]) -> pd.DataFrame:
 
 def run_extras(root: Path = REPO, out: Optional[Path] = None, b: int = B, seed: int = SEED, level: float = LEVEL,
                min_fills: int = MIN_CELL_FILLS) -> dict:
-    """Only the review-round entries, merged into the existing ``sensitivity.json``, ``sens_h2.csv`` and
+    """Only the exploratory entries, merged into the existing ``sensitivity.json``, ``sens_h2.csv`` and
     ``sens_h3.csv`` of ``out`` (every other entry is kept as it is)."""
     p = paths(root)
     out = Path(out) if out is not None else p["out"]
@@ -1221,7 +1221,7 @@ def run_sensitivity(root: Path = REPO, out: Optional[Path] = None, b: int = B, s
             g_[f"sm_all_{c}"] = emap(f"sm_all_{c}", sub, "K_sm")
     sens["g_by_ccy"] = g_
 
-    # review round 1: sign structure of H1, regimes, account managers, small books without SM, H2 population
+    # exploratory readings: sign structure of H1, regimes, account managers, small books without SM, H2 population
     main_cells = maps[0].drop(columns="map")
     sign, d_add, e_add, more_h2, more_h3, interval = review_entries(pm2, main_cells, mg, md, min_fills=min_fills,
                                                                     **kw)

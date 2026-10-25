@@ -491,7 +491,7 @@ def test_pm_chain_whole_accounts_match_get_margin():
 
 
 def _assert_same_params(chain: dict, timeline: dict, where) -> None:
-    """Field-equal comparison of a parameter dict read at the block with the A2 timeline entry."""
+    """Field-equal comparison of a parameter dict read at the block with the parameter timeline entry."""
     if isinstance(chain, dict):
         assert set(chain) == set(timeline), where
         for k in chain:
@@ -520,7 +520,7 @@ def test_chain_parameters_equal_a2_timelines():
                 continue
             path = Timeline.path(c["ccy"], "pm")
             if not path.exists():
-                pytest.skip(f"A2 timeline missing: {path}")
+                pytest.skip(f"parameter timeline missing: {path}")
             _assert_same_params(c["params"], Timeline(c["ccy"], "pm").at(c["ts"]), (name, c["ccy"], c["day"]))
             n += 1
     assert n >= (13 if len(docs) == 2 else 8)

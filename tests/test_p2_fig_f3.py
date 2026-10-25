@@ -190,6 +190,6 @@ def test_caption_says_the_interval_hides_under_the_circle():
 
 
 def test_caption_explains_the_hatched_rejection_region():
-    """Audit C3: the hatched stretch of the registered row in panel b is the rejection region of the rule."""
+    """The hatched stretch of the registered row in panel b is the rejection region of the rule."""
     assert ("The hatched stretch of the registered row, right of the threshold, is the rejection region: the rule "
             "rejects H2 if the interval reaches into it.") in f3.CAPTION

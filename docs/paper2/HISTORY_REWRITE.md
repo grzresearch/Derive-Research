@@ -206,7 +206,7 @@ The other commits have the same diff as their originals.
   their content and are now in English, under English file names.
 - **Missing fixtures in rewritten commits.** The rewritten intermediate commits lack the six account fixtures.
   Their tests that need them do not run in those commits.
-- **Limits of the pseudonyms.** The limits in `HISTORY_CLEANUP.md`, section 6, still hold:
+- **Limits of the pseudonyms.** Two limits of the pseudonyms still hold:
   - the ranks M1 to M10 can be recomputed from the public tape;
   - the X labels of override accounts can be matched through the public `LibOverrideUpdated` events.
     `tests/fixtures/p2/params_logs.json` keeps the transaction hash of the event whose account topic was

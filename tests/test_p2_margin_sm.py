@@ -482,7 +482,7 @@ def test_reviewer_example_btc_call_is_not_doubled():
 
 
 def _assert_same_params(chain: dict, timeline: dict, where) -> None:
-    """Field-equal comparison of a parameter dict read at the block with the A2 timeline entry."""
+    """Field-equal comparison of a parameter dict read at the block with the parameter timeline entry."""
     if isinstance(chain, dict):
         assert set(chain) == set(timeline), where
         for k in chain:
@@ -502,7 +502,7 @@ def test_chain_parameters_equal_a2_timelines():
     for c in _chain_rows():
         path = Timeline.path(c["ccy"], "sm")
         if not path.exists():
-            pytest.skip(f"A2 timeline missing: {path}")
+            pytest.skip(f"parameter timeline missing: {path}")
         _assert_same_params(c["params"], Timeline(c["ccy"], "sm").at(c["ts"]), (c["ccy"], c["day"]))
         n += 1
     assert n >= 12

@@ -1,4 +1,4 @@
-"""On-chain books of the dominant maker subaccounts (Paper 2, task A5).
+"""On-chain books of the dominant maker subaccounts (Paper 2).
 
 * ``top_maker_subaccounts``: the ten subaccounts with the most maker fills in the Paper 1 sample.
 * ``decode_option_subid``: exact port of ``lyra-utils/encoding/OptionEncoding.fromSubId``.
@@ -1074,7 +1074,7 @@ def missing_fill_days(rows: pd.DataFrame, events: pd.DataFrame, loaded: set, max
     return out
 
 
-# ================================================================ Part 2 (task B3): marginal capital, netting value, holding time
+# ================================================================ Part 2: marginal capital, netting value, holding time
 #
 # Preregistration (docs/paper2/PRAEREGISTRIERUNG.md incl. Addendum 1):
 # * H2 population: maker fills of the ten dominant subaccounts in the PM2 window of the fill's currency whose account is
@@ -1498,7 +1498,7 @@ def holding_cells(fills: pd.DataFrame, ht: pd.DataFrame, pieces: pd.DataFrame) -
     return pd.DataFrame(rows, columns=cols)
 
 
-# ---------------------------------------------------------------- B3: one fill, maker days, resumable runs
+# ---------------------------------------------------------------- marginal capital: one fill, maker days, resumable runs
 
 def fill_marginal(chain_book: Optional[Book], tape_book: Optional[Book], state, params, params_std, expiry: int,
                   strike: float, is_call: bool, q: float, price: float) -> dict:
@@ -1506,7 +1506,7 @@ def fill_marginal(chain_book: Optional[Book], tape_book: Optional[Book], state, 
 
     ``chain_book``: exact on-chain book before the fill's transaction in the fill's currency (``None`` = no position);
     ``tape_book``: the day-start + tape book (``None`` = not available). ``params`` are the account's PM2 parameters,
-    ``params_std`` those of the standard lib (the single-contract capital of B2). Returns ``dK`` (IM, whole fill),
+    ``params_std`` those of the standard lib (the single-contract capital of ``capital``). Returns ``dK`` (IM, whole fill),
     ``dK_mm`` (account lib), ``dK_unit`` (one contract in the fill's direction), ``dK_tape``, ``K_single_book(_mm)``
     (per contract, standard lib, empty book), ``net_before/net_after``, book sizes and ``status`` (``ok`` /
     ``no_state``). For the MM sensitivity with one lib per ratio (C5a) also ``dK_mm_std`` (the book's dK under MM
@@ -1603,7 +1603,7 @@ def _labels(subs: Iterable[int]) -> Dict[int, str]:
 
 
 def _block_ts(ts_s: int) -> int:
-    """Timestamp of the block of second ``ts_s`` (the ``block.timestamp`` an eth_call at that block sees; B2)."""
+    """Timestamp of the block of second ``ts_s`` (the ``block.timestamp`` an eth_call at that block sees, as in ``capital``)."""
     return ts_at_block(block_at_ts(int(ts_s)))
 
 
@@ -1752,13 +1752,13 @@ def run_marginal(max_seconds: float = 480.0, parts_dir: Path = MARGINAL_PARTS, l
 
 def combine_marginal(parts_dir: Path = MARGINAL_PARTS, out: Path = DERIVED_DIR / "marginal.parquet",
                      capital: Path = CAPITAL_PATH) -> Tuple[pd.DataFrame, dict]:
-    """All parts into ``marginal.parquet`` with ``K_single_pm2(_mm)`` from B2 and the ratios; consistency check of
-    the book engine on the one-contract book against B2 (``K_single_book`` vs ``K_single_pm2``).
+    """All parts into ``marginal.parquet`` with ``K_single_pm2(_mm)`` from ``capital`` and the ratios; consistency check of
+    the book engine on the one-contract book against ``capital`` (``K_single_book`` vs ``K_single_pm2``).
 
     MM ratios with one lib each (C5a): ``ratio_mm = dK_mm_per_contract / K_single_pm2_mm_acct`` (account lib in
     numerator and denominator; ``K_single_pm2_mm_acct`` is the book engine's single-contract MM capital under the
     account's lib in the same market state) and ``ratio_mm_std = dK_mm_std_per_contract / K_single_pm2_mm`` (standard
-    lib in both, the denominator from B2)."""
+    lib in both, the denominator from ``capital``)."""
     df = pd.concat([pd.read_parquet(f) for f in sorted(Path(parts_dir).glob("*.parquet"))], ignore_index=True)
     cap = pd.read_parquet(capital, columns=["trade_id", "K_pm2", "K_pm2_mm"]).rename(
         columns={"trade_id": "fill_key", "K_pm2": "K_single_pm2", "K_pm2_mm": "K_single_pm2_mm"})

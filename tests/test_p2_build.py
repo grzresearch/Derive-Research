@@ -200,7 +200,7 @@ def _pages(*pages):
 
 
 def test_layout_problems_figure_far_from_its_callout_and_page_of_figures_only():
-    """PDF audit L2: Figure 2 two pages after its only callout, on a page with Figure 3 and no text."""
+    """Figure 2 two pages after its only callout, on a page with Figure 3 and no text."""
     audited = _pages(([], [1, 2], 4800), ([1], [], 1600), ([2, 3], [], 18), ([4], [3, 4], 1350))
     problems, notes = pb.layout_problems(audited)
     assert problems == {"figure far from its first callout": ["Figure 2 on page 3, first cited in the text on page 1"],

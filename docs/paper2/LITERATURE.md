@@ -132,7 +132,7 @@ and the new `refs.bib` ran with tectonic without errors, without overfull boxes 
 - A61: `cameron2008`, `mackinnon2017`, `roodman2019` and `burlig2018` taken over from `paper/refs.bib` character for
   character.
 
-Open points for the author, both to be fixed in Paper 1 and then taken over character for character: `burlig2018`
+Open points, both to be fixed in Paper 1 and then taken over character for character: `burlig2018`
 has no `doi` field in `paper/refs.bib` (Crossref: 10.1016/j.econlet.2018.03.036), and the title of `roodman2019`
 appears in the style as "… in stata using boottest", because `Stata` is not braced.
 

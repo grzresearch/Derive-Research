@@ -53,7 +53,7 @@ SECTION_TITLE = {"a_maps": "(a) Maps under other managers", "b_mm": "(b) MM inst
                  "i_rfq": "(i) RFQ fills and the top of the capital map (audit A12)",
                  "d_h2": "(d) H2 variants", "e_h3": "(e) H3 variants", "f_time": "(f) Time normalisation",
                  "g_by_ccy": "(g) Values per underlying",
-                 "h1_sign": "(h) Sign structure of H1 (review round 1; groups by the sign of the edge choose their "
+                 "h1_sign": "(h) Sign structure of H1 (exploratory; groups by the sign of the edge choose their "
                             "cells anew in every replication, audit A04)"}
 VARIANT_LABEL = {
     ("a_maps", "pm2"): "PM2, PM2 window (equal to test H1)",
@@ -96,7 +96,7 @@ GROUP_NAME = {"by_label": "account", "by_ccy": "underlying", "by_regime": "regim
               "by_account_manager": "manager of the account", "by_side": "maker side",
               "sum_ratio": "ratio of the sums,"}
 STATUS_NAME = {"no_options": "without options", "no_snapshot": "without snapshot"}
-REGIMES = ("R1", "R2", "R3", "R4")                   # parameter regimes of the figures (FIGURE_SELECTION 6.6)
+REGIMES = ("R1", "R2", "R3", "R4")                   # parameter regimes of the figures
 GROUP_SLOTS = {"by_label": LABELS, "by_ccy": CCYS, "by_regime": REGIMES, "by_account_manager": ("SM", "PM", "PM2"),
                "by_side": ("sell", "buy"), "sum_ratio": ("all", "sell", "buy")}
 VERDICT_FIELDS = ("stat", "lo", "hi", "rejected", "n")
@@ -1007,9 +1007,9 @@ def _optional_csv(results: Path, name: str) -> Optional[pd.DataFrame]:
 
 
 def review_section(d: Dict[str, Any], s: Summary, checks: Checks, results: Path) -> List[str]:
-    """Numbers of review round 1 (docs/paper2/MANUSCRIPT.md): all exploratory or descriptive."""
+    """Numbers of the exploratory readings (Appendix B): all exploratory or descriptive."""
     sens, h3, cap = d["sensitivity.json"], d["h3.json"], d["capital_check.json"]
-    lines = ["## Review round 1 (exploratory or descriptive)", ""]
+    lines = ["## Exploratory readings (exploratory or descriptive)", ""]
     # H1: sign structure
     sign = sens.get("h1_sign") or {}
     fl = sign.get("sign_floor") or {}

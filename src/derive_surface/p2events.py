@@ -7,13 +7,13 @@
 * **Dose:** ``d_{c,e}`` = mean over the fills of cell ``c`` with taker time in ``[e - 14 d, e)`` of
   ``log(K_after / K_before)``: the same fill (maker side, fill price, one contract) in the same market state at the fill,
   priced under the changed manager once with the parameters immediately before the first change of the day and once
-  with those after its last change. ``K = p q - net_IM(q; cash = 0)`` exactly as the single-contract capital of B2.
+  with those after its last change. ``K = p q - net_IM(q; cash = 0)`` exactly as the single-contract capital of ``capital``.
   Fills whose K is not positive under either parameter set have no log ratio; they are counted (``n_nonpos``).
 * **Events kept:** those whose largest absolute dose over all cells with a dose is at least 1 %.
 * **Panel:** fills of the currency with taker time in ``[e - 14 d, e + 14 d]`` except the UTC day of ``e``;
   ``post`` = after the event day; cells with a dose and at least 20 fills before and 20 after.
   ``y_hs_bp = 1e4 * hs / index_price`` with ``hs`` from :func:`derive_surface.inference_p1.analysis_frame`.
-  :func:`build_panel` takes any date and any dose vector (placebo dates are drawn in stage C). No regression here.
+  :func:`build_panel` takes any date and any dose vector (placebo dates are drawn in ``inference_p2_h4``). No regression here.
 
 Heavy step (FeedHistory with SVI, run under ``scripts/p2_heavy.py``)::
 
@@ -392,7 +392,7 @@ def load_doses(events: pd.DataFrame, out_dir: Path = DOSE_DIR) -> pd.DataFrame:
 
 
 def dose_vectors(doses: pd.DataFrame) -> Dict[str, pd.Series]:
-    """event_id -> Series cell -> dose (finite doses only), e.g. for placebo panels in stage C."""
+    """event_id -> Series cell -> dose (finite doses only), e.g. for the placebo panels of ``inference_p2_h4``."""
     d = doses[np.isfinite(doses["dose"].astype(float))]
     return {eid: g.set_index("cell")["dose"].astype(float) for eid, g in d.groupby("event_id", sort=True)}
 

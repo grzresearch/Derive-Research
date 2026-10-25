@@ -1,4 +1,4 @@
-"""T2: what get_margin returns, and how PM2 prices a book (FIGURE_SELECTION section 7, T2)."""
+"""T2: what get_margin returns, and how PM2 prices a book."""
 from __future__ import annotations
 
 import json
@@ -182,7 +182,7 @@ def test_panel_c_says_the_shock_axis_is_not_to_scale():
 
 
 def test_caption_defines_the_kinds_of_book_in_the_row_labels():
-    """C9: the row labels of panel b name short and mixed probe books (case A: every leg short, case B: signs
+    """The row labels of panel b name short and mixed probe books (case A: every leg short, case B: signs
     alternating or random); the caption says what each kind is."""
     kinds = {lab.split(", ")[1] for lab in t2.ROW_ORDER}
     assert kinds == {"short", "mixed"}
@@ -191,7 +191,7 @@ def test_caption_defines_the_kinds_of_book_in_the_row_labels():
 
 
 def test_single_legs_under_sm_are_in_the_table_for_card_2(res, tmp_path, real_params):
-    """Section 10: card 2 sets one short call against the short straddle under PM2 and SM, from the same reference
+    """Card 2 sets one short call against the short straddle under PM2 and SM, from the same reference
     row; T2 computes the SM legs with the same engine and state (not drawn in T2)."""
     t2.build(out_dir=tmp_path / "figures", results_dir=res)
     c = pd.read_csv(res / "fig_t2_c.csv").set_index("item")

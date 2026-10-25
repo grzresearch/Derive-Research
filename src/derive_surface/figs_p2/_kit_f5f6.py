@@ -1,6 +1,6 @@
-"""Shared helpers of the Paper 2 figures F5 and F6 (FIGURE_SELECTION section 6).
+"""Shared helpers of the Paper 2 figures F5 and F6.
 
-Canvas = print size (no ``bbox tight``), no text under ``FS_MIN``, manager colours and line styles from section 6.2,
+Canvas = print size (no ``bbox tight``), no text under ``FS_MIN``, manager colours and line styles of the manager coding,
 axes placed in inches from the top left corner, and a small runner for the check lists (``CHECKS``) of the slots.
 """
 from __future__ import annotations
@@ -183,7 +183,7 @@ def _close(a, b, rel: float, abs_: float) -> bool:
 def check(id: str, what: str, figure: Callable[[Path], object], source: Callable[[Path], object],
           expected=None, rel: float = 1e-9, abs_: float = 0.0, expected_tol: float = 0.0) -> dict:
     """One check: ``figure(results_dir)`` reads what the figure prints (its ``fig_*.csv``), ``source(results_dir)``
-    reads the registered or input file. ``expected`` is the number of the build instruction (real data only), compared
+    reads the registered or input file. ``expected`` is the recorded check number (real data only), compared
     with the figure value within ``expected_tol`` (absolute)."""
     return {"id": id, "what": what, "figure": figure, "source": source, "expected": expected, "rel": rel,
             "abs": abs_, "expected_tol": expected_tol}

@@ -31,7 +31,7 @@ import pandas as pd
 REPO = Path(__file__).resolve().parents[2]
 SALT_PATH = REPO / "data" / "p2" / "secret_salt.txt"
 MARKOUTS = REPO / "data" / "p1" / "derived" / "markouts.parquet"
-TOP_MAKERS = REPO / "data" / "p2" / "books" / "top_makers.json"  # written by ``books top`` (A5)
+TOP_MAKERS = REPO / "data" / "p2" / "books" / "top_makers.json"  # written by ``books top``
 N_TOP = 10
 SALT_BYTES = 32
 
@@ -145,7 +145,7 @@ def reset() -> None:
 def top_makers() -> List[int]:
     """Ranked top-10 maker subaccounts from ``MARKOUTS``; must agree with ``TOP_MAKERS`` when both exist.
 
-    Without the markouts (e.g. on a machine with only ``data/p2``) the list of the books task is used.
+    Without the markouts (e.g. on a machine with only ``data/p2``) the list written by ``books top`` is used.
     """
     global _TOP
     if _TOP is None:

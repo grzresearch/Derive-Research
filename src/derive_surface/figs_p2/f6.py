@@ -1,4 +1,4 @@
-"""F6 of Paper 2: the price of capital, H4 (FIGURE_SELECTION section 7, F6; 7.0 x 4.2 in).
+"""F6 of Paper 2: the price of capital, H4 (7.0 x 4.2 in).
 
 a  dose strip: one row per event in the H4 panel (labelled "22 Feb 2025 BTC legacy", the date style of the text),
    one symbol per cell and event pair at 100 x dose (log-%), sells above and buys below the line, median as a bar,
@@ -346,7 +346,7 @@ def _panel_c(fig, c: pd.DataFrame) -> None:
     kit.letter(fig, 3.50, C_TOP - 0.45, "c")
     lines = c[c["kind"].isin(["criterion_1", "criterion_2", "verdict"])]
     for k, r in enumerate(lines.itertuples()):
-        # 0.135 in apart: the italic $p$ of mathtext sets a deeper box than plain text (review round 3)
+        # 0.135 in apart: the italic $p$ of mathtext sets a deeper box than plain text
         kit.fig_text(fig, BL - 0.25, C_TOP - 0.45 + 0.135 * k, r.printed, ha="left",
                      fontweight="bold" if r.kind == "verdict" else "normal")
     ax = kit.axes_at(fig, BL, C_TOP, BR - BL, C_H)

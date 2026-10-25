@@ -360,7 +360,7 @@ def test_book_at_creation_day_without_snapshot_needs_subaccount():
     assert {leg.key: leg.amount for leg in out["ETH"].options} == {(e1, 2500.0, False): 10.0}
 
 
-# ---------------------------------------------------------------- fix round: which timestamp cuts the book
+# ---------------------------------------------------------------- which timestamp cuts the book
 
 def _rfq_tape(day: str, sub: int = 42) -> pd.DataFrame:
     """RFQ fill X: the maker row (this account) is 4 s older than the taker row (other account) that markouts.ts
@@ -458,7 +458,7 @@ def test_fetch_raw_does_not_split_on_network_errors():
     assert chain.n == 1
 
 
-# ---------------------------------------------------------------- fix round: exact on-chain book (BalanceAdjusted)
+# ---------------------------------------------------------------- exact on-chain book (BalanceAdjusted)
 
 def _ev_fixture() -> dict:
     return _private("books_events_day.json")
@@ -737,7 +737,7 @@ def test_verify_event_days_against_next_snapshot():
     assert r2.chain_ok == False and r2.exact == False  # noqa: E712
 
 
-# ================================================================ task B3: marginal capital, netting value, holding time
+# ================================================================ marginal capital, netting value, holding time
 
 import math  # noqa: E402
 
@@ -829,7 +829,7 @@ def test_marginal_capital_on_empty_book_is_the_single_contract_capital():
         arrays = dict(spot=st.spot, forward=es.forward, sigma=es.vol(k), tau=(e - st.ts) / YEAR, rate=es.rate,
                       strike=k, is_call=call, amount=np.sign(q), vol_conf=1.0, fwd_conf=1.0, spot_conf=1.0)
         net1 = margin_pm2.single({kk: np.atleast_1d(v) for kk, v in arrays.items()}, prm)[0][0]
-        k_single = p * np.sign(q) - net1  # per contract, as B2
+        k_single = p * np.sign(q) - net1  # per contract, as in capital
         assert res["dK"] / abs(q) == pytest.approx(k_single, rel=1e-9)
 
 

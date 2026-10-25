@@ -4,7 +4,7 @@
 Same counting rule as ``p1_wordcount.py``: figures, tables, captions, comments, labels, references and the
 bibliography are not prose and do not count; formulas and the abstract do.  Unlike Paper 1 the budget is a
 parameter: ``check`` takes any budget, tolerance and set of hard limits, and the command line can read a
-budget from a JSON file.  The default is the budget of ``docs/paper2/MANUSCRIPT.md`` with a tolerance of
+budget from a JSON file.  The default is ``BUDGET`` below with a tolerance of
 ten per cent; the abstract is a hard limit of 200 words without tolerance.
 
     python3 scripts/p2_wordcount.py [papers/paper2/main.tex] [--budget budget.json] [--tolerance 0.1]
@@ -25,7 +25,7 @@ BUDGET: Dict[str, int] = {
     "Introduction": 600,
     "The engine and what it returns": 600,
     "Data and measurement": 610,     # 6 October 2026: the maker books are told apart from the taker class of
-                                     # dominant makers in the companion paper (audit of the final run)
+                                     # dominant makers in the companion paper
     "Results": 1400,
     "Discussion": 400,
     "Conclusion": 200,

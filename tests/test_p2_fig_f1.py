@@ -220,14 +220,14 @@ def test_buy_row_says_capital_is_about_the_premium_only_out_of_the_money():
 
 
 def test_caption_names_the_regimes_and_the_count_column():
-    """F5/C5/R25: the strip rows R4 and the regimes R1 to R4 are named in the caption; C10/F11: n is explained."""
+    """The strip rows R4 and the regimes R1 to R4 are named in the caption, and n is explained."""
     assert "split into four regimes, R1 to R4" in f1.CAPTION
     assert "the hollow squares of the rows R4" in f1.CAPTION
     assert "the number of cells under n" in f1.CAPTION
 
 
 def test_r4_rows_in_grey_and_the_count_column_headed_n(rd):
-    """F5: the R4 rows read as a part of the row above them; F11: the cell counts have the head n."""
+    """The R4 rows read as a part of the row above them, and the cell counts have the head n."""
     fig, _ = f1.make_figure(rd)
     strips = [ax for ax in fig.axes if ax.get_xscale() == "log"]
     assert len(strips) == 2
@@ -240,7 +240,7 @@ def test_r4_rows_in_grey_and_the_count_column_headed_n(rd):
 
 
 def test_row_title_clears_the_delta_ticks_at_print_size(rd):
-    """F6/T13: the second line of the rotated buy title ended beside the tick 90-100, under 1 pt from its 9."""
+    """The second line of the rotated buy title ended beside the tick 90-100, under 1 pt from its 9."""
     from derive_surface.figs_p2._print import to_print
 
     fig, _ = f1.make_figure(rd)
@@ -256,7 +256,7 @@ def test_row_title_clears_the_delta_ticks_at_print_size(rd):
 
 
 def test_panel_letters_and_a_header_that_ends_before_b(rd):
-    """F15: the maps and the strips are panels a and b, as in every other figure with parts; the header ends at least
+    """The maps and the strips are panels a and b, as in every other figure with parts; the header ends at least
     0.15 in before the letter b (F12 found "hatched = negative b" in F2)."""
     from derive_surface.figs_p2._print import to_print
 
