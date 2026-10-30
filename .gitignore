@@ -33,38 +33,8 @@ docs/paper2/FIGURE_CHECKS.md
 docs/paper2/API_SNAPSHOT.md
 docs/paper1/NUMBER_CHECK.md
 
-# tool configuration and working notes that do not belong in the repository
-.claude/
-.cursor/
-.aider*
-.continue/
-.windsurf/
-.codeium/
-.copilot/
-.github/copilot-instructions.md
-.cursorrules
-.windsurfrules
-CLAUDE.md
-CLAUDE.local.md
-AGENTS.md
-GEMINI.md
-docs/superpowers/
-**/HANDOVER*.md
-**/UEBERGABE*.md
-/SESSION*.md
-docs/**/SESSION*.md
-/PROMPT*.md
-docs/**/PROMPT*.md
-**/*.prompt.md
-/prompts/
-/chat-logs/
-/transcripts/
-docs/**/*.transcript.md
+# local working documents
 docs/**/drafts/
-docs/**/entwuerfe/
-docs/**/stand/
 docs/**/status/
 docs/paper*/MANUSCRIPT.md
-docs/paper*/MANUSKRIPT.md
 docs/paper*/FIGURE_SELECTION.md
-docs/paper*/ABBILDUNGSWAHL.md
